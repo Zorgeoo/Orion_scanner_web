@@ -6,52 +6,25 @@ const FullscreenScanner = () => {
   const codeReader = useRef(null);
   const selectedDeviceId = useRef(null);
   const [result, setResult] = useState("");
-
-  // Stop scanner and camera stream
-  const stopScannerAndCamera = () => {
-    if (codeReader.current) {
-      codeReader.current.reset();
-      codeReader.current = null;
-    }
-    if (videoRef.current?.srcObject) {
-      videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
-      videoRef.current.srcObject = null;
-    }
-  };
-
-  // Start scanning with back camera
   const startScanner = async () => {
     try {
-      if (!selectedDeviceId.current) {
-        const devices = await BrowserMultiFormatReader.listVideoInputDevices();
+      const devices = await BrowserMultiFormatReader.listVideoInputDevices();
+      const selectedDeviceId = devices[0]?.deviceId;
 
-        const backCamera = devices.find(
-          (device) =>
-            device.label.toLowerCase().includes("back") ||
-            device.label.toLowerCase().includes("environment")
-        );
+      codeReader.current = new BrowserMultiFormatReader();
 
-        selectedDeviceId.current = backCamera
-          ? backCamera.deviceId
-          : devices[0]?.deviceId;
-      }
-
-      if (!codeReader.current) {
-        codeReader.current = new BrowserMultiFormatReader();
-      }
-
-      await codeReader.current.decodeFromVideoDevice(
-        selectedDeviceId.current,
+      codeReader.current.decodeFromVideoDevice(
+        selectedDeviceId,
         videoRef.current,
         (res, err) => {
           if (res) {
-            setResult(res.getText());
+            const text = res.getText();
+            setResult(text);
 
-            // Stop scanning and camera after one successful scan
-            stopScannerAndCamera();
-          }
-          if (err && !(err instanceof NotFoundException)) {
-            console.error(err);
+            // ✅ No sending to native code
+            // ❌ No codeReader.current.reset() — keep scanning if you want continuous scan
+            // ✅ OR stop scanning if you want single-scan behavior:
+            codeReader.current.reset();
           }
         }
       );
@@ -64,18 +37,13 @@ const FullscreenScanner = () => {
     startScanner();
 
     return () => {
-      stopScannerAndCamera();
+      codeReader.current?.reset();
     };
   }, []);
 
   const handleResetScanner = () => {
     setResult("");
-    stopScannerAndCamera();
-
-    // Small delay to ensure cleanup before restarting scanner
-    setTimeout(() => {
-      startScanner();
-    }, 300);
+    startScanner();
   };
 
   return (
@@ -90,11 +58,9 @@ const FullscreenScanner = () => {
           controls={false}
         />
       )}
-      <button onClick={handleResetScanner} style={styles.button}>
-        Scan again
-      </button>
+      <button onClick={handleResetScanner}>Scan again</button>
       <div style={styles.resultText}>
-        Result: {result !== "" ? result : "Not found"}
+        Result: {result != "" ? result : "Not found"}
       </div>
     </div>
   );
@@ -122,19 +88,6 @@ const styles = {
     width: "100%",
     height: "100%",
     objectFit: "cover",
-  },
-  button: {
-    position: "absolute",
-    top: 20,
-    right: 20,
-    padding: "10px 20px",
-    fontSize: "1em",
-    borderRadius: "8px",
-    border: "none",
-    backgroundColor: "#ff6600",
-    color: "white",
-    cursor: "pointer",
-    zIndex: 10001,
   },
   resultText: {
     position: "absolute",
