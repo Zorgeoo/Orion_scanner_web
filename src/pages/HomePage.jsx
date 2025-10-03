@@ -1,21 +1,13 @@
-const HomePage = () => {
-  const handleScan = () => {
-    if (
-      window.webkit &&
-      window.webkit.messageHandlers &&
-      window.webkit.messageHandlers.camera
-    ) {
-      window.webkit.messageHandlers.camera.postMessage("start");
-    } else {
-      console.log("Not running in WebView or message handler missing");
-    }
-  };
+import { Link } from "react-router-dom";
 
+const HomePage = () => {
   return (
-    <>
-      <button onClick={handleScan}>Scan</button>
-    </>
+    <div>
+      <h1>Welcome to the Home Page</h1>
+      <Link to="/scan">
+        <button>Scan</button>
+      </Link>
+    </div>
   );
 };
-
 export default HomePage;
