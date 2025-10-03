@@ -5,35 +5,34 @@ const FullscreenScanner = () => {
   const videoRef = useRef(null);
   const [result, setResult] = useState("");
   const codeReader = useRef(null);
+  const startScanner = async () => {
+    try {
+      const devices = await BrowserMultiFormatReader.listVideoInputDevices();
+      const selectedDeviceId = devices[0]?.deviceId;
+
+      codeReader.current = new BrowserMultiFormatReader();
+
+      codeReader.current.decodeFromVideoDevice(
+        selectedDeviceId,
+        videoRef.current,
+        (res, err) => {
+          if (res) {
+            const text = res.getText();
+            setResult(text);
+
+            // ✅ No sending to native code
+            // ❌ No codeReader.current.reset() — keep scanning if you want continuous scan
+            // ✅ OR stop scanning if you want single-scan behavior:
+            codeReader.current.reset();
+          }
+        }
+      );
+    } catch (err) {
+      console.error("Error initializing scanner:", err);
+    }
+  };
 
   useEffect(() => {
-    const startScanner = async () => {
-      try {
-        const devices = await BrowserMultiFormatReader.listVideoInputDevices();
-        const selectedDeviceId = devices[0]?.deviceId;
-
-        codeReader.current = new BrowserMultiFormatReader();
-
-        codeReader.current.decodeFromVideoDevice(
-          selectedDeviceId,
-          videoRef.current,
-          (res, err) => {
-            if (res) {
-              const text = res.getText();
-              setResult(text);
-
-              // ✅ No sending to native code
-              // ❌ No codeReader.current.reset() — keep scanning if you want continuous scan
-              // ✅ OR stop scanning if you want single-scan behavior:
-              codeReader.current.reset();
-            }
-          }
-        );
-      } catch (err) {
-        console.error("Error initializing scanner:", err);
-      }
-    };
-
     startScanner();
 
     return () => {
@@ -41,12 +40,17 @@ const FullscreenScanner = () => {
     };
   }, []);
 
+  const handleResetScanner = () => {
+    setResult("");
+    startScanner();
+  };
+
   return (
     <div style={styles.container}>
       {result === "" && (
         <video ref={videoRef} style={styles.video} muted autoPlay playsInline />
       )}
-      <button onClick={() => setResult("")}>Clear</button>
+      <button onClick={handleResetScanner}>Scan again</button>
       <div style={styles.resultText}>
         Result: {result != "" ? result : "Not found"}
       </div>
@@ -61,7 +65,7 @@ const styles = {
     left: 0,
     width: "100vw",
     height: "100vh",
-    backgroundColor: "black",
+    backgroundColor: "whiteß",
     zIndex: 9999,
     display: "flex",
     justifyContent: "center",
