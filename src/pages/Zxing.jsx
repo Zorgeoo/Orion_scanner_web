@@ -4,10 +4,16 @@ import { BrowserMultiFormatReader } from "@zxing/browser";
 const FullscreenScanner = () => {
   const videoRef = useRef(null);
   const codeReader = useRef(null);
-  const selectedDeviceId = useRef(null);
   const [result, setResult] = useState("");
+
   const startScanner = async () => {
     try {
+      // Clean up existing reader before starting new one
+      if (codeReader.current) {
+        await codeReader.current.reset();
+        codeReader.current = null;
+      }
+
       const devices = await BrowserMultiFormatReader.listVideoInputDevices();
       const selectedDeviceId = devices[0]?.deviceId;
 
@@ -18,14 +24,12 @@ const FullscreenScanner = () => {
         videoRef.current,
         (res, err) => {
           if (res) {
-            const text = res.getText();
-            setResult(text);
-
-            // ✅ No sending to native code
-            // ❌ No codeReader.current.reset() — keep scanning if you want continuous scan
-            // ✅ OR stop scanning if you want single-scan behavior:
+            setResult(res.getText());
+            // Stop scanning after first successful scan
             codeReader.current.reset();
+            codeReader.current = null; // release reference
           }
+          // You could handle err here if needed
         }
       );
     } catch (err) {
@@ -38,6 +42,7 @@ const FullscreenScanner = () => {
 
     return () => {
       codeReader.current?.reset();
+      codeReader.current = null;
     };
   }, []);
 
@@ -60,7 +65,7 @@ const FullscreenScanner = () => {
       )}
       <button onClick={handleResetScanner}>Scan again</button>
       <div style={styles.resultText}>
-        Result: {result != "" ? result : "Not found"}
+        Result: {result !== "" ? result : "Not found"}
       </div>
     </div>
   );
