@@ -3,7 +3,7 @@ import { BrowserMultiFormatReader } from "@zxing/browser";
 
 const FullscreenScanner = () => {
   const videoRef = useRef(null);
-  const [result, setResult] = useState("Not Found");
+  const [result, setResult] = useState("");
   const codeReader = useRef(null);
 
   useEffect(() => {
@@ -43,10 +43,13 @@ const FullscreenScanner = () => {
 
   return (
     <div style={styles.container}>
-      {result === "Not Found" && (
+      {result === "" && (
         <video ref={videoRef} style={styles.video} muted autoPlay playsInline />
       )}
-      <div style={styles.resultText}>Result: {result}</div>
+      <button onClick={() => setResult("")}>Clear</button>
+      <div style={styles.resultText}>
+        Result: {result != "" ? result : "Not found"}
+      </div>
     </div>
   );
 };
