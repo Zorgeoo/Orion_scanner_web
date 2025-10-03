@@ -5,10 +5,10 @@ const FullscreenScanner = () => {
   const videoRef = useRef(null);
   const codeReader = useRef(null);
   const [result, setResult] = useState("");
-  const [videoKey, setVideoKey] = useState(0);
 
   const startScanner = async () => {
     try {
+      // Clean up existing reader before starting new one
       if (codeReader.current) {
         await codeReader.current.reset();
         codeReader.current = null;
@@ -25,8 +25,11 @@ const FullscreenScanner = () => {
         (res, err) => {
           if (res) {
             setResult(res.getText());
-            // Do NOT reset here, wait for user to click "Scan again"
+            // Stop scanning after first successful scan
+            codeReader.current.reset();
+            codeReader.current = null; // release reference
           }
+          // You could handle err here if needed
         }
       );
     } catch (err) {
@@ -43,13 +46,8 @@ const FullscreenScanner = () => {
     };
   }, []);
 
-  const handleResetScanner = async () => {
+  const handleResetScanner = () => {
     setResult("");
-    if (codeReader.current) {
-      await codeReader.current.reset();
-      codeReader.current = null;
-    }
-    setVideoKey((prev) => prev + 1); // Force new video element
     startScanner();
   };
 
@@ -57,7 +55,6 @@ const FullscreenScanner = () => {
     <div style={styles.container}>
       {result === "" && (
         <video
-          key={videoKey} // force re-render
           ref={videoRef}
           style={styles.video}
           muted
