@@ -3,7 +3,7 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import ScanPage from "./pages/ScanPage";
-import BarcodeScanner from "./pages/Zxing";
+import FullscreenScanner from "./pages/Zxing";
 
 function App() {
   return (
@@ -11,7 +11,7 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/scan" element={<ScanPage />} />
-        <Route path="/zxing" element={<BarcodeScanner />} />
+        <Route path="/zxing" element={<FullscreenScanner />} />
       </Routes>
     </>
   );

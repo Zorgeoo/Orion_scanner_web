@@ -22,14 +22,9 @@ const FullscreenScanner = () => {
               const text = res.getText();
               setResult(text);
 
-              // Send to native app
-              if (window.webkit?.messageHandlers?.scanner) {
-                window.webkit.messageHandlers.scanner.postMessage(text);
-              } else if (window.Android?.scanner) {
-                window.Android.scanner(text);
-              }
-
-              // Stop scanner after successful scan
+              // ✅ No sending to native code
+              // ❌ No codeReader.current.reset() — keep scanning if you want continuous scan
+              // ✅ OR stop scanning if you want single-scan behavior:
               codeReader.current.reset();
             }
           }
@@ -48,8 +43,9 @@ const FullscreenScanner = () => {
 
   return (
     <div style={styles.container}>
-      <video ref={videoRef} style={styles.video} muted autoPlay playsInline />
-      <div style={styles.overlayText}>Scanning...</div>
+      {result === "Not Found" && (
+        <video ref={videoRef} style={styles.video} muted autoPlay playsInline />
+      )}
       <div style={styles.resultText}>Result: {result}</div>
     </div>
   );
@@ -77,16 +73,6 @@ const styles = {
     width: "100%",
     height: "100%",
     objectFit: "cover",
-  },
-  overlayText: {
-    position: "absolute",
-    top: "5%",
-    left: "50%",
-    transform: "translateX(-50%)",
-    color: "#fff",
-    fontSize: "1.5em",
-    fontWeight: "bold",
-    zIndex: 10000,
   },
   resultText: {
     position: "absolute",
