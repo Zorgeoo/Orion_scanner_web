@@ -3,26 +3,35 @@ import { BrowserMultiFormatReader } from "@zxing/browser";
 
 const FullscreenScanner = () => {
   const videoRef = useRef(null);
-  const [result, setResult] = useState("");
   const codeReader = useRef(null);
+  const selectedDeviceId = useRef(null);
+  const [result, setResult] = useState("");
+
   const startScanner = async () => {
     try {
-      const devices = await BrowserMultiFormatReader.listVideoInputDevices();
-      const selectedDeviceId = devices[0]?.deviceId;
+      if (!selectedDeviceId.current) {
+        const devices = await BrowserMultiFormatReader.listVideoInputDevices();
+
+        // Select back camera if possible
+        const backCamera = devices.find(
+          (device) =>
+            device.label.toLowerCase().includes("back") ||
+            device.label.toLowerCase().includes("environment")
+        );
+
+        selectedDeviceId.current = backCamera
+          ? backCamera.deviceId
+          : devices[0]?.deviceId;
+      }
 
       codeReader.current = new BrowserMultiFormatReader();
 
       codeReader.current.decodeFromVideoDevice(
-        selectedDeviceId,
+        selectedDeviceId.current,
         videoRef.current,
         (res, err) => {
           if (res) {
-            const text = res.getText();
-            setResult(text);
-
-            // ✅ No sending to native code
-            // ❌ No codeReader.current.reset() — keep scanning if you want continuous scan
-            // ✅ OR stop scanning if you want single-scan behavior:
+            setResult(res.getText());
             codeReader.current.reset();
           }
         }
@@ -59,7 +68,7 @@ const FullscreenScanner = () => {
       )}
       <button onClick={handleResetScanner}>Scan again</button>
       <div style={styles.resultText}>
-        Result: {result != "" ? result : "Not found"}
+        Result: {result !== "" ? result : "Not found"}
       </div>
     </div>
   );
