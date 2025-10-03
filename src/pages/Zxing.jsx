@@ -7,20 +7,24 @@ const FullscreenScanner = () => {
   const selectedDeviceId = useRef(null);
   const [result, setResult] = useState("");
 
-  const stopVideoStream = () => {
+  // Stop scanner and camera stream
+  const stopScannerAndCamera = () => {
+    if (codeReader.current) {
+      codeReader.current.reset();
+      codeReader.current = null;
+    }
     if (videoRef.current?.srcObject) {
-      const tracks = videoRef.current.srcObject.getTracks();
-      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject.getTracks().forEach((track) => track.stop());
       videoRef.current.srcObject = null;
     }
   };
 
+  // Start scanning with back camera
   const startScanner = async () => {
     try {
       if (!selectedDeviceId.current) {
         const devices = await BrowserMultiFormatReader.listVideoInputDevices();
 
-        // Select back camera if possible
         const backCamera = devices.find(
           (device) =>
             device.label.toLowerCase().includes("back") ||
@@ -32,14 +36,9 @@ const FullscreenScanner = () => {
           : devices[0]?.deviceId;
       }
 
-      if (codeReader.current) {
-        // Stop previous stream & reset scanner before starting new one
-        codeReader.current.reset();
-        codeReader.current = null;
-        stopVideoStream();
+      if (!codeReader.current) {
+        codeReader.current = new BrowserMultiFormatReader();
       }
-
-      codeReader.current = new BrowserMultiFormatReader();
 
       await codeReader.current.decodeFromVideoDevice(
         selectedDeviceId.current,
@@ -47,8 +46,12 @@ const FullscreenScanner = () => {
         (res, err) => {
           if (res) {
             setResult(res.getText());
-            codeReader.current.reset();
-            stopVideoStream();
+
+            // Stop scanning and camera after one successful scan
+            stopScannerAndCamera();
+          }
+          if (err && !(err instanceof NotFoundException)) {
+            console.error(err);
           }
         }
       );
@@ -61,16 +64,18 @@ const FullscreenScanner = () => {
     startScanner();
 
     return () => {
-      codeReader.current?.reset();
-      stopVideoStream();
+      stopScannerAndCamera();
     };
   }, []);
 
   const handleResetScanner = () => {
     setResult("");
-    codeReader.current?.reset();
-    stopVideoStream();
-    startScanner();
+    stopScannerAndCamera();
+
+    // Small delay to ensure cleanup before restarting scanner
+    setTimeout(() => {
+      startScanner();
+    }, 300);
   };
 
   return (
@@ -85,7 +90,9 @@ const FullscreenScanner = () => {
           controls={false}
         />
       )}
-      <button onClick={handleResetScanner}>Scan again</button>
+      <button onClick={handleResetScanner} style={styles.button}>
+        Scan again
+      </button>
       <div style={styles.resultText}>
         Result: {result !== "" ? result : "Not found"}
       </div>
@@ -115,6 +122,19 @@ const styles = {
     width: "100%",
     height: "100%",
     objectFit: "cover",
+  },
+  button: {
+    position: "absolute",
+    top: 20,
+    right: 20,
+    padding: "10px 20px",
+    fontSize: "1em",
+    borderRadius: "8px",
+    border: "none",
+    backgroundColor: "#ff6600",
+    color: "white",
+    cursor: "pointer",
+    zIndex: 10001,
   },
   resultText: {
     position: "absolute",
