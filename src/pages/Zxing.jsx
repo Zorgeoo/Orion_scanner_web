@@ -48,7 +48,14 @@ const FullscreenScanner = () => {
   return (
     <div style={styles.container}>
       {result === "" && (
-        <video ref={videoRef} style={styles.video} muted autoPlay playsInline />
+        <video
+          ref={videoRef}
+          style={styles.video}
+          muted
+          autoPlay
+          playsInline
+          controls={false}
+        />
       )}
       <button onClick={handleResetScanner}>Scan again</button>
       <div style={styles.resultText}>
@@ -65,7 +72,7 @@ const styles = {
     left: 0,
     width: "100vw",
     height: "100vh",
-    backgroundColor: "whiteß",
+    backgroundColor: "black",
     zIndex: 9999,
     display: "flex",
     justifyContent: "center",
