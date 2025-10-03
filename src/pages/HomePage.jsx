@@ -7,6 +7,9 @@ const HomePage = () => {
       <Link to="/scan">
         <button>Scan</button>
       </Link>
+      <Link to="/zxing">
+        <button>ZXING</button>
+      </Link>
     </div>
   );
 };
