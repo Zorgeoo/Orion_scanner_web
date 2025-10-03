@@ -7,6 +7,14 @@ const FullscreenScanner = () => {
   const selectedDeviceId = useRef(null);
   const [result, setResult] = useState("");
 
+  const stopVideoStream = () => {
+    if (videoRef.current?.srcObject) {
+      const tracks = videoRef.current.srcObject.getTracks();
+      tracks.forEach((track) => track.stop());
+      videoRef.current.srcObject = null;
+    }
+  };
+
   const startScanner = async () => {
     try {
       if (!selectedDeviceId.current) {
@@ -24,15 +32,23 @@ const FullscreenScanner = () => {
           : devices[0]?.deviceId;
       }
 
+      if (codeReader.current) {
+        // Stop previous stream & reset scanner before starting new one
+        codeReader.current.reset();
+        codeReader.current = null;
+        stopVideoStream();
+      }
+
       codeReader.current = new BrowserMultiFormatReader();
 
-      codeReader.current.decodeFromVideoDevice(
+      await codeReader.current.decodeFromVideoDevice(
         selectedDeviceId.current,
         videoRef.current,
         (res, err) => {
           if (res) {
             setResult(res.getText());
             codeReader.current.reset();
+            stopVideoStream();
           }
         }
       );
@@ -46,11 +62,14 @@ const FullscreenScanner = () => {
 
     return () => {
       codeReader.current?.reset();
+      stopVideoStream();
     };
   }, []);
 
   const handleResetScanner = () => {
     setResult("");
+    codeReader.current?.reset();
+    stopVideoStream();
     startScanner();
   };
 
