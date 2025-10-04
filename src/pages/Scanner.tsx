@@ -8,6 +8,7 @@ const FullscreenScanner = () => {
   const [result, setResult] = useState("");
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState("");
+  const [isRestarting, setIsRestarting] = useState(false);
 
   const stopScanner = () => {
     try {
@@ -26,8 +27,17 @@ const FullscreenScanner = () => {
       // Stop camera stream
       if (videoRef.current?.srcObject) {
         const stream = videoRef.current.srcObject as MediaStream;
-        stream.getTracks().forEach((track) => track.stop());
+        stream.getTracks().forEach((track) => {
+          track.stop();
+        });
         videoRef.current.srcObject = null;
+      }
+
+      // Additional cleanup for WebView
+      if (videoRef.current) {
+        videoRef.current.pause();
+        videoRef.current.removeAttribute('src');
+        videoRef.current.load();
       }
 
       setIsScanning(false);
@@ -45,8 +55,8 @@ const FullscreenScanner = () => {
       // Stop previous scanner
       stopScanner();
       
-      // Wait a moment
-      await new Promise(resolve => setTimeout(resolve, 300));
+      // Wait longer for WebView compatibility
+      await new Promise(resolve => setTimeout(resolve, 1000));
 
       setIsScanning(true);
 
@@ -62,14 +72,28 @@ const FullscreenScanner = () => {
         return;
       }
 
-      // Use first available camera
-      const deviceId = devices[0].deviceId;
-      console.log("Using camera:", devices[0].label);
+      // Find back camera for iPhone WebView
+      let selectedDevice = devices[0];
+      
+      // Look for back camera (environment facing)
+      const backCamera = devices.find(device => 
+        device.label.toLowerCase().includes('back') || 
+        device.label.toLowerCase().includes('rear') ||
+        device.label.toLowerCase().includes('environment') ||
+        device.label.toLowerCase().includes('camera 1') // iPhone back camera
+      );
+      
+      if (backCamera) {
+        selectedDevice = backCamera;
+        console.log("Using back camera:", backCamera.label);
+      } else {
+        console.log("Using first camera:", devices[0].label);
+      }
 
       // Start scanning
       if (videoRef.current) {
         codeReader.current.decodeFromVideoDevice(
-          deviceId,
+          selectedDevice.deviceId,
           videoRef.current,
           (result) => {
             if (result) {
@@ -99,11 +123,29 @@ const FullscreenScanner = () => {
     };
   }, []);
 
-  const handleResetScanner = () => {
+  const handleResetScanner = async () => {
+    if (isRestarting) {
+      console.log("Already restarting, ignoring click");
+      return;
+    }
+    
     console.log("Reset button clicked");
+    setIsRestarting(true);
     setResult("");
     setError("");
-    startScanner();
+    
+    try {
+      // Force complete cleanup for WebView
+      stopScanner();
+      
+      // Wait longer for WebView to release resources
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      // Restart scanner
+      await startScanner();
+    } finally {
+      setIsRestarting(false);
+    }
   };
 
 
@@ -142,7 +184,13 @@ const FullscreenScanner = () => {
       <div className="z-10 flex flex-col items-center gap-4">
         <CustomButton
           onClick={handleResetScanner}
-          title={isScanning ? "Scanning..." : "Scan Again"}
+          title={
+            isRestarting 
+              ? "Restarting..." 
+              : isScanning 
+                ? "Scanning..." 
+                : "Scan Again"
+          }
         />
         
         {error && (
