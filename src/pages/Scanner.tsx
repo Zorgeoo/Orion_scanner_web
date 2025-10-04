@@ -1,14 +1,14 @@
 import { useEffect, useRef, useState } from "react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
+import { useNavigate } from "react-router-dom";
 import CustomButton from "@/components/common/CustomButton";
 
 const FullscreenScanner = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const codeReader = useRef<BrowserMultiFormatReader | null>(null);
-  const [result, setResult] = useState("");
+  const navigate = useNavigate();
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState("");
-  const [isRestarting, setIsRestarting] = useState(false);
 
   const stopScanner = () => {
     try {
@@ -97,9 +97,19 @@ const FullscreenScanner = () => {
           videoRef.current,
           (result) => {
             if (result) {
-              console.log("Code found:", result.getText());
-              setResult(result.getText());
+              const scannedText = result.getText();
+              console.log("Code found:", scannedText);
+              
+              // Stop scanner first
               stopScanner();
+              
+              // Navigate to results page with scanned data
+              navigate('/scan-result', { 
+                state: { 
+                  scannedCode: scannedText,
+                  timestamp: new Date().toISOString()
+                } 
+              });
             }
           }
         );
@@ -123,29 +133,8 @@ const FullscreenScanner = () => {
     };
   }, []);
 
-  const handleResetScanner = async () => {
-    if (isRestarting) {
-      console.log("Already restarting, ignoring click");
-      return;
-    }
-    
-    console.log("Reset button clicked");
-    setIsRestarting(true);
-    setResult("");
-    setError("");
-    
-    try {
-      // Force complete cleanup for WebView
-      stopScanner();
-      
-      // Wait longer for WebView to release resources
-      await new Promise(resolve => setTimeout(resolve, 1500));
-      
-      // Restart scanner
-      await startScanner();
-    } finally {
-      setIsRestarting(false);
-    }
+  const handleGoHome = () => {
+    navigate('/');
   };
 
 
@@ -172,25 +161,19 @@ const FullscreenScanner = () => {
       )}
 
       {/* Overlay when not scanning */}
-      {!isScanning && result === "" && (
+      {!isScanning && (
         <div className="absolute top-4 left-4 right-4 bg-black bg-opacity-50 text-white p-2 rounded z-20">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 bg-gray-500 rounded-full"></div>
-            <span>Camera stopped - Click button to scan</span>
+            <span>Camera stopped</span>
           </div>
         </div>
       )}
 
       <div className="z-10 flex flex-col items-center gap-4">
         <CustomButton
-          onClick={handleResetScanner}
-          title={
-            isRestarting 
-              ? "Restarting..." 
-              : isScanning 
-                ? "Scanning..." 
-                : "Scan Again"
-          }
+          onClick={handleGoHome}
+          title="Go Home"
         />
         
         {error && (
@@ -200,15 +183,7 @@ const FullscreenScanner = () => {
         )}
         
         <div className="text-white text-center max-w-sm">
-          {result !== "" ? (
-            <div>
-              <div className="text-green-400 font-bold">Scan Complete:</div>
-              <div className="break-all bg-green-900 bg-opacity-30 p-2 rounded mt-2">{result}</div>
-              <div className="text-gray-400 text-sm mt-2">Click "Дахин уншуулах" to scan again</div>
-            </div>
-          ) : (
-            <div className="text-gray-400">No code detected yet</div>
-          )}
+          <div className="text-gray-400">Point camera at a barcode or QR code to scan</div>
         </div>
       </div>
     </div>
