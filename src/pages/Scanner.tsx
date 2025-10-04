@@ -9,7 +9,6 @@ const FullscreenScanner = () => {
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
-  const lastClickTime = useRef(0);
   const scannerState = useRef<'idle' | 'starting' | 'scanning' | 'stopping'>('idle');
 
   const stopScanner = () => {
@@ -97,14 +96,32 @@ const FullscreenScanner = () => {
         return;
       }
 
-      const selectedDeviceId = devices[0]?.deviceId;
-      console.log("Selected device ID:", selectedDeviceId);
+      // Find back camera (prefer rear-facing camera)
+      let selectedDeviceId = null;
+      
+      // Look for back camera first
+      const backCamera = devices.find(device => 
+        device.label.toLowerCase().includes('back') || 
+        device.label.toLowerCase().includes('rear') ||
+        device.label.toLowerCase().includes('environment')
+      );
+      
+      if (backCamera) {
+        selectedDeviceId = backCamera.deviceId;
+        console.log("Using back camera:", backCamera.label);
+      } else {
+        // Fallback to first device if no back camera found
+        selectedDeviceId = devices[0]?.deviceId;
+        console.log("Using first available camera:", devices[0]?.label);
+      }
 
       if (!selectedDeviceId) {
         setError("No camera device selected.");
         setIsScanning(false);
         return;
       }
+
+      console.log("Selected device ID:", selectedDeviceId);
 
       console.log("Starting decode from video device...");
       
@@ -136,7 +153,28 @@ const FullscreenScanner = () => {
   };
 
   useEffect(() => {
-    startScanner();
+    // Request camera permission immediately when component mounts
+    const requestPermissionAndStart = async () => {
+      try {
+        console.log("Requesting camera permission on mount...");
+        const stream = await navigator.mediaDevices.getUserMedia({ 
+          video: { 
+            facingMode: 'environment' // Prefer back camera
+          } 
+        });
+        console.log("Camera permission granted");
+        // Stop the stream immediately as we just needed permission
+        stream.getTracks().forEach(track => track.stop());
+        
+        // Start the scanner
+        await startScanner();
+      } catch (err) {
+        console.error("Camera permission denied:", err);
+        setError("Camera permission denied. Please allow camera access and try again.");
+      }
+    };
+
+    requestPermissionAndStart();
 
     return () => {
       stopScanner();
@@ -144,36 +182,19 @@ const FullscreenScanner = () => {
   }, []);
 
   const handleResetScanner = async () => {
-    const now = Date.now();
+    console.log("Reset button clicked");
     
-    // Check scanner state
-    if (scannerState.current !== 'idle') {
-      console.log(`Scanner not idle, current state: ${scannerState.current}, ignoring click`);
-      return;
-    }
-    
-    // Debounce clicks - ignore if clicked within last 2 seconds
-    if (now - lastClickTime.current < 2000) {
-      console.log("Click ignored - too soon after last click");
-      return;
-    }
-    
+    // Simple check - only prevent if actively processing
     if (isProcessing) {
-      console.log("Scanner is already processing, ignoring click");
+      console.log("Scanner is processing, ignoring click");
       return;
     }
     
-    lastClickTime.current = now;
     console.log("Resetting scanner...");
     setResult("");
     setError("");
     
-    // Force complete stop first
-    stopScanner();
-    
-    // Wait a bit longer to ensure complete cleanup
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-    
+    // Start scanner directly
     await startScanner();
   };
 
@@ -238,7 +259,7 @@ const FullscreenScanner = () => {
                 ? "Processing..." 
                 : isScanning 
                   ? "Уншиж байна..." 
-                  : "Дахин уншуулах"
+                  : "Scan Again"
             }
           />
         )}
