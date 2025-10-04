@@ -1,12 +1,11 @@
 import { useEffect, useRef, useState } from "react";
 import { BrowserMultiFormatReader } from "@zxing/browser";
-import { useNavigate } from "react-router-dom";
 import CustomButton from "@/components/common/CustomButton";
 
 const FullscreenScanner = () => {
   const videoRef = useRef<HTMLVideoElement>(null);
   const codeReader = useRef<BrowserMultiFormatReader | null>(null);
-  const navigate = useNavigate();
+  const [result, setResult] = useState("");
   const [isScanning, setIsScanning] = useState(false);
   const [error, setError] = useState("");
 
@@ -99,17 +98,8 @@ const FullscreenScanner = () => {
             if (result) {
               const scannedText = result.getText();
               console.log("Code found:", scannedText);
-              
-              // Stop scanner first
+              setResult(scannedText);
               stopScanner();
-              
-              // Navigate to results page with scanned data
-              navigate('/scan-result', { 
-                state: { 
-                  scannedCode: scannedText,
-                  timestamp: new Date().toISOString()
-                } 
-              });
             }
           }
         );
@@ -133,8 +123,13 @@ const FullscreenScanner = () => {
     };
   }, []);
 
-  const handleGoHome = () => {
-    navigate('/');
+  const handleScanAgain = async () => {
+    console.log("Scan again clicked");
+    setResult("");
+    setError("");
+    stopScanner();
+    await new Promise(resolve => setTimeout(resolve, 1000));
+    await startScanner();
   };
 
 
@@ -172,8 +167,8 @@ const FullscreenScanner = () => {
 
       <div className="z-10 flex flex-col items-center gap-4">
         <CustomButton
-          onClick={handleGoHome}
-          title="Go Home"
+          onClick={handleScanAgain}
+          title={isScanning ? "Scanning..." : "Scan Again"}
         />
         
         {error && (
@@ -183,7 +178,16 @@ const FullscreenScanner = () => {
         )}
         
         <div className="text-white text-center max-w-sm">
-          <div className="text-gray-400">Point camera at a barcode or QR code to scan</div>
+          {result ? (
+            <div>
+              <div className="text-green-400 font-bold mb-2">Scanned:</div>
+              <div className="bg-green-900 bg-opacity-30 p-3 rounded break-all text-green-300">
+                {result}
+              </div>
+            </div>
+          ) : (
+            <div className="text-gray-400">Point camera at a barcode or QR code to scan</div>
+          )}
         </div>
       </div>
     </div>
