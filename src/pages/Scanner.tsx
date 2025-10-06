@@ -11,13 +11,17 @@ declare global {
   }
 }
 import { Button } from "@/components/ui/button";
+import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
 
 const BarcodeScannerButton = () => {
   const [scannedCode, setScannedCode] = useState<string | null>(null);
+  const [isScanning, setIsScanning] = useState(false);
 
   const startScanner = () => {
     if (window.webkit?.messageHandlers?.barcodeScanner) {
+      setScannedCode(null);
+      setIsScanning(true);
       window.webkit.messageHandlers.barcodeScanner.postMessage("openScanner");
     } else {
       alert("Barcode scanner not available.");
@@ -27,6 +31,7 @@ const BarcodeScannerButton = () => {
   useEffect(() => {
     window.onBarcodeScanned = (result: string) => {
       setScannedCode(result);
+      setIsScanning(false);
     };
 
     return () => {
@@ -36,7 +41,9 @@ const BarcodeScannerButton = () => {
 
   return (
     <div className="flex flex-row justify-center items-center pt-4">
-      <Button onClick={startScanner}>Scan Barcode</Button>
+      <Button onClick={startScanner}>
+        {isScanning ? <Spinner /> : "Scan barcode"}
+      </Button>
       {scannedCode && <p>Scanned Code: {scannedCode}</p>}
     </div>
   );
