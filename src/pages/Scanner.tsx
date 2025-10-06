@@ -50,6 +50,7 @@ const BarcodeScannerButton = () => {
         <div>
           <Label htmlFor="barcode">Barcode : </Label>
           <Input
+            value={scannedCode ?? "No barcode"}
             className="opacity-100 cursor-default border-black"
             id="barcode"
             disabled
