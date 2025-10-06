@@ -9,6 +9,7 @@ const Header = () => {
   const [canGoBack, setCanGoBack] = useState(false);
 
   useEffect(() => {
+    // Pathname avj baina ex : /inventory
     const currentPath = location.pathname;
 
     // Push current path if different from last in stack
@@ -41,7 +42,7 @@ const Header = () => {
       {canGoBack ? (
         <button
           onClick={goBack}
-          className="text-white text-lg hover:text-blue-300 focus:outline-none"
+          className="text-black text-lg hover:text-white focus:outline-none"
           aria-label="Go back"
         >
           ← Буцах
