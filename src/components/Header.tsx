@@ -44,7 +44,7 @@ const Header = () => {
           className="text-white text-lg hover:text-blue-300 focus:outline-none"
           aria-label="Go back"
         >
-          ← Back
+          ← Буцах
         </button>
       ) : (
         <div className="w-16" /> // Placeholder to keep layout consistent
