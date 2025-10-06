@@ -10,6 +10,7 @@ declare global {
     onBarcodeScanned?: (result: string) => void;
   }
 }
+import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 
 const BarcodeScannerButton = () => {
@@ -34,8 +35,8 @@ const BarcodeScannerButton = () => {
   }, []);
 
   return (
-    <div>
-      <button onClick={startScanner}>Scan Barcode</button>
+    <div className="flex flex-row justify-center items-center pt-4">
+      <Button onClick={startScanner}>Scan Barcode</Button>
       {scannedCode && <p>Scanned Code: {scannedCode}</p>}
     </div>
   );
