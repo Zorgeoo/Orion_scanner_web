@@ -42,7 +42,7 @@ const BarcodeScannerButton = () => {
   return (
     <div className="flex flex-row justify-center items-center pt-4">
       <div className="flex flex-col gap-4">
-        <Button onClick={startScanner}>
+        <Button onClick={startScanner} disabled={isScanning}>
           {isScanning ? <Spinner /> : "Scan barcode"}
         </Button>
         {scannedCode && <p>Scanned Code: {scannedCode}</p>}
