@@ -11,6 +11,8 @@ declare global {
   }
 }
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
 import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
 
@@ -45,7 +47,14 @@ const BarcodeScannerButton = () => {
         <Button onClick={startScanner} disabled={isScanning}>
           {isScanning ? <Spinner /> : "Scan barcode"}
         </Button>
-        {scannedCode && <p>Scanned Code: {scannedCode}</p>}
+        <div>
+          <Label htmlFor="barcode">Barcode : </Label>
+          <Input
+            className="opacity-100 cursor-default border-black"
+            id="barcode"
+            disabled
+          />
+        </div>
       </div>
     </div>
   );
