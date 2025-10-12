@@ -20,20 +20,38 @@ const BarcodeScannerButton = () => {
   const [scannedCode, setScannedCode] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
 
+  // const startScanner = () => {
+  //   if (window.webkit?.messageHandlers?.barcodeScanner) {
+  //     setScannedCode(null);
+  //     setIsScanning(true);
+  //     window.webkit.messageHandlers.barcodeScanner.postMessage("openScanner");
+  //   } else {
+  //     alert("Barcode scanner not available.");
+  //   }
+  // };
   const startScanner = () => {
     if (window.webkit?.messageHandlers?.barcodeScanner) {
+      // iOS
       setScannedCode(null);
       setIsScanning(true);
       window.webkit.messageHandlers.barcodeScanner.postMessage("openScanner");
+    } else if ((window as any).barcodeScanner) {
+      // Android
+      setScannedCode(null);
+      setIsScanning(true);
+      (window as any).barcodeScanner.postMessage("openScanner");
     } else {
       alert("Barcode scanner not available.");
     }
   };
 
   useEffect(() => {
-    window.onBarcodeScanned = (result: string) => {
-      setScannedCode(result);
+    window.onBarcodeScanned = (result: string | null) => {
       setIsScanning(false);
+
+      if (result !== null) {
+        setScannedCode(result);
+      }
     };
 
     return () => {
