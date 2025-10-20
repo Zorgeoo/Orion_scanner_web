@@ -20,15 +20,6 @@ const BarcodeScannerButton = () => {
   const [scannedCode, setScannedCode] = useState<string | null>(null);
   const [isScanning, setIsScanning] = useState(false);
 
-  // const startScanner = () => {
-  //   if (window.webkit?.messageHandlers?.barcodeScanner) {
-  //     setScannedCode(null);
-  //     setIsScanning(true);
-  //     window.webkit.messageHandlers.barcodeScanner.postMessage("openScanner");
-  //   } else {
-  //     alert("Barcode scanner not available.");
-  //   }
-  // };
   const startScanner = () => {
     if (window.webkit?.messageHandlers?.barcodeScanner) {
       // iOS

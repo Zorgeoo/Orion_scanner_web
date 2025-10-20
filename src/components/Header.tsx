@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import CustomButton from "./common/CustomButton";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -37,21 +38,39 @@ const Header = () => {
     }
   };
 
+  const logOut = () => {
+    if (window.webkit?.messageHandlers?.barcodeScanner) {
+      // iOS
+      window.webkit.messageHandlers.barcodeScanner.postMessage("logOutRequest");
+    } else if ((window as any).barcodeScanner) {
+      // Android
+      (window as any).barcodeScanner.postMessage("logOutRequest");
+    } else {
+      alert("It is not mobile device");
+    }
+  };
+
   return (
     <nav className="flex items-center justify-between fixed top-0 left-0 w-full bg-orange-400 z-50 p-4">
       {canGoBack ? (
-        <button
-          onClick={goBack}
-          className="text-black text-lg hover:text-white focus:outline-none"
-          aria-label="Go back"
-        >
-          ← Буцах
-        </button>
+        // <button
+        //   onClick={goBack}
+        //   className="text-black text-lg hover:text-white focus:outline-none"
+        //   aria-label="Go back"
+        // >
+        //   ← Буцах
+        // </button>
+        <CustomButton onClick={goBack} title="Буцах"></CustomButton>
       ) : (
         <div className="w-16" /> // Placeholder to keep layout consistent
       )}
       <h1 className="text-xl font-semibold">Orion systems</h1>
-      <div className="w-16" />{" "}
+      <CustomButton
+        color="bg-red-500"
+        onClick={logOut}
+        title="Гарах"
+      ></CustomButton>
+      {/* <div className="w-16" />{" "} */}
       {/* balance the back button or keep empty space */}
     </nav>
   );
