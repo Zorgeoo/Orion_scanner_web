@@ -66,7 +66,7 @@ const Header = () => {
       )}
       <h1 className="text-xl font-semibold">Orion systems</h1>
       <CustomButton
-        color="bg-red-500"
+        color="bg-red-500 text-white hover:bg-red-600 active:bg-red-700"
         onClick={logOut}
         title="Гарах"
       ></CustomButton>
