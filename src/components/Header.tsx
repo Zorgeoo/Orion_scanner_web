@@ -52,26 +52,17 @@ const Header = () => {
 
   return (
     <nav className="flex items-center justify-between fixed top-0 left-0 w-full bg-orange-400 z-50 p-4">
-      {canGoBack ? (
-        // <button
-        //   onClick={goBack}
-        //   className="text-black text-lg hover:text-white focus:outline-none"
-        //   aria-label="Go back"
-        // >
-        //   ← Буцах
-        // </button>
-        <CustomButton onClick={goBack} title="Буцах"></CustomButton>
-      ) : (
-        <div className="w-16" /> // Placeholder to keep layout consistent
-      )}
+      <CustomButton
+        color={`${canGoBack ? "visible" : "invisible"}`}
+        onClick={goBack}
+        title="Буцах"
+      ></CustomButton>
       <h1 className="text-xl font-semibold">Orion systems</h1>
       <CustomButton
         color="bg-red-500 text-white hover:bg-red-600 active:bg-red-700"
         onClick={logOut}
         title="Гарах"
       ></CustomButton>
-      {/* <div className="w-16" />{" "} */}
-      {/* balance the back button or keep empty space */}
     </nav>
   );
 };
