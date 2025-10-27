@@ -9,7 +9,7 @@ createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
       <Header />
-      <div className="pt-16">
+      <div className="pt-16 bg-black h-screen">
         <App />
       </div>
     </BrowserRouter>

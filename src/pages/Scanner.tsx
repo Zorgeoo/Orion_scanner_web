@@ -10,10 +10,9 @@ declare global {
     onBarcodeScanned?: (result: string) => void;
   }
 }
-import { Button } from "@/components/ui/button";
+import CustomButton from "@/components/common/CustomButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Spinner } from "@/components/ui/spinner";
 import { useEffect, useState } from "react";
 
 const BarcodeScannerButton = () => {
@@ -53,9 +52,14 @@ const BarcodeScannerButton = () => {
   return (
     <div className="flex flex-row justify-center items-center pt-4">
       <div className="flex flex-col gap-4">
-        <Button onClick={startScanner} disabled={isScanning}>
+        {/* <Button onClick={startScanner} disabled={isScanning}>
           {isScanning ? <Spinner /> : "Scan barcode"}
-        </Button>
+        </Button> */}
+        <CustomButton
+          onClick={startScanner}
+          title="Scan barcode"
+          isLoading={isScanning}
+        />
         <div>
           <Label htmlFor="barcode">Barcode : </Label>
           <Input

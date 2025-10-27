@@ -10,7 +10,7 @@ const Header = () => {
   const [canGoBack, setCanGoBack] = useState(false);
 
   useEffect(() => {
-    // Pathname avj baina ex : /inventory
+    // Current Pathname avj baina ex : /inventory
     const currentPath = location.pathname;
 
     // Push current path if different from last in stack
@@ -51,18 +51,18 @@ const Header = () => {
   };
 
   return (
-    <nav className="flex items-center justify-between fixed top-0 left-0 w-full bg-orange-400 z-50 p-4">
+    <nav className="flex items-center justify-between fixed top-0 left-0 w-full z-50 p-4">
       <CustomButton
         color={`${canGoBack ? "visible" : "invisible"}`}
         onClick={goBack}
         title="Буцах"
-      ></CustomButton>
-      <h1 className="text-xl font-semibold">Orion systems</h1>
+      />
+      <h1 className="text-xl font-semibold text-orange-400">Orion systems</h1>
       <CustomButton
         color="bg-red-500 text-white hover:bg-red-600 active:bg-red-700"
         onClick={logOut}
         title="Гарах"
-      ></CustomButton>
+      />
     </nav>
   );
 };
