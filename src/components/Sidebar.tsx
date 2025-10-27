@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { motion } from "framer-motion";
+import { Menu } from "lucide-react";
+import { Link } from "react-router-dom";
 
 const Sidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -14,9 +16,15 @@ const Sidebar = () => {
       alert("It is not mobile device");
     }
   };
+
   return (
     <>
-      <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
+      <div
+        onClick={() => setIsOpen(!isOpen)}
+        className="text-orange-400 cursor-pointer hover:text-orange-300 transition-colors"
+      >
+        <Menu />
+      </div>
       <motion.div
         initial={{ x: "100%" }}
         animate={{ x: isOpen ? 0 : "100%" }}
@@ -25,36 +33,34 @@ const Sidebar = () => {
           position: "fixed",
           top: 0,
           right: 0,
-          width: 120,
+          width: "100%",
           height: "100%",
-          backgroundColor: "#333",
           color: "white",
-          padding: 20,
           zIndex: 1000,
         }}
+        onClick={() => setIsOpen(false)}
+        className="flex flex-col justify-center items-center gap-6 px-10 bg-orange-400"
       >
-        <h2>Menu</h2>
-        <ul>
-          <li>Home</li>
-          <li>About</li>
-          <li>Services</li>
-          <li onClick={logOut}>Log Out</li>
-        </ul>
-      </motion.div>
-      {isOpen && (
+        <Link to="/">
+          <div
+            className="font-bold text-xl cursor-pointer hover:text-gray-300"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            Home
+          </div>
+        </Link>
         <div
-          style={{
-            position: "fixed",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            background: "rgba(0,0,0,0.5)",
-            zIndex: 900,
+          className="font-bold text-xl cursor-pointer hover:text-gray-300"
+          onClick={(e) => {
+            e.stopPropagation();
+            logOut();
           }}
-          onClick={() => setIsOpen(false)}
-        />
-      )}
+        >
+          Гарах
+        </div>
+      </motion.div>
     </>
   );
 };

@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CustomButton from "./common/CustomButton";
 import Sidebar from "./Sidebar";
+import { ArrowLeft } from "lucide-react";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -41,19 +42,18 @@ const Header = () => {
 
   return (
     <nav className="flex items-center justify-between fixed top-0 left-0 w-full z-50 p-4">
-      <CustomButton
-        color={`${canGoBack ? "visible" : "invisible"}`}
+      <div
         onClick={goBack}
-        title="Буцах"
-      />
-      <h1 className="text-xl font-semibold text-orange-400">Orion systems</h1>
+        className={`${
+          canGoBack ? "visible" : "invisible"
+        } text-orange-400 cursor-pointer hover:text-orange-300 transition-colors`}
+      >
+        <ArrowLeft />
+      </div>
+      <h1 className="absolute left-1/2 transform -translate-x-1/2 text-xl font-semibold text-orange-400">
+        Orion systems
+      </h1>
       <Sidebar />
-      {/* 
-      <CustomButton
-        color="bg-red-500 text-white hover:bg-red-600 active:bg-red-700"
-        onClick={logOut}
-        title="Гарах"
-      /> */}
     </nav>
   );
 };
