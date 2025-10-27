@@ -2,7 +2,12 @@ import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import CustomButton from "./common/CustomButton";
 import Sidebar from "./Sidebar";
-import { ArrowLeft } from "lucide-react";
+import {
+  ArrowBigLeft,
+  ArrowLeft,
+  ArrowLeftCircle,
+  ArrowLeftCircleIcon,
+} from "lucide-react";
 
 const Header = () => {
   const navigate = useNavigate();
