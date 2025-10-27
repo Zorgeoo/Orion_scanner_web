@@ -46,7 +46,6 @@ const Sidebar = () => {
             className="font-bold text-xl cursor-pointer hover:text-gray-300"
             onClick={(e) => {
               e.stopPropagation();
-              setIsOpen(false);
             }}
           >
             Home
