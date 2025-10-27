@@ -16,10 +16,7 @@ const Sidebar = () => {
   };
   return (
     <>
-      <button onClick={() => setIsOpen(!isOpen)}>
-        {isOpen ? "Close" : "Open"} Sidebar
-      </button>
-
+      <button onClick={() => setIsOpen(!isOpen)}>Menu</button>
       <motion.div
         initial={{ x: "100%" }}
         animate={{ x: isOpen ? 0 : "100%" }}
@@ -28,7 +25,7 @@ const Sidebar = () => {
           position: "fixed",
           top: 0,
           right: 0,
-          width: 250,
+          width: 120,
           height: "100%",
           backgroundColor: "#333",
           color: "white",
@@ -44,7 +41,6 @@ const Sidebar = () => {
           <li onClick={logOut}>Log Out</li>
         </ul>
       </motion.div>
-
       {isOpen && (
         <div
           style={{
