@@ -1,13 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import CustomButton from "./common/CustomButton";
 import Sidebar from "./Sidebar";
-import {
-  ArrowBigLeft,
-  ArrowLeft,
-  ArrowLeftCircle,
-  ArrowLeftCircleIcon,
-} from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -15,6 +9,19 @@ const Header = () => {
 
   const historyStack = useRef<string[]>([]);
   const [canGoBack, setCanGoBack] = useState(false);
+
+  //   useEffect(() => {
+  //   const handlePopState = () => {
+  //     // Browser went back - sync your stack
+  //     if (historyStack.current.length > 0) {
+  //       historyStack.current.pop();
+  //     }
+  //     setCanGoBack(historyStack.current.length > 1);
+  //   };
+
+  //   window.addEventListener('popstate', handlePopState);
+  //   return () => window.removeEventListener('popstate', handlePopState);
+  // }, []);
 
   useEffect(() => {
     // Current Pathname avj baina ex : /inventory

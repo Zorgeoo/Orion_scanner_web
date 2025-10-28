@@ -13,13 +13,14 @@ declare global {
 import CustomButton from "@/components/common/CustomButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { AlertCircle } from "lucide-react";
+import { AlertCircle, CircleCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const BarcodeScannerButton = () => {
   const [scannedCode, setScannedCode] = useState<string | null>(null);
-  const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState<number>(0);
+  const [message, setMessage] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState<number | null>(null);
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const [isScanning, setIsScanning] = useState(false);
 
@@ -40,22 +41,30 @@ const BarcodeScannerButton = () => {
   };
 
   const order = () => {
-    setErrorMessage(null);
-    if (scannedCode != null && quantity > 0) {
-      alert("Success");
-    } else if (scannedCode != null) {
-      setErrorMessage("Тоо ширхэг бөглөнө үү");
-    } else if (quantity > 0) {
-      setErrorMessage("Бараа уншуулна уу");
-    } else {
-      setErrorMessage("Талбаруудыг бөглөнө үү");
+    setMessage(null);
+    setIsSuccess(false);
+
+    if (!scannedCode && !quantity) {
+      return setMessage("Талбаруудыг бөглөнө үү");
     }
+
+    if (!scannedCode) {
+      return setMessage("Бараа уншуулна уу");
+    }
+
+    if (!quantity || quantity <= 0) {
+      return setMessage("Тоо ширхэг бөглөнө үү");
+    }
+
+    setMessage("Амжилттай");
+    setIsSuccess(true);
+    setScannedCode(null);
+    setQuantity(null);
   };
 
   useEffect(() => {
     window.onBarcodeScanned = (result: string | null) => {
       setIsScanning(false);
-
       if (result !== null) {
         setScannedCode(result);
       }
@@ -77,7 +86,7 @@ const BarcodeScannerButton = () => {
         <div>
           <Label htmlFor="barcode">Код : </Label>
           <Input
-            value={scannedCode ?? "No barcode"}
+            value={scannedCode ?? "Бараа уншуулна уу"}
             className="opacity-100 cursor-default border-black"
             id="barcode"
             disabled
@@ -86,16 +95,31 @@ const BarcodeScannerButton = () => {
         <div>
           <Label htmlFor="quantity">Тоо ширхэг : </Label>
           <Input
+            placeholder="Ширхэг оруулна уу"
             id="quantity"
             type="number"
-            value={quantity}
-            onChange={(e) => setQuantity(Number(e.target.value))}
+            min={1}
+            value={quantity ? quantity : ""}
+            onChange={(e) => {
+              setQuantity(Number(e.target.value));
+            }}
           />
         </div>
-        {errorMessage != null && (
-          <div className="flex items-center gap-2 bg-red-50 border border-red-200 text-red-600 text-sm rounded-lg p-3 mt-2">
-            <AlertCircle className="w-4 h-4 flex-shrink-0" />
-            <span>{errorMessage}</span>
+        {message != null && (
+          <div
+            className={`flex items-center gap-2 border text-sm rounded-lg p-3 mt-2
+               ${
+                 isSuccess
+                   ? "bg-green-50 border-green-200 text-green-600"
+                   : "bg-red-50  border-red-200 text-red-600"
+               }`}
+          >
+            {isSuccess ? (
+              <CircleCheck className="w-4 h-4 flex-shrink-0" />
+            ) : (
+              <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            )}
+            <span>{message}</span>
           </div>
         )}
         <CustomButton onClick={order} title="Бүртгэх" />
