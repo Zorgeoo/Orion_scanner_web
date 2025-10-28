@@ -11,7 +11,6 @@ declare global {
   }
 }
 import CustomButton from "@/components/common/CustomButton";
-import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { AlertCircle, CircleCheck } from "lucide-react";
@@ -125,16 +124,6 @@ const BarcodeScannerButton = () => {
           </div>
         )}
         <CustomButton onClick={order} title="Бүртгэх" />
-        <Button
-          className="bg-red-500 active:bg-red-600 touch-manipulation"
-          style={{
-            WebkitTapHighlightColor: "transparent",
-            WebkitTouchCallout: "none",
-            touchAction: "manipulation",
-          }}
-        >
-          Test
-        </Button>
       </div>
     </div>
   );
