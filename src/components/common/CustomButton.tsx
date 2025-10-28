@@ -22,9 +22,9 @@ const CustomButton = ({
       // onTouchEnd={(e) => {
       //   e.currentTarget.blur(); // Remove focus after touch
       // }}
-      style={{
-        touchAction: "manipulation",
-      }}
+      // style={{
+      //   touchAction: "manipulation",
+      // }}
     >
       {isLoading ? <Spinner /> : title}
     </Button>
