@@ -125,7 +125,16 @@ const BarcodeScannerButton = () => {
           </div>
         )}
         <CustomButton onClick={order} title="Бүртгэх" />
-        <Button className="bg-red-500">Test</Button>
+        <Button
+          className="bg-red-500 active:bg-red-600 touch-manipulation"
+          style={{
+            WebkitTapHighlightColor: "transparent",
+            WebkitTouchCallout: "none",
+            touchAction: "manipulation",
+          }}
+        >
+          Test
+        </Button>
       </div>
     </div>
   );
