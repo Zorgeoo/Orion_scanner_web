@@ -17,13 +17,22 @@ import { AlertCircle, CircleCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 
 const BarcodeScannerButton = () => {
+  // Scan хийж байгаа эсэх
+  const [isScanning, setIsScanning] = useState<boolean>(false);
+
+  // Scan хийгдсэн код
   const [scannedCode, setScannedCode] = useState<string | null>(null);
-  const [message, setMessage] = useState<string | null>(null);
+
+  // Барааны тоо ширхэг
   const [quantity, setQuantity] = useState<number | null>(null);
+
+  // Message or error
+  const [message, setMessage] = useState<string | null>(null);
+
+  // Амжилттай бүртгэгдсэн эсэх
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-  const [isScanning, setIsScanning] = useState(false);
-
+  // Scan хийх
   const startScanner = () => {
     if (window.webkit?.messageHandlers?.barcodeScanner) {
       // iOS
@@ -40,6 +49,7 @@ const BarcodeScannerButton = () => {
     }
   };
 
+  // Бүртгэх
   const order = () => {
     setMessage(null);
     setIsSuccess(false);

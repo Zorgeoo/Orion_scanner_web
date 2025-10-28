@@ -4,7 +4,10 @@ import { Menu } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Sidebar = () => {
+  // Sidebar нээсэн эсэх
   const [isOpen, setIsOpen] = useState(false);
+
+  // Logout хийх
   const logOut = () => {
     if (window.webkit?.messageHandlers?.barcodeScanner) {
       // iOS

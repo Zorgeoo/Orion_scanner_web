@@ -4,24 +4,14 @@ import Sidebar from "./Sidebar";
 import { ArrowLeft } from "lucide-react";
 
 const Header = () => {
+  // Navigate хийх
   const navigate = useNavigate();
+
+  // Current pathname авахын тулд
   const location = useLocation();
 
   const historyStack = useRef<string[]>([]);
   const [canGoBack, setCanGoBack] = useState(false);
-
-  //   useEffect(() => {
-  //   const handlePopState = () => {
-  //     // Browser went back - sync your stack
-  //     if (historyStack.current.length > 0) {
-  //       historyStack.current.pop();
-  //     }
-  //     setCanGoBack(historyStack.current.length > 1);
-  //   };
-
-  //   window.addEventListener('popstate', handlePopState);
-  //   return () => window.removeEventListener('popstate', handlePopState);
-  // }, []);
 
   useEffect(() => {
     // Current Pathname avj baina ex : /inventory
