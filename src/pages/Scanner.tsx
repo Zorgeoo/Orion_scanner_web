@@ -97,7 +97,8 @@ const BarcodeScannerButton = () => {
           <Input
             placeholder="Ширхэг оруулна уу"
             id="quantity"
-            type="number"
+            type="text"
+            inputMode="numeric"
             min={1}
             value={quantity ? quantity : ""}
             onChange={(e) => {
