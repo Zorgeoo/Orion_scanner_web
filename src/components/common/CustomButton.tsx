@@ -19,6 +19,9 @@ const CustomButton = ({
       className={`${color ? color : "bg-orange-400"}`}
       disabled={isLoading}
       onClick={onClick}
+      onTouchEnd={(e) => {
+        e.currentTarget.blur(); // Remove focus after touch
+      }}
     >
       {isLoading ? <Spinner /> : title}
     </Button>
