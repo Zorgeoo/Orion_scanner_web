@@ -6,17 +6,22 @@ import FullscreenScanner from "./pages/Scanner";
 import { useEffect, useState } from "react";
 
 export interface UserInfo {
-  username: string;
   token: string;
+  username: string;
 }
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   useEffect(() => {
     // 📥 Setup receiver for user info from native app
+
     window.setUserInfo = (info: UserInfo) => {
       console.log("✅ Received user info from native:", info);
       setUserInfo(info);
+
+      if (window.webkit?.messageHandlers?.barcodeScanner) {
+        window.webkit.messageHandlers.barcodeScanner.postMessage("reactReady");
+      }
 
       // Store token in localStorage if needed
       if (info.token) {
