@@ -12,13 +12,10 @@ declare global {
   }
 }
 
-interface UserInfo {
-  username: string;
-  token: string;
-}
-interface BarcodeScannerButtonProps {
+export interface BarcodeScannerButtonProps {
   userInfo: UserInfo | null;
 }
+import { UserInfo } from "@/App";
 import CustomButton from "@/components/common/CustomButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -97,7 +94,7 @@ const BarcodeScannerButton = ({ userInfo }: BarcodeScannerButtonProps) => {
   return (
     <div className="flex flex-row justify-center items-center pt-4">
       <div className="flex flex-col gap-4">
-        <div>{userInfo?.username ?? "obsoo"}</div>
+        <div>{userInfo?.token ?? "obsoo"}</div>
         <CustomButton
           onClick={startScanner}
           title="Scan barcode"
