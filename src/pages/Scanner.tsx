@@ -8,7 +8,16 @@ declare global {
       };
     };
     onBarcodeScanned?: (result: string) => void;
+    setUserInfo?: (userInfo: UserInfo) => void;
   }
+}
+
+interface UserInfo {
+  username: string;
+  token: string;
+}
+interface BarcodeScannerButtonProps {
+  userInfo: UserInfo | null;
 }
 import CustomButton from "@/components/common/CustomButton";
 import { Input } from "@/components/ui/input";
@@ -16,7 +25,7 @@ import { Label } from "@/components/ui/label";
 import { AlertCircle, CircleCheck } from "lucide-react";
 import { useEffect, useState } from "react";
 
-const BarcodeScannerButton = () => {
+const BarcodeScannerButton = ({ userInfo }: BarcodeScannerButtonProps) => {
   // Scan хийж байгаа эсэх
   const [isScanning, setIsScanning] = useState<boolean>(false);
 
@@ -88,6 +97,7 @@ const BarcodeScannerButton = () => {
   return (
     <div className="flex flex-row justify-center items-center pt-4">
       <div className="flex flex-col gap-4">
+        <div>{userInfo?.username ?? "obsoo"}</div>
         <CustomButton
           onClick={startScanner}
           title="Scan barcode"
