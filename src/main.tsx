@@ -4,7 +4,6 @@ import "./index.css";
 import App from "./App.js";
 import { BrowserRouter } from "react-router-dom";
 import Header from "./components/Header.js";
-import Sidebar from "./components/Sidebar.js";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>

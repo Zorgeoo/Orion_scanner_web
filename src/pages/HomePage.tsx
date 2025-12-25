@@ -6,7 +6,7 @@ const HomePage = () => {
     <div className="">
       <div className="flex flex-col gap-4 items-center pt-16">
         <Link to="/inventory">
-          <CustomButton title="Бараа тооллого" />
+          <CustomButton title="Бар тооллого" />
         </Link>
         <Link to="/inventory">
           <CustomButton title="Бараа захиалга" />
