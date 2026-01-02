@@ -6,16 +6,16 @@ import FullscreenScanner from "./pages/Scanner";
 import { useEffect, useState } from "react";
 
 export interface databaseModel {
-     companyRegNo: string;
-     server: string;
-     dbName: string;
-     companyName: string;
+  companyRegNo: string;
+  server: string;
+  dbName: string;
+  companyName: string;
 }
 
 export interface UserInfo {
   phoneNo: string;
   token: string;
-  dbase:
+  dbase: databaseModel;
 }
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
