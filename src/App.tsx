@@ -5,9 +5,17 @@ import HomePage from "./pages/HomePage";
 import FullscreenScanner from "./pages/Scanner";
 import { useEffect, useState } from "react";
 
+export interface databaseModel {
+     companyRegNo: string;
+     server: string;
+     dbName: string;
+     companyName: string;
+}
+
 export interface UserInfo {
+  phoneNo: string;
   token: string;
-  username: string;
+  dbase:
 }
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
