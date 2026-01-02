@@ -19,15 +19,15 @@ function App() {
       console.log("✅ Received user info from native:", info);
       setUserInfo(info);
 
-      if (window.webkit?.messageHandlers?.barcodeScanner) {
-        window.webkit.messageHandlers.barcodeScanner.postMessage("reactReady");
-      }
-
       // Store token in localStorage if needed
       if (info.token) {
         localStorage.setItem("authToen", info.token);
       }
     };
+
+    if (window.webkit?.messageHandlers?.barcodeScanner) {
+      window.webkit.messageHandlers.barcodeScanner.postMessage("reactReady");
+    }
 
     // Cleanup
     return () => {
