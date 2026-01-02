@@ -6,7 +6,7 @@ const HomePage = ({ userInfo }: BarcodeScannerButtonProps) => {
   return (
     <div className="">
       <div className="flex flex-col gap-4 items-center pt-16">
-        <div className="text-black">{userInfo?.username ?? "no dbase"}</div>
+        <div className="text-black">{userInfo?.phoneNo ?? "no phoneNo"}</div>
         <Link to="/inventory">
           <CustomButton title="Бар тооллого" />
         </Link>

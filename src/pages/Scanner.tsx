@@ -94,7 +94,7 @@ const BarcodeScannerButton = ({ userInfo }: BarcodeScannerButtonProps) => {
   return (
     <div className="flex flex-row justify-center items-center pt-4">
       <div className="flex flex-col gap-4">
-        <div>{userInfo?.token ?? "obsoo"}</div>
+        <div>{userInfo?.dbase?.dbName ?? "obsoo"}</div>
         <CustomButton
           onClick={startScanner}
           title="Scan barcode"
