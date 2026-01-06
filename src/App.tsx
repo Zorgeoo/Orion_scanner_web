@@ -42,6 +42,7 @@ function App() {
         setCount(66);
       }
     } catch (error: unknown) {
+      setCount(99);
       if (error instanceof Error) {
         setErrorMsg(error.message);
       } else if (typeof error === "string") {
@@ -82,7 +83,9 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<HomePage error="" userInfo={userInfo} count={count} />}
+          element={
+            <HomePage error={errorMsg} userInfo={userInfo} count={count} />
+          }
         />
         <Route
           path="/inventory"
