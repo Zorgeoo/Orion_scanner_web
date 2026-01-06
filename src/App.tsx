@@ -26,6 +26,26 @@ function App() {
 
   const [count, setCount] = useState<number>(0);
 
+  const getModules = async (phone: string, dbase: string) => {
+    setCount(11);
+    try {
+      const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
+      input.addParam("@phone", "nvarchar", 50, phone);
+      input.addParam("@db_name", "nvarchar", 50, dbase);
+      const res = await api.post<APIResponse>("action/exec_proc", { input });
+
+      if (res.data.is_succeeded) {
+        // setCount(res.data.result?.length);
+        setCount(77);
+      } else {
+        setCount(66);
+      }
+    } catch (error) {
+      console.log(error);
+      setCount(99);
+    }
+  };
+
   useEffect(() => {
     // 📥 Setup receiver for user info from native app
 
@@ -51,23 +71,6 @@ function App() {
     };
   }, []);
 
-  const getModules = async (phone: string, dbase: string) => {
-    try {
-      const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
-      input.addParam("@phone", "nvarchar", 50, phone);
-      input.addParam("@db_name", "nvarchar", 50, dbase);
-      const res = await api.post<APIResponse>("action/exec_proc", { input });
-
-      if (res.data.is_succeeded) {
-        // setCount(res.data.result?.length);
-        setCount(77);
-      } else {
-        setCount(66);
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
   return (
     <>
       <Routes>
