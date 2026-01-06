@@ -30,6 +30,7 @@ function App() {
 
   const getModules = async (phone: string, dbase: string) => {
     setCount(11);
+    console.log("test");
     try {
       const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
       input.addParam("@phone", "nvarchar", 50, phone);
