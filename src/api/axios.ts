@@ -1,7 +1,7 @@
 import axios from "axios";
-const apiUrl = import.meta.env.VITE_API_URL;
+// const apiUrl = import.meta.env.VITE_API_URL;
 const api = axios.create({
-  baseURL: `${apiUrl}`,
+  baseURL: "https://server.orion.mn/ORION_WebAPI/",
   timeout: 10000,
 });
 
