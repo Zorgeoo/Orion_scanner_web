@@ -4,6 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import FullscreenScanner from "./pages/Scanner";
 import { useEffect, useState } from "react";
+import api from "./api/axios";
+import { InputModel } from "./types/inputModel";
+import { APIResponse } from "./types/APIResponse";
 
 export interface databaseModel {
   companyRegNo: string;
@@ -15,21 +18,25 @@ export interface databaseModel {
 export interface UserInfo {
   phoneNo: string;
   token: string;
-  dbase: databaseModel;
+  dbase?: databaseModel;
 }
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
+
+  const [count, setCount] = useState<number>(0);
 
   useEffect(() => {
     // 📥 Setup receiver for user info from native app
 
     window.setUserInfo = (info: UserInfo) => {
-      console.log("✅ Received user info from native:", info);
       setUserInfo(info);
 
-      // Store token in localStorage if needed
       if (info.token) {
-        localStorage.setItem("authToen", info.token);
+        localStorage.setItem("token", info.token);
+      }
+
+      if (info.phoneNo && info.dbase?.dbName) {
+        getModules(info.phoneNo, info.dbase?.dbName);
       }
     };
 
@@ -42,10 +49,26 @@ function App() {
       delete window.setUserInfo;
     };
   }, []);
+
+  const getModules = async (phone: string, dbase: string) => {
+    try {
+      const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
+      input.addParam("@phone", "nvarchar", 50, phone);
+      input.addParam("@db_name", "nvarchar", 50, dbase);
+      const res = await api.post<APIResponse>("action/exec_proc", { input });
+
+      if (res.data.result) {
+        setCount(res.data.result?.length);
+      }
+    } catch (error) {}
+  };
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage userInfo={userInfo} />} />
+        <Route
+          path="/"
+          element={<HomePage userInfo={userInfo} count={count} />}
+        />
         <Route
           path="/inventory"
           element={<FullscreenScanner userInfo={userInfo} />}

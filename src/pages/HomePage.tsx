@@ -1,12 +1,16 @@
 import CustomButton from "@/components/common/CustomButton";
 import { Link } from "react-router-dom";
-import { BarcodeScannerButtonProps } from "./Scanner";
-
-const HomePage = ({ userInfo }: BarcodeScannerButtonProps) => {
+import { UserInfo } from "@/App";
+export interface HomePageProps {
+  userInfo: UserInfo | null;
+  count: number;
+}
+const HomePage = ({ userInfo, count }: HomePageProps) => {
   return (
     <div className="">
       <div className="flex flex-col gap-4 items-center pt-16">
         <div className="text-black">{userInfo?.phoneNo ?? "no phoneNo"}</div>
+        <div>{count}</div>
         <Link to="/inventory">
           <CustomButton title="Бар тооллого" />
         </Link>
