@@ -55,7 +55,9 @@ function App() {
           );
         } else if (error.request) {
           // Request was made but no response received
-          setErrorMsg(error.request);
+          setErrorMsg(
+            `Request URL: ${error.request?.responseURL}, Method: ${error.request?.method}`
+          );
         } else {
           // Something happened setting up the request
           setErrorMsg(`Axios setup error: ${error.message}`);
