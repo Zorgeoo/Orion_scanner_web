@@ -8,6 +8,7 @@ import api from "./api/axios";
 
 import { APIResponse } from "./types/APIResponse";
 import { InputModel } from "./types/InputModel";
+import axios from "axios";
 
 export interface databaseModel {
   companyRegNo: string;
@@ -43,13 +44,30 @@ function App() {
       }
     } catch (error: unknown) {
       setCount(99);
-      if (error instanceof Error) {
+      if (axios.isAxiosError(error)) {
+        // Axios error: you can inspect response
+        if (error.response) {
+          // Server responded with a status code out of 2xx range
+          setErrorMsg(
+            `Error ${error.response.status}: ${JSON.stringify(
+              error.response.data
+            )}`
+          );
+        } else if (error.request) {
+          // Request was made but no response received
+          setErrorMsg("No response received from server");
+        } else {
+          // Something happened setting up the request
+          setErrorMsg(`Axios setup error: ${error.message}`);
+        }
+      } else if (error instanceof Error) {
+        // Generic JS error
         setErrorMsg(error.message);
-      } else if (typeof error === "string") {
-        setErrorMsg(error);
       } else {
         setErrorMsg("An unexpected error occurred");
       }
+
+      console.log(error); // <-- this will give full stack trace in console
     }
   };
 
