@@ -25,6 +25,7 @@ function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
 
   const [count, setCount] = useState<number>(0);
+  const [errorMsg, setErrorMsg] = useState<string>("");
 
   const getModules = async (phone: string, dbase: string) => {
     setCount(11);
@@ -40,9 +41,14 @@ function App() {
       } else {
         setCount(66);
       }
-    } catch (error) {
-      console.log(error);
-      setCount(99);
+    } catch (error: unknown) {
+      if (error instanceof Error) {
+        setErrorMsg(error.message);
+      } else if (typeof error === "string") {
+        setErrorMsg(error);
+      } else {
+        setErrorMsg("An unexpected error occurred");
+      }
     }
   };
 
@@ -76,7 +82,7 @@ function App() {
       <Routes>
         <Route
           path="/"
-          element={<HomePage userInfo={userInfo} count={count} />}
+          element={<HomePage error="" userInfo={userInfo} count={count} />}
         />
         <Route
           path="/inventory"
