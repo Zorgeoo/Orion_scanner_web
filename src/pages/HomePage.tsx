@@ -14,7 +14,7 @@ const HomePage = ({ userInfo, count, error, token }: HomePageProps) => {
         <div className="text-black">{userInfo?.phoneNo ?? "no phoneNo"}</div>
         <div>{count}</div>
         <div>{error}</div>
-        <div>{token}</div>
+        <div>{token ? "token setelsen" : "setleegui"}</div>
         <Link to="/inventory">
           <CustomButton title="Бар тооллого" />
         </Link>
