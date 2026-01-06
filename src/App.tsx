@@ -23,7 +23,7 @@ export interface UserInfo {
 }
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-
+  const [token, setToken] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
@@ -60,7 +60,8 @@ function App() {
       setUserInfo(info);
 
       if (info.token) {
-        localStorage.setItem("token", info.token);
+        localStorage.setItem("authToken", info.token);
+        setToken(true);
       }
 
       if (info.phoneNo && info.dbase?.dbName) {
@@ -84,7 +85,12 @@ function App() {
         <Route
           path="/"
           element={
-            <HomePage error={errorMsg} userInfo={userInfo} count={count} />
+            <HomePage
+              token={token}
+              error={errorMsg}
+              userInfo={userInfo}
+              count={count}
+            />
           }
         />
         <Route

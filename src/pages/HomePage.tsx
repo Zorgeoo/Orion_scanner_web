@@ -5,14 +5,16 @@ export interface HomePageProps {
   userInfo: UserInfo | null;
   count: number;
   error: string;
+  token: boolean;
 }
-const HomePage = ({ userInfo, count, error }: HomePageProps) => {
+const HomePage = ({ userInfo, count, error, token }: HomePageProps) => {
   return (
     <div className="">
       <div className="flex flex-col gap-4 items-center pt-16">
         <div className="text-black">{userInfo?.phoneNo ?? "no phoneNo"}</div>
         <div>{count}</div>
         <div>{error}</div>
+        <div>{token}</div>
         <Link to="/inventory">
           <CustomButton title="Бар тооллого" />
         </Link>
