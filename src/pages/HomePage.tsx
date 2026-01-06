@@ -28,6 +28,9 @@ const HomePage = ({
         <Link to="/inventory">
           <CustomButton title="Бараа захиалга" />
         </Link>
+        <Link to="/toollogo">
+          <CustomButton title="Тооллого хийх" />
+        </Link>
         <button onClick={getModules}>Get modules</button>
       </div>
     </div>

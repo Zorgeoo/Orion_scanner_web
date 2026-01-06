@@ -9,6 +9,7 @@ import api from "./api/axios";
 import { APIResponse } from "./types/APIResponse";
 import { InputModel } from "./types/InputModel";
 import axios from "axios";
+import ToollogoPage from "./pages/ToollogoPage";
 
 export interface databaseModel {
   companyRegNo: string;
@@ -120,6 +121,7 @@ function App() {
           path="/inventory"
           element={<FullscreenScanner userInfo={userInfo} />}
         />
+        <Route path="/toollogo" element={<ToollogoPage />} />
       </Routes>
     </>
   );
