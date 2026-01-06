@@ -58,10 +58,15 @@ function App() {
       input.addParam("@db_name", "nvarchar", 50, dbase);
       const res = await api.post<APIResponse>("action/exec_proc", { input });
 
-      if (res.data.result) {
-        setCount(res.data.result?.length);
+      if (res.data.is_succeeded) {
+        // setCount(res.data.result?.length);
+        setCount(77);
+      } else {
+        setCount(66);
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <>
