@@ -6,8 +6,15 @@ export interface HomePageProps {
   count: number;
   error: string;
   token: boolean;
+  getModules: () => void;
 }
-const HomePage = ({ userInfo, count, error, token }: HomePageProps) => {
+const HomePage = ({
+  userInfo,
+  count,
+  error,
+  token,
+  getModules,
+}: HomePageProps) => {
   return (
     <div className="">
       <div className="flex flex-col gap-4 items-center pt-16">
@@ -21,6 +28,7 @@ const HomePage = ({ userInfo, count, error, token }: HomePageProps) => {
         <Link to="/inventory">
           <CustomButton title="Бараа захиалга" />
         </Link>
+        <button onClick={getModules}>Get modules</button>
       </div>
     </div>
   );

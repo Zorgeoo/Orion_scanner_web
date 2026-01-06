@@ -28,14 +28,15 @@ function App() {
   const [count, setCount] = useState<number>(0);
   const [errorMsg, setErrorMsg] = useState<string>("");
 
-  const getModules = async (phone: string, dbase: string) => {
+  const getModules = async () => {
     setCount(11);
     console.log("test");
     try {
       const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
-      input.addParam("@phone", "nvarchar", 50, phone);
-      input.addParam("@db_name", "nvarchar", 50, dbase);
+      input.addParam("@phone", "nvarchar", 50, "91112892");
+      input.addParam("@db_name", "nvarchar", 50, "OF_BuyantRashaan_Test");
       const res = await api.post<APIResponse>("action/exec_proc", { input });
+      console.log(res);
 
       if (res.data.is_succeeded) {
         // setCount(res.data.result?.length);
@@ -85,9 +86,9 @@ function App() {
         setToken(true);
       }
 
-      if (info.phoneNo && info.dbase?.dbName) {
-        getModules(info.phoneNo, info.dbase?.dbName);
-      }
+      // if (info.phoneNo && info.dbase?.dbName) {
+      //   getModules(info.phoneNo, info.dbase?.dbName);
+      // }
     };
 
     if (window.webkit?.messageHandlers?.barcodeScanner) {
@@ -107,6 +108,7 @@ function App() {
           path="/"
           element={
             <HomePage
+              getModules={getModules}
               token={token}
               error={errorMsg}
               userInfo={userInfo}
