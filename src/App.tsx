@@ -36,7 +36,7 @@ function App() {
       const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
       input.addParam("@phone", "nvarchar", 50, "91112892");
       input.addParam("@db_name", "nvarchar", 50, "OF_BuyantRashaan_Test");
-      const res = await api.post<APIResponse>("action/exec_proc", { input });
+      const res = await api.post<APIResponse>("action/exec_proc", input);
       console.log(res);
 
       if (res.data.is_succeeded) {
