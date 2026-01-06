@@ -5,8 +5,9 @@ import HomePage from "./pages/HomePage";
 import FullscreenScanner from "./pages/Scanner";
 import { useEffect, useState } from "react";
 import api from "./api/axios";
-import { InputModel } from "./types/inputModel";
+
 import { APIResponse } from "./types/APIResponse";
+import { InputModel } from "./types/InputModel";
 
 export interface databaseModel {
   companyRegNo: string;
