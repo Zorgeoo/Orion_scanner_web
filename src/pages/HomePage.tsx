@@ -1,12 +1,14 @@
 import CustomButton from "@/components/common/CustomButton";
 import { Link } from "react-router-dom";
-import { UserInfo } from "@/App";
+import { ModuleModel, UserInfo } from "@/App";
+
 export interface HomePageProps {
   userInfo: UserInfo | null;
   count: number;
   error: string;
   token: boolean;
   getModules: () => void;
+  modules: ModuleModel[] | null;
 }
 const HomePage = ({
   userInfo,
@@ -14,6 +16,7 @@ const HomePage = ({
   error,
   token,
   getModules,
+  modules,
 }: HomePageProps) => {
   return (
     <div className="">
@@ -31,6 +34,9 @@ const HomePage = ({
         <Link to="/toollogo">
           <CustomButton title="Тооллого хийх" />
         </Link>
+        {modules?.map((item) => (
+          <li key={item.moduleCode}>{item.moduleName}</li>
+        ))}
         <button onClick={getModules}>Get modules</button>
       </div>
     </div>

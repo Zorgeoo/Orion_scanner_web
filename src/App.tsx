@@ -102,9 +102,6 @@ function App() {
         />
         <Route path="/toollogo" element={<ToollogoPage />} />
       </Routes>
-      {modules?.map((item) => (
-        <li key={item.moduleCode}>{item.moduleName}</li>
-      ))}
     </>
   );
 }
