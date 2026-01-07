@@ -131,7 +131,7 @@ const ToollogoPage: React.FC = () => {
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg mb-6">
           <div className="flex flex-col gap-4">
             <div className="flex flex-row gap-4">
-              <div className="flex-1">
+              <div className="w-fit">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Эхлэх огноо
                 </label>
@@ -142,7 +142,7 @@ const ToollogoPage: React.FC = () => {
                   className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
-              <div className="flex-1">
+              <div className="w-fit">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Дуусах огноо
                 </label>
@@ -241,7 +241,7 @@ const ToollogoPage: React.FC = () => {
                       Нийт тоо ширхэг
                     </span>
                     <span className="text-xl font-bold text-gray-800">
-                      `{item.totalAmount.toLocaleString()}₮`
+                      {item.totalAmount.toLocaleString()}₮
                     </span>
                   </div>
                 </div>
