@@ -70,7 +70,10 @@ const HomePage = () => {
                     ? "/inventory"
                     : "/"
                 }
-                className="w-full px-6 py-4 bg-white text-gray-900 font-semibold rounded-2xl shadow-md hover:shadow-xl hover:bg-yellow-500 hover:text-white transition-all duration-300 text-center"
+                className="w-full px-6 py-4 font-semibold rounded-2xl shadow-md text-white text-center 
+             bg-gradient-to-r from-blue-500 to-purple-600 
+             hover:from-blue-600 hover:to-purple-700 
+             transition-all duration-300"
               >
                 {name}
               </Link>
