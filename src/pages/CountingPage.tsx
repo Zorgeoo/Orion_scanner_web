@@ -3,7 +3,7 @@ import ListSkeleton from "@/components/common/ListSkeleton";
 import { UserContext } from "@/context/UserContext";
 import { ProductModel } from "@/types/ProductModel";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const CountingPage = () => {
   const context = useContext(UserContext);
@@ -49,19 +49,25 @@ const CountingPage = () => {
         {!isLoading && products && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {products.map((product, index) => {
+              const productId = product[0];
               const barcodeAndName = product[1];
               const qtyAndPrice = product[2];
 
               return (
-                <div
-                  key={index}
-                  className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                <Link
+                  to={`/toollogo/${countingId}/${productId}`}
+                  state={{ product }}
                 >
-                  <p className="font-semibold text-gray-900 text-lg mb-2">
-                    {barcodeAndName}
-                  </p>
-                  <p className="text-gray-500 text-sm">{qtyAndPrice}</p>
-                </div>
+                  <div
+                    key={index}
+                    className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                  >
+                    <p className="font-semibold text-gray-900 text-lg mb-2">
+                      {barcodeAndName}
+                    </p>
+                    <p className="text-gray-500 text-sm">{qtyAndPrice}</p>
+                  </div>
+                </Link>
               );
             })}
           </div>

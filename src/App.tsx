@@ -7,6 +7,7 @@ import FullscreenScanner from "./pages/Scanner";
 import { UserProvider } from "./context/UserContext";
 import CountingPage from "./pages/CountingPage";
 import CountingListPage from "./pages/CountinListPage";
+import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
@@ -17,6 +18,10 @@ function App() {
           <Route path="/inventory" element={<FullscreenScanner />} />
           <Route path="/toollogo" element={<CountingListPage />} />
           <Route path="/toollogo/:countingId" element={<CountingPage />} />
+          <Route
+            path="/toollogo/:countingId/:productId"
+            element={<ProductPage />}
+          />
         </Routes>
       </UserProvider>
     </>
