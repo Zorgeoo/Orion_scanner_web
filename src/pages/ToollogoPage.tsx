@@ -250,11 +250,9 @@ const ToollogoPage: React.FC = () => {
                       </span>
                     </div>
                     <div className="flex items-center justify-between pt-3 border-t border-gray-200">
-                      <span className="text-sm text-gray-500">
-                        Нийт тоо ширхэг
-                      </span>
+                      <span className="text-sm text-gray-500">Нийт дүн :</span>
                       <span className="text-xl font-bold text-gray-800">
-                        {item.totalAmount.toLocaleString()}
+                        {item.totalAmount.toLocaleString()}₮
                       </span>
                     </div>
                   </div>
