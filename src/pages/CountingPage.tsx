@@ -1,4 +1,5 @@
 import { getProducts } from "@/api/services";
+import ListSkeleton from "@/components/common/ListSkeleton";
 import { UserContext } from "@/context/UserContext";
 import { ProductModel } from "@/types/ProductModel";
 import { useContext, useEffect, useState } from "react";
@@ -7,8 +8,8 @@ import { useParams } from "react-router-dom";
 const CountingPage = () => {
   const context = useContext(UserContext);
   if (!context) return null;
-
   const { userInfo } = context;
+
   const { countingId } = useParams<{ countingId: string }>();
 
   const [products, setProducts] = useState<ProductModel[] | null>(null);
@@ -33,35 +34,39 @@ const CountingPage = () => {
   }, [userInfo, countingId]);
 
   return (
-    <div className="min-h-screen p-4">
-      <h1 className="text-2xl font-bold mb-4">
-        Products for Counting ID: {countingId}
-      </h1>
+    <div className="min-h-screen p-6 bg-gray-50">
+      <div className="max-w-4xl mx-auto">
+        <h1 className="text-3xl font-bold mb-6 text-gray-900">{countingId}</h1>
 
-      {isLoading && <p>Loading products...</p>}
+        {isLoading && <ListSkeleton />}
 
-      {!isLoading && (!products || products.length === 0) && (
-        <p>No products found</p>
-      )}
+        {!isLoading && (!products || products.length === 0) && (
+          <div className="text-center py-10 text-gray-500 text-lg">
+            No products found
+          </div>
+        )}
 
-      {!isLoading && products && (
-        <div className="space-y-4">
-          {products.map((product, index) => {
-            const barcodeAndName = product[1]; // index 1 = barcode + name
-            const qtyAndPrice = product[2]; // index 2 = quantity & price
+        {!isLoading && products && (
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {products.map((product, index) => {
+              const barcodeAndName = product[1];
+              const qtyAndPrice = product[2];
 
-            return (
-              <div
-                key={index}
-                className="bg-white p-4 rounded-xl shadow hover:shadow-lg transition"
-              >
-                <p className="font-semibold text-gray-800">{barcodeAndName}</p>
-                <p className="text-gray-500">{qtyAndPrice}</p>
-              </div>
-            );
-          })}
-        </div>
-      )}
+              return (
+                <div
+                  key={index}
+                  className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col"
+                >
+                  <p className="font-semibold text-gray-900 text-lg mb-2">
+                    {barcodeAndName}
+                  </p>
+                  <p className="text-gray-500 text-sm">{qtyAndPrice}</p>
+                </div>
+              );
+            })}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

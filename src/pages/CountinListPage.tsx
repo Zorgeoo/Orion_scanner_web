@@ -50,7 +50,7 @@ const getTypeConfig = (type: InventoryCount["type"]) => {
   }
 };
 
-const ToollogoPage: React.FC = () => {
+const CountingListPage: React.FC = () => {
   const today = new Date();
   const threeMonthsAgo = new Date();
   threeMonthsAgo.setMonth(today.getMonth() - 3);
@@ -264,4 +264,4 @@ const ToollogoPage: React.FC = () => {
   );
 };
 
-export default ToollogoPage;
+export default CountingListPage;
