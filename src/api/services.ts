@@ -3,6 +3,7 @@ import api from "./axios";
 import { InputModel } from "@/types/InputModel";
 export type ModuleModel = [string, string];
 const baseDbName = "orion";
+
 export const getModules = async (
   phone: string,
   dbName: string
@@ -20,6 +21,29 @@ export const getModules = async (
     }
     return [];
   } catch (error: unknown) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getCountingList = async (dateStart: string, dateEnd: string) => {
+  try {
+    const input = new InputModel(baseDbName, "spLoad_CntApp_CountingList");
+
+    input.addParam("@date_start", "datetime", 0, dateStart);
+    input.addParam("@date_end", "datetime", 0, dateEnd);
+
+    const res = await api.post<BaseResponse<ModuleModel[]>>(
+      "action/exec_proc",
+      input
+    );
+    console.log(res);
+
+    if (res.data.is_succeeded && res.data.result) {
+      return res.data.result;
+    }
+    return [];
+  } catch (error) {
     console.log(error);
     return [];
   }

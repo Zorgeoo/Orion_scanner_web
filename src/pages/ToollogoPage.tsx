@@ -1,5 +1,6 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect } from "react";
 import { format } from "date-fns";
+import { getCountingList } from "@/api/services";
 
 interface Transaction {
   id: string;
@@ -64,6 +65,10 @@ const ToollogoPage: React.FC = () => {
       return true;
     });
   }, [startDate, endDate]);
+
+  useEffect(() => {
+    getCountingList(startDate, endDate);
+  }, []);
 
   return (
     <div className="max-w-5xl mx-auto p-6">
