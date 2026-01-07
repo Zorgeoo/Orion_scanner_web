@@ -219,33 +219,35 @@ const ToollogoPage: React.FC = () => {
               filteredData.map((item) => {
                 const config = getTypeConfig(item.type);
                 return (
-                  <Link
-                    to={`/toollogo/${item.id}`}
-                    key={item.id}
-                    className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all"
-                  >
-                    <div className="flex items-start justify-between mb-3">
-                      <div>
-                        <p className="text-xs text-gray-500 mb-1">{item.id}</p>
-                        <p className="font-bold text-gray-800 text-lg">
-                          {item.date}
-                        </p>
-                        <p className="text-sm text-gray-500 mt-1">
-                          {item.typeName}
-                        </p>
+                  <Link to={`/toollogo/${item.id}`} key={item.id}>
+                    <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
+                      <div className="flex items-start justify-between mb-3">
+                        <div>
+                          <p className="text-xs text-gray-500 mb-1">
+                            {item.id}
+                          </p>
+                          <p className="font-bold text-gray-800 text-lg">
+                            {item.date}
+                          </p>
+                          <p className="text-sm text-gray-500 mt-1">
+                            {item.typeName}
+                          </p>
+                        </div>
+                        <span
+                          className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}
+                        >
+                          <span>{config.icon}</span>
+                          {config.label}
+                        </span>
                       </div>
-                      <span
-                        className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}
-                      >
-                        <span>{config.icon}</span>
-                        {config.label}
-                      </span>
-                    </div>
-                    <div className="flex items-center justify-between pt-3 border-t border-gray-200">
-                      <span className="text-sm text-gray-500">Нийт дүн :</span>
-                      <span className="text-xl font-bold text-gray-800">
-                        {item.totalAmount.toLocaleString()}₮
-                      </span>
+                      <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                        <span className="text-sm text-gray-500">
+                          Нийт дүн :
+                        </span>
+                        <span className="text-xl font-bold text-gray-800">
+                          {item.totalAmount.toLocaleString()}₮
+                        </span>
+                      </div>
                     </div>
                   </Link>
                 );
