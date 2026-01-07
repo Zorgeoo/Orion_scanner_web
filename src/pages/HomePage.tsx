@@ -35,7 +35,10 @@ const HomePage = ({
           <CustomButton title="Тооллого хийх" />
         </Link>
         {modules?.map(([code, name]) => (
-          <li key={code}>{name}</li>
+          <>
+            {console.log(code)}
+            <li key={code}>{name}</li>
+          </>
         ))}
         <button onClick={getModules}>Get modules</button>
       </div>
