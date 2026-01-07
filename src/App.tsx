@@ -28,8 +28,10 @@ export type ModuleModel = [string, string];
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [modules, setModules] = useState<ModuleModel[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const getModules = async () => {
+    setIsLoading(true);
     try {
       const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
       input.addParam("@phone", "nvarchar", 50, "91112892");
@@ -38,13 +40,13 @@ function App() {
         "action/exec_proc",
         input
       );
-      console.log(res);
-
       if (res.data.is_succeeded && res.data.result) {
         setModules(res.data.result);
       }
+      setIsLoading(false);
     } catch (error: unknown) {
       console.log(error);
+      setIsLoading(false);
     }
   };
 
@@ -77,7 +79,10 @@ function App() {
   return (
     <>
       <Routes>
-        <Route path="/" element={<HomePage modules={modules} />} />
+        <Route
+          path="/"
+          element={<HomePage isLoading={isLoading} modules={modules} />}
+        />
         <Route
           path="/inventory"
           element={<FullscreenScanner userInfo={userInfo} />}

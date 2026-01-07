@@ -1,24 +1,19 @@
-import CustomButton from "@/components/common/CustomButton";
 import { Link } from "react-router-dom";
-import { ModuleModel, UserInfo } from "@/App";
+import { ModuleModel } from "@/App";
+import HomeSkeleton from "@/components/common/HomeSkeleton";
 
 export interface HomePageProps {
   modules: ModuleModel[] | null;
+  isLoading: boolean;
 }
-const HomePage = ({ modules }: HomePageProps) => {
+const HomePage = ({ modules, isLoading }: HomePageProps) => {
   return (
-    <div className="">
-      <div className="flex flex-col gap-4 items-center pt-16">
-        <Link to="/inventory">
-          <CustomButton title="Бар тооллого" />
-        </Link>
-        <Link to="/inventory">
-          <CustomButton title="Бараа захиалга" />
-        </Link>
-        <Link to="/toollogo">
-          <CustomButton title="Тооллого хийх" />
-        </Link>
-        {modules && modules.length > 0 && (
+    <div>
+      {isLoading ? (
+        <HomeSkeleton />
+      ) : (
+        modules &&
+        modules.length > 0 && (
           <div className="flex flex-col gap-2 w-64 mx-auto pt-16">
             {modules.map(([code, name]) => (
               <Link
@@ -36,8 +31,8 @@ const HomePage = ({ modules }: HomePageProps) => {
               </Link>
             ))}
           </div>
-        )}
-      </div>
+        )
+      )}
     </div>
   );
 };
