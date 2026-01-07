@@ -220,7 +220,7 @@ const ToollogoPage: React.FC = () => {
                 const config = getTypeConfig(item.type);
                 return (
                   <Link to={`/toollogo/${item.id}`} key={item.id}>
-                    <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
+                    <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 gap-4 shadow-lg hover:shadow-xl transition-all">
                       <div className="flex items-start justify-between mb-3">
                         <div>
                           <p className="text-xs text-gray-500 mb-1">
