@@ -1,13 +1,14 @@
 import { useLocation } from "react-router-dom";
 import { useState } from "react";
 import { ProductModel } from "@/types/ProductModel";
+import CustomButton from "@/components/common/CustomButton";
 
 const ProductPage = () => {
   const location = useLocation();
   const product = location.state?.product as ProductModel | undefined;
 
   // quantity editable (index 6 in your tuple)
-  const [quantity, setQuantity] = useState<number>(product?.[6] ?? 0);
+  const [quantity, setQuantity] = useState<number | null>(product?.[6] ?? null);
 
   if (!product) return <p className="p-4">No product data available</p>;
 
@@ -21,10 +22,11 @@ const ProductPage = () => {
           <span className="font-medium text-gray-700">Quantity</span>
           <input
             type="number"
-            value={quantity}
+            value={quantity ? quantity : ""}
             onChange={(e) => setQuantity(Number(e.target.value))}
             className="w-20 text-center border rounded-lg px-2 py-1 focus:ring-2 focus:ring-blue-500 outline-none"
           />
+          <CustomButton title="Хадгалах" />
         </div>
 
         {/* Price info */}
