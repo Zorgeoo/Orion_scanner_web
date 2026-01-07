@@ -1,6 +1,7 @@
 import { BaseResponse } from "@/types/BaseResponse";
 import api from "./axios";
 import { InputModel } from "@/types/InputModel";
+import { CountingModel } from "@/types/CountingModel";
 export type ModuleModel = [string, string];
 const orionDbName = "orion";
 
@@ -30,14 +31,14 @@ export const getCountingList = async (
   dbName: string,
   startDate: string,
   endDate: string
-) => {
+): Promise<CountingModel[]> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_CountingList");
 
     input.addParam("@date_start", "datetime", 0, startDate);
     input.addParam("@date_end", "datetime", 0, endDate);
 
-    const res = await api.post<BaseResponse<ModuleModel[]>>(
+    const res = await api.post<BaseResponse<CountingModel[]>>(
       "action/exec_proc",
       input
     );
