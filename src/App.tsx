@@ -27,9 +27,6 @@ export type ModuleModel = [string, string];
 
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
-  const [token, setToken] = useState<boolean>(false);
-  const [count, setCount] = useState<number>(0);
-  const [errorMsg, setErrorMsg] = useState<string>("");
   const [modules, setModules] = useState<ModuleModel[] | null>(null);
 
   const getModules = async () => {
@@ -44,7 +41,6 @@ function App() {
       console.log(res);
 
       if (res.data.is_succeeded && res.data.result) {
-        setCount(res.data.result?.length);
         setModules(res.data.result);
       }
     } catch (error: unknown) {
@@ -57,10 +53,8 @@ function App() {
 
     window.setUserInfo = (info: UserInfo) => {
       setUserInfo(info);
-
       if (info.token) {
         localStorage.setItem("authToken", info.token);
-        setToken(true);
       }
     };
 
@@ -73,6 +67,7 @@ function App() {
       delete window.setUserInfo;
     };
   }, []);
+
   useEffect(() => {
     if (userInfo?.phoneNo && userInfo.dbase?.dbName) {
       getModules();
@@ -82,19 +77,7 @@ function App() {
   return (
     <>
       <Routes>
-        <Route
-          path="/"
-          element={
-            <HomePage
-              getModules={getModules}
-              token={token}
-              error={errorMsg}
-              userInfo={userInfo}
-              count={count}
-              modules={modules}
-            />
-          }
-        />
+        <Route path="/" element={<HomePage modules={modules} />} />
         <Route
           path="/inventory"
           element={<FullscreenScanner userInfo={userInfo} />}

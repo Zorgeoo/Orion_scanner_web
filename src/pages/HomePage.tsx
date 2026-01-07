@@ -3,28 +3,12 @@ import { Link } from "react-router-dom";
 import { ModuleModel, UserInfo } from "@/App";
 
 export interface HomePageProps {
-  userInfo: UserInfo | null;
-  count: number;
-  error: string;
-  token: boolean;
-  getModules: () => void;
   modules: ModuleModel[] | null;
 }
-const HomePage = ({
-  userInfo,
-  count,
-  error,
-  token,
-  getModules,
-  modules,
-}: HomePageProps) => {
+const HomePage = ({ modules }: HomePageProps) => {
   return (
     <div className="">
       <div className="flex flex-col gap-4 items-center pt-16">
-        <div className="text-black">{userInfo?.phoneNo ?? "no phoneNo"}</div>
-        <div>{count}</div>
-        <div>{error}</div>
-        <div>{token ? "token setelsen" : "setleegui"}</div>
         <Link to="/inventory">
           <CustomButton title="Бар тооллого" />
         </Link>
@@ -35,14 +19,24 @@ const HomePage = ({
           <CustomButton title="Тооллого хийх" />
         </Link>
         {modules && modules.length > 0 && (
-          <ul>
-            {modules.map(([code, name]) => {
-              console.log(code); // this will now run
-              return <li key={code}>{name}</li>;
-            })}
-          </ul>
+          <div className="flex flex-col gap-2 w-64 mx-auto pt-16">
+            {modules.map(([code, name]) => (
+              <Link
+                key={code}
+                to={
+                  code === "toollogo"
+                    ? "/toollogo"
+                    : code === "product_info"
+                    ? "/inventory"
+                    : "/"
+                }
+                className="px-4 py-3 bg-gray-100 rounded hover:bg-gray-200 text-center"
+              >
+                {name}
+              </Link>
+            ))}
+          </div>
         )}
-        <button onClick={getModules}>Get modules</button>
       </div>
     </div>
   );
