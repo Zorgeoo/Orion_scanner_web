@@ -4,11 +4,9 @@ import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
 import FullscreenScanner from "./pages/Scanner";
 import { useEffect, useState } from "react";
-import api from "./api/axios";
 
-import { InputModel } from "./types/InputModel";
 import ToollogoPage from "./pages/ToollogoPage";
-import { BaseResponse } from "./types/BaseResponse";
+import { getModules, ModuleModel } from "./api/services";
 
 export interface databaseModel {
   companyRegNo: string;
@@ -23,32 +21,10 @@ export interface UserInfo {
   dbase?: databaseModel;
 }
 
-export type ModuleModel = [string, string];
-
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [modules, setModules] = useState<ModuleModel[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  const getModules = async () => {
-    setIsLoading(true);
-    try {
-      const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
-      input.addParam("@phone", "nvarchar", 50, "91112892");
-      input.addParam("@db_name", "nvarchar", 50, "OF_BuyantRashaan_Test");
-      const res = await api.post<BaseResponse<ModuleModel[]>>(
-        "action/exec_proc",
-        input
-      );
-      if (res.data.is_succeeded && res.data.result) {
-        setModules(res.data.result);
-      }
-      setIsLoading(false);
-    } catch (error: unknown) {
-      console.log(error);
-      setIsLoading(false);
-    }
-  };
 
   useEffect(() => {
     // 📥 Setup receiver for user info from native app
@@ -71,9 +47,19 @@ function App() {
   }, []);
 
   useEffect(() => {
-    if (userInfo?.phoneNo && userInfo.dbase?.dbName) {
-      getModules();
-    }
+    if (!userInfo) return;
+
+    const fetchModules = async () => {
+      setIsLoading(true);
+      const result = await getModules(
+        userInfo.phoneNo,
+        userInfo.dbase?.dbName || ""
+      );
+      setModules(result);
+      setIsLoading(false);
+    };
+
+    fetchModules();
   }, [userInfo]);
 
   return (
