@@ -34,7 +34,19 @@ const CountingPage = () => {
   }, [userInfo, countingId]);
 
   return (
-    <div className="min-h-screen p-6 bg-gray-50">
+    <div className="min-h-screen p-6">
+      <div className="fixed bottom-8 flex flex-col gap-8 z-10">
+        <button
+          className={`px-4 py-2 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md"`}
+        >
+          Баркод уншуулж тоолох
+        </button>
+        <button
+          className={`px-4 py-2 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md"`}
+        >
+          Барааны нэрээр хайж тоолох
+        </button>
+      </div>
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-gray-900">{countingId}</h1>
 
