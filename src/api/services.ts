@@ -79,22 +79,6 @@ export const getProducts = async (
   }
 };
 
-export const startScanner = () => {
-  if (window.webkit?.messageHandlers?.barcodeScanner) {
-    // iOS
-    setScannedCode(null);
-    setIsScanning(true);
-    window.webkit.messageHandlers.barcodeScanner.postMessage("openScanner");
-  } else if ((window as any).barcodeScanner) {
-    // Android
-    setScannedCode(null);
-    setIsScanning(true);
-    (window as any).barcodeScanner.postMessage("openScanner");
-  } else {
-    alert("Barcode scanner not available.");
-  }
-};
-
 // export const saveProductQuantity = async (
 //   dbName: string,
 //   product: ProductModel
