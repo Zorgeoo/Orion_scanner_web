@@ -35,26 +35,23 @@ const CountingPage = () => {
 
   return (
     <div className="min-h-screen p-6">
-      {/* <div className="fixed bottom-8 flex flex-col gap-8 z-10">
-        <button
-          className={`px-4 py-2 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md"`}
-        >
+      <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 flex flex-col gap-3 w-[90%] max-w-md">
+        <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-full shadow-lg hover:bg-yellow-600 transition-all">
           Баркод уншуулж тоолох
         </button>
-        <button
-          className={`px-4 py-2 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md"`}
-        >
-          Барааны нэрээр хайж тоолох
-        </button>
-      </div> */}
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col gap-4 z-10">
-        <button className="px-6 py-3 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md">
-          Баркод уншуулж тоолох
-        </button>
-        <button className="px-6 py-3 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md">
+        <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-full shadow-lg hover:bg-yellow-600 transition-all">
           Барааны нэрээр хайж тоолох
         </button>
       </div>
+
+      {/* <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col gap-4 z-10">
+        <button className="px-6 py-3 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md">
+          Баркод уншуулж тоолох
+        </button>
+        <button className="px-6 py-3 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md">
+          Барааны нэрээр хайж тоолох
+        </button>
+      </div> */}
 
       <div className="max-w-4xl mx-auto">
         <h1 className="text-3xl font-bold mb-6 text-gray-900">{countingId}</h1>
