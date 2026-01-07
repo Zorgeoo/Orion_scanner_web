@@ -34,12 +34,14 @@ const HomePage = ({
         <Link to="/toollogo">
           <CustomButton title="Тооллого хийх" />
         </Link>
-        {modules?.map(([code, name]) => (
-          <>
-            {console.log(code)}
-            <li key={code}>{name}</li>
-          </>
-        ))}
+        {modules && modules.length > 0 && (
+          <ul>
+            {modules.map(([code, name]) => {
+              console.log(code); // this will now run
+              return <li key={code}>{name}</li>;
+            })}
+          </ul>
+        )}
         <button onClick={getModules}>Get modules</button>
       </div>
     </div>

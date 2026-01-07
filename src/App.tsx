@@ -7,7 +7,6 @@ import { useEffect, useState } from "react";
 import api from "./api/axios";
 
 import { InputModel } from "./types/InputModel";
-import axios from "axios";
 import ToollogoPage from "./pages/ToollogoPage";
 import { BaseResponse } from "./types/BaseResponse";
 
@@ -24,23 +23,21 @@ export interface UserInfo {
   dbase?: databaseModel;
 }
 
-interface Modules {
-  moduleCode: string;
-  moduleName: string;
-}
+export type ModuleModel = [string, string];
+
 function App() {
   const [userInfo, setUserInfo] = useState<UserInfo | null>(null);
   const [token, setToken] = useState<boolean>(false);
   const [count, setCount] = useState<number>(0);
   const [errorMsg, setErrorMsg] = useState<string>("");
-  const [modules, setModules] = useState<Modules[] | null>(null);
+  const [modules, setModules] = useState<ModuleModel[] | null>(null);
 
   const getModules = async () => {
     try {
       const input = new InputModel("orion", "spLoad_Ph_PermittedModules");
       input.addParam("@phone", "nvarchar", 50, "91112892");
       input.addParam("@db_name", "nvarchar", 50, "OF_BuyantRashaan_Test");
-      const res = await api.post<BaseResponse<Modules[]>>(
+      const res = await api.post<BaseResponse<ModuleModel[]>>(
         "action/exec_proc",
         input
       );
@@ -65,10 +62,6 @@ function App() {
         localStorage.setItem("authToken", info.token);
         setToken(true);
       }
-
-      // if (info.phoneNo && info.dbase?.dbName) {
-      //   getModules(info.phoneNo, info.dbase?.dbName);
-      // }
     };
 
     if (window.webkit?.messageHandlers?.barcodeScanner) {
@@ -80,6 +73,11 @@ function App() {
       delete window.setUserInfo;
     };
   }, []);
+  useEffect(() => {
+    if (userInfo?.phoneNo && userInfo.dbase?.dbName) {
+      getModules();
+    }
+  }, [userInfo]);
 
   return (
     <>
@@ -93,6 +91,7 @@ function App() {
               error={errorMsg}
               userInfo={userInfo}
               count={count}
+              modules={modules}
             />
           }
         />
