@@ -1,138 +1,3 @@
-// import React, { useState, useMemo, useEffect } from "react";
-// import { format } from "date-fns";
-// import { getCountingList } from "@/api/services";
-
-// interface Transaction {
-//   id: string;
-//   date: string; // ISO string
-//   location: string;
-//   type: string;
-//   amount: number;
-// }
-
-// const sampleData: Transaction[] = [
-//   {
-//     id: "1",
-//     date: "2026-01-05",
-//     location: "Ulaanbaatar",
-//     type: "Income",
-//     amount: 5000,
-//   },
-//   {
-//     id: "2",
-//     date: "2026-01-06",
-//     location: "Darkhan",
-//     type: "Expense",
-//     amount: 2000,
-//   },
-//   {
-//     id: "3",
-//     date: "2026-01-04",
-//     location: "Erdenet",
-//     type: "Income",
-//     amount: 10000,
-//   },
-//   {
-//     id: "4",
-//     date: "2026-01-06",
-//     location: "Ulaanbaatar",
-//     type: "Expense",
-//     amount: 3500,
-//   },
-// ];
-
-// const ToollogoPage: React.FC = () => {
-//   const today = new Date();
-//   const threeMonthsAgo = new Date();
-//   threeMonthsAgo.setMonth(today.getMonth() - 3);
-//   const [startDate, setStartDate] = useState<string>(
-//     threeMonthsAgo.toISOString().split("T")[0]
-//   );
-
-//   const [endDate, setEndDate] = useState<string>(
-//     today.toISOString().split("T")[0]
-//   );
-
-//   const filteredData = useMemo(() => {
-//     return sampleData.filter((t) => {
-//       const txDate = new Date(t.date);
-//       const from = startDate ? new Date(startDate) : null;
-//       const to = endDate ? new Date(endDate) : null;
-
-//       if (from && txDate < from) return false;
-//       if (to && txDate > to) return false;
-
-//       return true;
-//     });
-//   }, [startDate, endDate]);
-
-//   useEffect(() => {
-//     getCountingList(startDate, endDate);
-//   }, []);
-
-//   return (
-//     <div className="max-w-5xl mx-auto p-6">
-//       <h1 className="text-3xl font-bold mb-6 text-gray-800">Тооллого</h1>
-
-//       <div className="mb-6 flex flex-wrap items-center gap-4">
-//         <div>
-//           <input
-//             type="date"
-//             value={startDate}
-//             onChange={(e) => setStartDate(e.target.value)}
-//             className="border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
-//           />
-//         </div>
-//         <div>
-//           <input
-//             type="date"
-//             value={endDate}
-//             onChange={(e) => setEndDate(e.target.value)}
-//             className="border rounded-lg p-2 focus:ring-2 focus:ring-blue-500"
-//           />
-//         </div>
-//       </div>
-
-//       {/* Table */}
-//       <div className="overflow-x-auto rounded-lg shadow-md">
-//         <table className="min-w-full bg-white divide-y divide-gray-200">
-//           <thead className="bg-gray-100">
-//             <tr>
-//               <th className="px-6 py-3 text-left">Date</th>
-//               <th className="px-6 py-3 text-left">Location</th>
-//               <th className="px-6 py-3 text-left">Type</th>
-//               <th className="px-6 py-3 text-right">Amount</th>
-//             </tr>
-//           </thead>
-//           <tbody>
-//             {filteredData.length === 0 ? (
-//               <tr>
-//                 <td colSpan={4} className="text-center py-4 text-gray-500">
-//                   No transactions found.
-//                 </td>
-//               </tr>
-//             ) : (
-//               filteredData.map((tx) => (
-//                 <tr key={tx.id} className="hover:bg-gray-50">
-//                   <td className="px-6 py-4">
-//                     {format(new Date(tx.date), "yyyy-MM-dd")}
-//                   </td>
-//                   <td className="px-6 py-4">{tx.location}</td>
-//                   <td className="px-6 py-4">{tx.type}</td>
-//                   <td className="px-6 py-4 text-right font-semibold">
-//                     {tx.amount.toLocaleString()}
-//                   </td>
-//                 </tr>
-//               ))
-//             )}
-//           </tbody>
-//         </table>
-//       </div>
-//     </div>
-//   );
-// };
-
-// export default ToollogoPage;
 import React, { useState, useMemo } from "react";
 
 // Simple date formatter
@@ -253,22 +118,19 @@ const ToollogoPage: React.FC = () => {
   }, [filteredData]);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-4 md:p-6 lg:p-8">
+    <div className="min-h-screen p-4 md:p-6 lg:p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div className="mb-6 md:mb-8">
           <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
             📋 Тооллогын жагсаалт
           </h1>
-          <p className="text-gray-600 text-sm md:text-base">
-            Барааны тооллогын түүх болон статистик
-          </p>
         </div>
 
         {/* Filters */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg mb-6">
           <div className="flex flex-col gap-4">
-            <div className="flex flex-col sm:flex-row gap-4">
+            <div className="flex flex-row gap-4">
               <div className="flex-1">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Эхлэх огноо
@@ -343,8 +205,7 @@ const ToollogoPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Mobile Card View */}
-        <div className="block lg:hidden space-y-4">
+        <div className="space-y-4">
           {filteredData.length === 0 ? (
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg">
               <div className="text-6xl mb-4">📭</div>
@@ -380,83 +241,13 @@ const ToollogoPage: React.FC = () => {
                       Нийт тоо ширхэг
                     </span>
                     <span className="text-xl font-bold text-gray-800">
-                      {item.totalAmount.toLocaleString()}
+                      `{item.totalAmount.toLocaleString()}₮`
                     </span>
                   </div>
                 </div>
               );
             })
           )}
-        </div>
-
-        {/* Desktop Table View */}
-        <div className="hidden lg:block bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg overflow-hidden">
-          <div className="overflow-x-auto">
-            <table className="min-w-full">
-              <thead>
-                <tr className="bg-gradient-to-r from-blue-500 to-purple-600 text-white">
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    ID
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    Огноо
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    Дэлгүүрийн нэр
-                  </th>
-                  <th className="px-6 py-4 text-left text-sm font-semibold">
-                    Төлөв
-                  </th>
-                  <th className="px-6 py-4 text-right text-sm font-semibold">
-                    Нийт тоо ширхэг
-                  </th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-gray-200">
-                {filteredData.length === 0 ? (
-                  <tr>
-                    <td colSpan={5} className="px-6 py-12 text-center">
-                      <div className="text-6xl mb-4">📭</div>
-                      <p className="text-gray-500">Тооллого олдсонгүй</p>
-                    </td>
-                  </tr>
-                ) : (
-                  filteredData.map((item) => {
-                    const config = getTypeConfig(item.type);
-                    return (
-                      <tr
-                        key={item.id}
-                        className="hover:bg-blue-50/50 transition-colors"
-                      >
-                        <td className="px-6 py-4 text-sm font-mono text-gray-600">
-                          {item.id}
-                        </td>
-                        <td className="px-6 py-4 text-sm text-gray-700">
-                          {formatDate(item.date)}
-                        </td>
-                        <td className="px-6 py-4 text-sm font-semibold text-gray-800">
-                          {item.shopName}
-                        </td>
-                        <td className="px-6 py-4">
-                          <span
-                            className={`inline-flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}
-                          >
-                            <span>{config.icon}</span>
-                            {config.label}
-                          </span>
-                        </td>
-                        <td className="px-6 py-4 text-right">
-                          <span className="text-lg font-bold text-gray-800">
-                            {item.totalAmount.toLocaleString()}
-                          </span>
-                        </td>
-                      </tr>
-                    );
-                  })
-                )}
-              </tbody>
-            </table>
-          </div>
         </div>
       </div>
     </div>
