@@ -138,10 +138,10 @@ const CountingListPage: React.FC = () => {
         {/* Filters */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg mb-6">
           <div className="flex flex-col gap-4">
-            <div className="flex gap-4 justify-between">
+            <div className="flex gap-4 justify-between pr-4">
               <div className="w-fit">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Эхлэх огноо
+                  Эхлэх огноо :
                 </label>
                 <input
                   type="date"
@@ -152,7 +152,7 @@ const CountingListPage: React.FC = () => {
               </div>
               <div className="w-fit">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Дуусах огноо
+                  Дуусах огноо :
                 </label>
                 <input
                   type="date"
