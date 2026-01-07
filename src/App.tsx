@@ -15,7 +15,7 @@ function App() {
       <UserProvider>
         <Routes>
           <Route path="/" element={<HomePage />} />
-          <Route path="/inventory" element={<FullscreenScanner />} />
+          <Route path="/barcodeScanner" element={<FullscreenScanner />} />
           <Route path="/toollogo" element={<CountingListPage />} />
           <Route path="/toollogo/:countingId" element={<CountingPage />} />
           <Route

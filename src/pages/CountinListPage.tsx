@@ -224,6 +224,7 @@ const CountingListPage: React.FC = () => {
                     to={`/toollogo/${item.id}`}
                     key={item.id}
                     className="block"
+                    state={{ date: item.date }}
                   >
                     <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
                       <div className="flex items-start justify-between mb-3">
