@@ -101,10 +101,10 @@ function App() {
           element={<FullscreenScanner userInfo={userInfo} />}
         />
         <Route path="/toollogo" element={<ToollogoPage />} />
-        {modules?.map((item) => (
-          <li key={item.moduleCode}>{item.moduleName}</li>
-        ))}
       </Routes>
+      {modules?.map((item) => (
+        <li key={item.moduleCode}>{item.moduleName}</li>
+      ))}
     </>
   );
 }
