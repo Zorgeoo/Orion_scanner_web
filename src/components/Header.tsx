@@ -43,7 +43,7 @@ const Header = () => {
   };
 
   return (
-    <nav className="fixed top-0 left-0 w-full h-16 flex items-center justify-between px-4 z-50 bg-white">
+    <nav className="fixed top-0 left-0 w-full z-50 px-4 pt-safe-header h-[64px] bg-white">
       <div
         onClick={goBack}
         className={`${
