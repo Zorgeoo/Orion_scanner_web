@@ -2,6 +2,7 @@ import { BaseResponse } from "@/types/BaseResponse";
 import api from "./axios";
 import { InputModel } from "@/types/InputModel";
 import { CountingModel } from "@/types/CountingModel";
+import { ProductModel } from "@/types/ProductModel";
 export type ModuleModel = [string, string];
 const orionDbName = "orion";
 
@@ -54,7 +55,10 @@ export const getCountingList = async (
   }
 };
 
-export const getProducts = async (dbName: string, id: string) => {
+export const getProducts = async (
+  dbName: string,
+  id: string
+): Promise<ProductModel[]> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_OneToollogoList");
 
