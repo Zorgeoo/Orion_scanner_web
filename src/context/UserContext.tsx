@@ -10,6 +10,7 @@ export interface databaseModel {
 export interface UserInfo {
   phoneNo: string;
   token: string;
+  userId: string;
   dbase?: databaseModel;
 }
 

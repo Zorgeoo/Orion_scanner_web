@@ -1,4 +1,5 @@
 import { getCountingList } from "@/api/services";
+import ListSkeleton from "@/components/common/ListSkeleton";
 import { UserContext } from "@/context/UserContext";
 import { CountingModel } from "@/types/CountingModel";
 import React, { useState, useMemo, useEffect, useContext } from "react";
@@ -204,10 +205,11 @@ const CountingListPage: React.FC = () => {
 
         {/* Loading State */}
         {isLoading ? (
-          <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-            <p className="text-gray-500">Ачааллаж байна...</p>
-          </div>
+          // <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg">
+          //   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
+          //   <p className="text-gray-500">Ачааллаж байна...</p>
+          // </div>
+          <ListSkeleton />
         ) : (
           <div className="space-y-4">
             {filteredData.length === 0 ? (

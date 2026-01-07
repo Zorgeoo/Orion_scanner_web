@@ -1,9 +1,17 @@
 import { useLocation } from "react-router-dom";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { ProductModel } from "@/types/ProductModel";
 import CustomButton from "@/components/common/CustomButton";
+// import { saveProductQuantity } from "@/api/services";
+import { UserContext } from "@/context/UserContext";
 
 const ProductPage = () => {
+  const context = useContext(UserContext);
+
+  if (!context) return null; // fallback if context not provided
+
+  const { userInfo } = context;
+
   const location = useLocation();
   const product = location.state?.product as ProductModel | undefined;
 
@@ -11,6 +19,17 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState<number | null>(product?.[6] ?? null);
 
   if (!product) return <p className="p-4">No product data available</p>;
+
+  //   const saveQuantity = async () => {
+  //     try {
+  //       if (userInfo?.dbase?.dbName) {
+  //         const res = await saveProductQuantity(userInfo?.dbase?.dbName, product);
+  //         console.log(res);
+  //       }
+  //     } catch (error) {
+  //       console.log(error);
+  //     }
+  //   };
 
   return (
     <div className="min-h-screen p-6 max-w-2xl mx-auto space-y-6">
