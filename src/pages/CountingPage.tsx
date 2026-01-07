@@ -41,7 +41,7 @@ const CountingPage = () => {
       {" "}
       {/* pb-40 ensures content doesn't go under buttons */}
       <div className="max-w-4xl mx-auto">
-        <h2 className="text-3xl font-bold mb-6 text-gray-900">{date}</h2>
+        <h4 className="text-3xl font-bold mb-6 text-gray-900">{date}</h4>
 
         {isLoading && <ListSkeleton />}
 
