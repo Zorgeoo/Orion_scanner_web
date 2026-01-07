@@ -24,7 +24,7 @@ const Sidebar = () => {
     <>
       <div
         onClick={() => setIsOpen(!isOpen)}
-        className="text-orange-400 cursor-pointer hover:text-orange-300 transition-colors"
+        className="text-orange-400 cursor-pointer hover:text-orange-300 transition-colors z-50"
       >
         <Menu />
       </div>

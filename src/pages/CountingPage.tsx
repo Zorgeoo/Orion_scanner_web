@@ -166,7 +166,7 @@ const CountingPage = () => {
         )}
       </div>
       {/* Fixed bottom buttons */}
-      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-50 flex flex-col gap-3 w-[90%] max-w-md bg-white">
+      <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-20 flex flex-col gap-3 w-[90%] max-w-md bg-white">
         <Link to={"/barcodeScanner"}>
           <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-full shadow-lg hover:bg-yellow-600 transition-all">
             Баркод уншуулж тоолох
