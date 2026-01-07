@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 import HomeSkeleton from "@/components/common/HomeSkeleton";
 import { getModules, ModuleModel } from "@/api/services";
@@ -11,6 +11,8 @@ const HomePage = () => {
   if (!context) return null; // fallback if context not provided
 
   const { userInfo, setUserInfo } = context;
+
+  const location = useLocation();
 
   const [modules, setModules] = useState<ModuleModel[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -49,7 +51,7 @@ const HomePage = () => {
     };
 
     fetchModules();
-  }, [userInfo]);
+  }, [userInfo, location.pathname]);
   return (
     <div>
       {isLoading ? (
