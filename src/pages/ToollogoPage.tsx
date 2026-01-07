@@ -130,7 +130,7 @@ const ToollogoPage: React.FC = () => {
         {/* Filters */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg mb-6">
           <div className="flex flex-col gap-4">
-            <div className="flex flex-row gap-4">
+            <div className="flex flex-row justify-between">
               <div className="w-fit">
                 <label className="block text-sm font-medium text-gray-700 mb-2">
                   Эхлэх огноо

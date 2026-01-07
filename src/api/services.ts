@@ -2,14 +2,14 @@ import { BaseResponse } from "@/types/BaseResponse";
 import api from "./axios";
 import { InputModel } from "@/types/InputModel";
 export type ModuleModel = [string, string];
-const baseDbName = "orion";
+const orionDbName = "orion";
 
 export const getModules = async (
   phone: string,
   dbName: string
 ): Promise<ModuleModel[]> => {
   try {
-    const input = new InputModel(baseDbName, "spLoad_Ph_PermittedModules");
+    const input = new InputModel(orionDbName, "spLoad_Ph_PermittedModules");
     input.addParam("@phone", "nvarchar", 50, phone);
     input.addParam("@db_name", "nvarchar", 50, dbName);
     const res = await api.post<BaseResponse<ModuleModel[]>>(
@@ -26,9 +26,13 @@ export const getModules = async (
   }
 };
 
-export const getCountingList = async (dateStart: string, dateEnd: string) => {
+export const getCountingList = async (
+  dbName: string,
+  dateStart: string,
+  dateEnd: string
+) => {
   try {
-    const input = new InputModel(baseDbName, "spLoad_CntApp_CountingList");
+    const input = new InputModel(dbName, "spLoad_CntApp_CountingList");
 
     input.addParam("@date_start", "datetime", 0, dateStart);
     input.addParam("@date_end", "datetime", 0, dateEnd);

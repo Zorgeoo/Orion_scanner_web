@@ -1,12 +1,55 @@
 import { Link } from "react-router-dom";
-import { ModuleModel } from "@/App";
-import HomeSkeleton from "@/components/common/HomeSkeleton";
 
-export interface HomePageProps {
-  modules: ModuleModel[] | null;
-  isLoading: boolean;
-}
-const HomePage = ({ modules, isLoading }: HomePageProps) => {
+import HomeSkeleton from "@/components/common/HomeSkeleton";
+import { getModules, ModuleModel } from "@/api/services";
+import { useContext, useEffect, useState } from "react";
+import { UserContext, UserInfo } from "@/context/UserContext";
+
+const HomePage = () => {
+  const context = useContext(UserContext);
+
+  if (!context) return null; // fallback if context not provided
+
+  const { userInfo, setUserInfo } = context;
+
+  const [modules, setModules] = useState<ModuleModel[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+
+  useEffect(() => {
+    // 📥 Setup receiver for user info from native app
+
+    window.setUserInfo = (info: UserInfo) => {
+      setUserInfo(info);
+      if (info.token) {
+        localStorage.setItem("authToken", info.token);
+      }
+    };
+
+    if (window.webkit?.messageHandlers?.barcodeScanner) {
+      window.webkit.messageHandlers.barcodeScanner.postMessage("reactReady");
+    }
+
+    // Cleanup
+    return () => {
+      delete window.setUserInfo;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!userInfo) return;
+
+    const fetchModules = async () => {
+      setIsLoading(true);
+      const result = await getModules(
+        userInfo.phoneNo,
+        userInfo.dbase?.dbName || ""
+      );
+      setModules(result);
+      setIsLoading(false);
+    };
+
+    fetchModules();
+  }, [userInfo]);
   return (
     <div>
       {isLoading ? (
