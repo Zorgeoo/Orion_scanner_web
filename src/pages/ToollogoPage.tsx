@@ -190,9 +190,9 @@ const ToollogoPage: React.FC = () => {
                   Бүгд ({stats.total})
                 </button>
                 <button
-                  onClick={() => setFilterType("батлагдсан")}
+                  onClick={() => setFilterType("confirmed")}
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    filterType === "батлагдсан"
+                    filterType === "confirmed"
                       ? "bg-green-500 text-white shadow-md"
                       : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
                   }`}
@@ -200,9 +200,9 @@ const ToollogoPage: React.FC = () => {
                   ✓ Батлагдсан ({stats.батлагдсан})
                 </button>
                 <button
-                  onClick={() => setFilterType("ноорог")}
+                  onClick={() => setFilterType("draft")}
                   className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    filterType === "ноорог"
+                    filterType === "draft"
                       ? "bg-yellow-500 text-white shadow-md"
                       : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
                   }`}
