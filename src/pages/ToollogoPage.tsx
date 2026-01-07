@@ -1,4 +1,6 @@
-import React, { useState, useMemo } from "react";
+import { getCountingList } from "@/api/services";
+import { UserContext } from "@/context/UserContext";
+import React, { useState, useMemo, useEffect, useContext } from "react";
 
 // Simple date formatter
 const formatDate = (dateString: string) => {
@@ -94,6 +96,12 @@ const ToollogoPage: React.FC = () => {
   );
   const [filterType, setFilterType] = useState<string>("all");
 
+  const context = useContext(UserContext);
+
+  if (!context) return null; // fallback if context not provided
+
+  const { userInfo } = context;
+
   const filteredData = useMemo(() => {
     return sampleData.filter((item) => {
       const itemDate = new Date(item.date);
@@ -116,6 +124,14 @@ const ToollogoPage: React.FC = () => {
       total: filteredData.length,
     };
   }, [filteredData]);
+
+  useEffect(() => {
+    if (userInfo?.dbase) {
+      const list = getCountingList(userInfo?.dbase?.dbName, startDate, endDate);
+
+      console.log(list);
+    }
+  }, []);
 
   return (
     <div className="min-h-screen p-4 md:p-6 lg:p-8">

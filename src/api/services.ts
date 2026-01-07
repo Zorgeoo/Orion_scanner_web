@@ -28,14 +28,14 @@ export const getModules = async (
 
 export const getCountingList = async (
   dbName: string,
-  dateStart: string,
-  dateEnd: string
+  startDate: string,
+  endDate: string
 ) => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_CountingList");
 
-    input.addParam("@date_start", "datetime", 0, dateStart);
-    input.addParam("@date_end", "datetime", 0, dateEnd);
+    input.addParam("@date_start", "datetime", 0, startDate);
+    input.addParam("@date_end", "datetime", 0, endDate);
 
     const res = await api.post<BaseResponse<ModuleModel[]>>(
       "action/exec_proc",
