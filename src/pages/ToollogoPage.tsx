@@ -101,8 +101,8 @@ const ToollogoPage: React.FC = () => {
 
   const stats = useMemo(() => {
     return {
-      батлагдсан: filteredData.filter((i) => i.type === "батлагдсан").length,
-      ноорог: filteredData.filter((i) => i.type === "ноорог").length,
+      батлагдсан: filteredData.filter((i) => i.type === "confirmed").length,
+      ноорог: filteredData.filter((i) => i.type === "draft").length,
       total: filteredData.length,
     };
   }, [filteredData]);
@@ -141,9 +141,6 @@ const ToollogoPage: React.FC = () => {
           <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
             📋 Тооллогын жагсаалт
           </h1>
-          <p className="text-gray-600 text-sm md:text-base">
-            {userInfo?.dbase?.companyName || "Байгууллага"}
-          </p>
         </div>
 
         {/* Filters */}
