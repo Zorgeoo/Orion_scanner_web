@@ -7,18 +7,27 @@ video::-webkit-media-controls {
   -webkit-appearance: none;
 }
 
-/* ===== Layout constants ===== */
+html,
+body,
+#root {
+  height: 100%;
+  overflow: hidden; /* ⛔ prevent scrolling under safe-area */
+}
+
 :root {
   --header-height: 64px;
 }
 
-/* ===== Safe-area handling ===== */
-.pt-safe {
-  padding-top: calc(var(--header-height) + env(safe-area-inset-top));
+.app-root {
+  height: 100%;
 }
 
-.pt-safe-header {
-  padding-top: env(safe-area-inset-top);
+.app-content {
+  height: 100%;
+  overflow-y: auto;
+
+  /* 🚨 THIS is the important part */
+  padding-top: calc(var(--header-height) + env(safe-area-inset-top));
 }
 
 /* ===== Theme ===== */

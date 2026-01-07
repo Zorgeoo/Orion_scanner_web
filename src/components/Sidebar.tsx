@@ -44,7 +44,7 @@ const Sidebar = () => {
         onClick={() => setIsOpen(false)}
         className="flex flex-col justify-center items-center gap-6 px-10 bg-orange-400"
       >
-        <Link to="/">
+        {/* <Link to="/">
           <div
             className="font-bold text-xl cursor-pointer hover:text-gray-300"
             onClick={(e) => {
@@ -54,7 +54,7 @@ const Sidebar = () => {
           >
             Home
           </div>
-        </Link>
+        </Link> */}
         <div
           className="font-bold text-xl cursor-pointer hover:text-gray-300"
           onClick={(e) => {
