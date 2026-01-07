@@ -7,7 +7,13 @@ video::-webkit-media-controls {
   -webkit-appearance: none;
 }
 
+:root {
+  --header-height: 64px;
+}
 
+.app-content {
+  padding-top: var(--header-height);
+}
 
 @layer base {
   :root {
@@ -64,8 +70,6 @@ video::-webkit-media-controls {
     --chart-5: 340 75% 55%;
   }
 }
-
-
 
 @layer base {
   * {
