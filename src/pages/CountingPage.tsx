@@ -126,7 +126,7 @@ const CountingPage = () => {
   }, [userInfo, countingId]);
 
   return (
-    <div className="min-h-screen pb-36 p-6">
+    <div className="min-h-screen pb-56 p-6">
       {" "}
       {/* pb-40 ensures content doesn't go under buttons */}
       <div className="max-w-4xl mx-auto">
