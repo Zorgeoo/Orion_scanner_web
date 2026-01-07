@@ -47,11 +47,11 @@ const CountingPage = () => {
           Барааны нэрээр хайж тоолох
         </button>
       </div> */}
-      <div className="fixed bottom-0 flex flex-col gap-4 z-10 w-full px-6 bg-white/80 backdrop-blur-md rounded-t-xl shadow-lg">
-        <button className="w-full py-3 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md">
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex flex-col gap-4 z-10">
+        <button className="px-6 py-3 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md">
           Баркод уншуулж тоолох
         </button>
-        <button className="w-full py-3 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md">
+        <button className="px-6 py-3 rounded-lg font-medium transition-all bg-yellow-500 text-white shadow-md">
           Барааны нэрээр хайж тоолох
         </button>
       </div>
