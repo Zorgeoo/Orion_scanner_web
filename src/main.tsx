@@ -8,8 +8,8 @@ import Header from "./components/Header.js";
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <BrowserRouter>
-      <Header />
       <div className="pt-16">
+        <Header />
         <App />
       </div>
     </BrowserRouter>
