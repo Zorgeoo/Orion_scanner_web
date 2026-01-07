@@ -53,3 +53,22 @@ export const getCountingList = async (
     return [];
   }
 };
+
+export const getInventories = async (dbName: string, id: string) => {
+  try {
+    const input = new InputModel(dbName, "spLoad_CntApp_OneToollogoList");
+
+    input.addParam("@full_id", "nvarchar", 50, id);
+
+    const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
+    console.log(res);
+
+    if (res.data.is_succeeded && res.data.result) {
+      return res.data.result;
+    }
+    return [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};

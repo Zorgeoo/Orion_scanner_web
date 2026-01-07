@@ -2,15 +2,7 @@ import { getCountingList } from "@/api/services";
 import { UserContext } from "@/context/UserContext";
 import { CountingModel } from "@/types/CountingModel";
 import React, { useState, useMemo, useEffect, useContext } from "react";
-
-// Simple date formatter
-const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0");
-  const day = String(date.getDate()).padStart(2, "0");
-  return `${year}-${month}-${day}`;
-};
+import { Link } from "react-router-dom";
 
 interface InventoryCount {
   id: string;
@@ -20,7 +12,7 @@ interface InventoryCount {
   totalAmount: number;
 }
 
-// Convert CountingModel to InventoryCount
+// CountingModel буюу API-с ирсэн хариуг InventoryCount руу хувиргаж байна
 const convertToInventoryCount = (model: CountingModel): InventoryCount => {
   const [id, date, typeName, type, totalAmount] = model;
   return {
@@ -31,7 +23,7 @@ const convertToInventoryCount = (model: CountingModel): InventoryCount => {
     totalAmount,
   };
 };
-
+// Тооллого бүрийн type-г авж тохирох дизайнег өгж байна
 const getTypeConfig = (type: InventoryCount["type"]) => {
   switch (type) {
     case "confirmed":
@@ -80,7 +72,6 @@ const ToollogoPage: React.FC = () => {
 
   const [countingList, setCountingList] = useState<CountingModel[]>([]);
 
-  // Convert CountingModel array to InventoryCount array
   const inventoryData = useMemo(() => {
     return countingList.map(convertToInventoryCount);
   }, [countingList]);
@@ -228,7 +219,8 @@ const ToollogoPage: React.FC = () => {
               filteredData.map((item) => {
                 const config = getTypeConfig(item.type);
                 return (
-                  <div
+                  <Link
+                    to={`/toollogo/${item.id}`}
                     key={item.id}
                     className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all"
                   >
@@ -255,7 +247,7 @@ const ToollogoPage: React.FC = () => {
                         {item.totalAmount.toLocaleString()}₮
                       </span>
                     </div>
-                  </div>
+                  </Link>
                 );
               })
             )}
