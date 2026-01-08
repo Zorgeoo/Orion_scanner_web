@@ -43,7 +43,7 @@ const SearchByProductnamePage = () => {
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-6">
+    <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <h1 className="mx-auto text-base md:text-3xl font-bold text-gray-800 mb-2">
