@@ -50,11 +50,11 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-4 md:p-6">
+    <div className="min-h-screen p-4 md:p-6">
       <div className="max-w-3xl mx-auto space-y-6">
         {/* Quantity Input Card */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex flex-col items-center justify-center gap-8">
             <div className="block text-sm font-semibold text-gray-700 mb-2">
               Тоолсон тоо хэмжээгээ оруулна уу:
             </div>
@@ -71,9 +71,7 @@ const ProductPage = () => {
                   ширхэг
                 </div>
               </div>
-              <div className="pt-7">
-                <CustomButton title="Хадгалах" onClick={saveQuantity} />
-              </div>
+              <CustomButton title="Хадгалах" onClick={saveQuantity} />
             </div>
           </div>
         </div>
