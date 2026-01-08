@@ -3,7 +3,7 @@ import ListSkeleton from "@/components/common/ListSkeleton";
 import { UserContext } from "@/context/UserContext";
 import { CountingModel } from "@/types/CountingModel";
 import { showToast } from "@/utils/toast";
-import React, { useState, useMemo, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
 // Тооллого бүрийн type-г авж тохирох дизайн-г өгж байна
@@ -51,27 +51,10 @@ const CountingListPage: React.FC = () => {
   const [endDate, setEndDate] = useState<string>(
     today.toISOString().split("T")[0]
   );
-  const [filterType, setFilterType] = useState<string>("all");
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const [countingList, setCountingList] = useState<CountingModel[]>([]);
-
-  const filteredData = useMemo(() => {
-    return countingList.filter((item) => {
-      if (filterType !== "all" && item.statusCode !== filterType) return false;
-
-      return true;
-    });
-  }, [startDate, endDate, filterType, countingList]);
-
-  const stats = useMemo(() => {
-    return {
-      батлагдсан: filteredData.filter((i) => i.statusCode === "confirmed")
-        .length,
-      ноорог: filteredData.filter((i) => i.statusCode === "draft").length,
-      total: countingList.length,
-    };
-  }, [filteredData]);
 
   useEffect(() => {
     const fetchCountingLists = async () => {
@@ -148,61 +131,20 @@ const CountingListPage: React.FC = () => {
                 />
               </div>
             </div>
-            <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">
-                Төлөв
-              </label>
-              <div className="flex flex-wrap gap-2">
-                <button
-                  onClick={() => setFilterType("all")}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    filterType === "all"
-                      ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white shadow-md"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-                  }`}
-                >
-                  Бүгд ({stats.total})
-                </button>
-                <button
-                  onClick={() => setFilterType("confirmed")}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    filterType === "confirmed"
-                      ? "bg-green-500 text-white shadow-md"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-                  }`}
-                >
-                  ✓ Батлагдсан ({stats.батлагдсан})
-                </button>
-                <button
-                  onClick={() => setFilterType("draft")}
-                  className={`px-4 py-2 rounded-lg font-medium transition-all ${
-                    filterType === "draft"
-                      ? "bg-yellow-500 text-white shadow-md"
-                      : "bg-white text-gray-700 hover:bg-gray-50 border border-gray-200"
-                  }`}
-                >
-                  ⏳ Ноорог ({stats.ноорог})
-                </button>
-              </div>
-            </div>
           </div>
         </div>
 
         {isLoading ? (
-          // <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg">
-          //   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
-          //   <p className="text-gray-500">Ачааллаж байна...</p>
-          // </div>
           <ListSkeleton />
         ) : (
           <div className="space-y-4">
-            {filteredData.length === 0 ? (
+            {countingList.length === 0 ? (
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg">
                 <div className="text-6xl mb-4">📭</div>
                 <p className="text-gray-500">Тооллого олдсонгүй</p>
               </div>
             ) : (
-              filteredData.map((item) => {
+              countingList.map((item) => {
                 const config = getTypeConfig(item.statusCode);
 
                 return (
