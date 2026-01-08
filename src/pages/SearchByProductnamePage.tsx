@@ -47,6 +47,7 @@ const SearchByProductnamePage = () => {
     // const product = displayProducts.find(
     //   (p: ProductModel) => p.barcode === selectedProduct
     // );
+    console.log(currentCounting?.IsBySeriesNumber);
 
     if (currentCounting?.IsBySeriesNumber) {
       navigate(`/toollogo/serialList`);
