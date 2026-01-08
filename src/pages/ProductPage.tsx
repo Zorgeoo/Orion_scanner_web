@@ -1,6 +1,6 @@
 import { useLocation } from "react-router-dom";
 import { useContext, useState } from "react";
-import { ProductModel } from "@/types/ProductModel";
+import { FullProductModel } from "@/types/FullProductModel";
 import CustomButton from "@/components/common/CustomButton";
 // import { saveProductQuantity } from "@/api/services";
 import { UserContext } from "@/context/UserContext";
@@ -13,7 +13,7 @@ const ProductPage = () => {
   const { userInfo } = context;
 
   const location = useLocation();
-  const product = location.state?.product as ProductModel | undefined;
+  const product = location.state?.product as FullProductModel | undefined;
 
   // quantity editable (index 6 in your tuple)
   const [quantity, setQuantity] = useState<number | null>(product?.[6] ?? null);

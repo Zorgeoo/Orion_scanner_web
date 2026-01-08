@@ -1,7 +1,8 @@
 import { getBarcodeList, getProductList, getProducts } from "@/api/services";
 import ListSkeleton from "@/components/common/ListSkeleton";
 import { UserContext } from "@/context/UserContext";
-import { ProductModel } from "@/types/ProductModel";
+import { FullProductModel } from "@/types/FullProductModel";
+
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
 
@@ -15,7 +16,7 @@ const CountingPage = () => {
   const location = useLocation();
   const date = location.state?.date;
 
-  const [products, setProducts] = useState<ProductModel[] | null>(null);
+  const [products, setProducts] = useState<FullProductModel[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
@@ -25,9 +26,8 @@ const CountingPage = () => {
       setIsLoading(true);
       try {
         const products = await getProducts(userInfo.dbase.dbName, countingId);
-        const res = await getProductList(userInfo.dbase.dbName, countingId);
+        // const res = await getProductList(userInfo.dbase.dbName, countingId);
         const res2 = await getBarcodeList(userInfo.dbase.dbName, countingId);
-        console.log(`res : ${res}`);
 
         console.log(`res2 : ${res2}`);
 
@@ -52,7 +52,7 @@ const CountingPage = () => {
 
         {!isLoading && (!products || products.length === 0) && (
           <div className="text-center py-10 text-gray-500 text-lg">
-            No products found
+            Бараа олдсонгүй
           </div>
         )}
 

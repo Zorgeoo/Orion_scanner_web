@@ -2,8 +2,11 @@ import { BaseResponse } from "@/types/BaseResponse";
 import api from "./axios";
 import { InputModel } from "@/types/InputModel";
 import { CountingModel } from "@/types/CountingModel";
+import { FullProductModel } from "@/types/FullProductModel";
 import { ProductModel } from "@/types/ProductModel";
+
 export type ModuleModel = [string, string];
+type ProductTuple = [string, string, string, number];
 const orionDbName = "orion";
 
 export const getModules = async (
@@ -58,13 +61,13 @@ export const getCountingList = async (
 export const getProducts = async (
   dbName: string,
   id: string
-): Promise<ProductModel[]> => {
+): Promise<FullProductModel[]> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_OneToollogoList");
 
     input.addParam("@full_id", "nvarchar", 50, id);
 
-    const res = await api.post<BaseResponse<ProductModel[]>>(
+    const res = await api.post<BaseResponse<FullProductModel[]>>(
       "action/exec_proc",
       input
     );
@@ -79,7 +82,10 @@ export const getProducts = async (
   }
 };
 
-export const getBarcodeList = async (dbName: string, id: string) => {
+export const getBarcodeList = async (
+  dbName: string,
+  id: string
+): Promise<ProductModel[]> => {
   try {
     const input = new InputModel(
       dbName,
@@ -91,7 +97,16 @@ export const getBarcodeList = async (dbName: string, id: string) => {
     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
 
     if (res.data.is_succeeded && res.data.result) {
-      return res.data.result;
+      const products: ProductModel[] = (res.data.result as ProductTuple[]).map(
+        ([id, barcode, name, price]) => ({
+          id,
+          barcode,
+          name,
+          price,
+        })
+      );
+
+      return products;
     }
     return [];
   } catch (error) {
