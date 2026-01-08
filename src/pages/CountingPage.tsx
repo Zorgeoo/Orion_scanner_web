@@ -144,9 +144,11 @@ const CountingPage = () => {
         >
           Баркод уншуулж тоолох
         </button>
-        <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
-          Барааны нэрээр хайж тоолох
-        </button>
+        <Link to={`/toollogo/:countingId/searchByProductName`}>
+          <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
+            Барааны нэрээр хайж тоолох
+          </button>
+        </Link>
       </div>
     </div>
   );
