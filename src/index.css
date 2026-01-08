@@ -15,9 +15,6 @@ body,
   padding-bottom: 0;
   margin-bottom: 0;
 }
-body {
-  padding-bottom: env(safe-area-inset-bottom);
-}
 
 :root {
   --header-height: 64px;
@@ -37,6 +34,7 @@ body {
 
   /* 🚨 THIS is the important part */
   padding-top: calc(var(--header-height) + env(safe-area-inset-top));
+  padding-bottom: 0;
 }
 
 /* ===== Theme ===== */
