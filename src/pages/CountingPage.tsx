@@ -29,7 +29,7 @@ const CountingPage = () => {
         // const res = await getProductList(userInfo.dbase.dbName, countingId);
         const res2 = await getBarcodeList(userInfo.dbase.dbName, countingId);
 
-        console.log(`res2 : ${res2}`);
+        console.log(res2);
 
         setProducts(products);
         console.log(products);
