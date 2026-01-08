@@ -23,6 +23,10 @@ function App() {
           rtl={false}
           transition={Slide}
           theme="colored"
+          toastStyle={{
+            width: "360px",
+            maxWidth: "80vw",
+          }}
         />
         <Routes>
           <Route path="/" element={<HomePage />} />
