@@ -246,7 +246,7 @@ export const saveProductQuantity = async (
   newQty: number,
   userId: string,
   countingId: string
-) => {
+): Promise<boolean> => {
   try {
     const input = new InputModel(dbName, "spPh_SaveCountingLine");
 
@@ -262,11 +262,11 @@ export const saveProductQuantity = async (
     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
 
     if (res.data.is_succeeded && res.data.result) {
-      return res.data.result;
+      return true;
     }
-    return [];
+    return false;
   } catch (error) {
     console.log(error);
-    return [];
+    return false;
   }
 };

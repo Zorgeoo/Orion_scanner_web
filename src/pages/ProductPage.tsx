@@ -4,6 +4,7 @@ import { FullProductModel } from "@/types/FullProductModel";
 import CustomButton from "@/components/common/CustomButton";
 import { saveProductQuantity } from "@/api/services";
 import { UserContext } from "@/context/UserContext";
+import { showToast } from "@/utils/toast";
 
 const ProductPage = () => {
   const context = useContext(UserContext);
@@ -33,7 +34,11 @@ const ProductPage = () => {
           userInfo.userId,
           countingId
         );
-        console.log(res);
+        if (res) {
+          showToast.error("Амжилттай хадгаллаа.");
+        } else {
+          showToast.error("Алдаа гарлаа. Амжилтгүй");
+        }
       }
     } catch (error) {
       console.log(error);
