@@ -12,10 +12,19 @@ body,
 #root {
   height: 100%;
   overflow: hidden; /* ⛔ prevent scrolling under safe-area */
+  padding-bottom: 0;
+  margin-bottom: 0;
+}
+body {
+  padding-bottom: env(safe-area-inset-bottom);
 }
 
 :root {
   --header-height: 64px;
+}
+
+#root {
+  padding-bottom: 0;
 }
 
 .app-root {
