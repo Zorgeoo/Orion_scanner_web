@@ -8,7 +8,7 @@ import { UserProvider } from "./context/UserContext";
 import CountingPage from "./pages/CountingPage";
 import CountingListPage from "./pages/CountinListPage";
 import ProductPage from "./pages/ProductPage";
-import { ToastContainer, Zoom } from "react-toastify";
+import { Slide, ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
@@ -21,7 +21,7 @@ function App() {
           pauseOnHover
           pauseOnFocusLoss
           rtl={false}
-          transition={Zoom}
+          transition={Slide}
           theme="colored"
         />
         <Routes>
