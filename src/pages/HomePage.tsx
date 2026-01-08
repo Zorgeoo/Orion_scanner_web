@@ -1,9 +1,10 @@
 import { Link, useLocation } from "react-router-dom";
 
 import HomeSkeleton from "@/components/common/HomeSkeleton";
-import { getModules, ModuleModel } from "@/api/services";
+import { getModules } from "@/api/services";
 import { useContext, useEffect, useState } from "react";
 import { UserContext, UserInfo } from "@/context/UserContext";
+import { ModuleModel } from "@/types/ModuleModel";
 
 const HomePage = () => {
   const context = useContext(UserContext);
@@ -60,13 +61,13 @@ const HomePage = () => {
         modules &&
         modules.length > 0 && (
           <div className="flex flex-col gap-2 w-64 mx-auto pt-16">
-            {modules.map(([code, name]) => (
+            {modules.map((module, index) => (
               <Link
-                key={code}
+                key={index}
                 to={
-                  code === "toollogo"
+                  module.code === "toollogo"
                     ? "/toollogo"
-                    : code === "product_info"
+                    : module.code === "product_info"
                     ? "/inventory"
                     : "/"
                 }
@@ -75,7 +76,7 @@ const HomePage = () => {
              hover:from-blue-600 hover:to-purple-700 
              transition-all duration-300"
               >
-                {name}
+                {module.name}
               </Link>
             ))}
           </div>

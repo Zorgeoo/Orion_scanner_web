@@ -5,27 +5,8 @@ import { CountingModel } from "@/types/CountingModel";
 import React, { useState, useMemo, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-interface InventoryCount {
-  id: string;
-  date: string;
-  typeName: string;
-  type: string;
-  totalAmount: number;
-}
-
-// CountingModel буюу API-с ирсэн хариуг InventoryCount руу хувиргаж байна
-const convertToInventoryCount = (model: CountingModel): InventoryCount => {
-  const [id, date, typeName, type, totalAmount] = model;
-  return {
-    id,
-    date,
-    typeName,
-    type,
-    totalAmount,
-  };
-};
 // Тооллого бүрийн type-г авж тохирох дизайнег өгж байна
-const getTypeConfig = (type: InventoryCount["type"]) => {
+const getTypeConfig = (type: string) => {
   switch (type) {
     case "confirmed":
       return {
@@ -73,28 +54,25 @@ const CountingListPage: React.FC = () => {
 
   const [countingList, setCountingList] = useState<CountingModel[]>([]);
 
-  const inventoryData = useMemo(() => {
-    return countingList.map(convertToInventoryCount);
-  }, [countingList]);
-
   const filteredData = useMemo(() => {
-    return inventoryData.filter((item) => {
-      const itemDate = new Date(item.date);
+    return countingList.filter((item) => {
+      const itemDate = new Date(item.name);
       const from = startDate ? new Date(startDate) : null;
       const to = endDate ? new Date(endDate) : null;
 
       if (from && itemDate < from) return false;
       if (to && itemDate > to) return false;
-      if (filterType !== "all" && item.type !== filterType) return false;
+      if (filterType !== "all" && item.statusCode !== filterType) return false;
 
       return true;
     });
-  }, [inventoryData, startDate, endDate, filterType]);
+  }, [startDate, endDate, filterType]);
 
   const stats = useMemo(() => {
     return {
-      батлагдсан: filteredData.filter((i) => i.type === "confirmed").length,
-      ноорог: filteredData.filter((i) => i.type === "draft").length,
+      батлагдсан: filteredData.filter((i) => i.statusCode === "confirmed")
+        .length,
+      ноорог: filteredData.filter((i) => i.statusCode === "draft").length,
       total: filteredData.length,
     };
   }, [filteredData]);
@@ -218,13 +196,13 @@ const CountingListPage: React.FC = () => {
               </div>
             ) : (
               filteredData.map((item) => {
-                const config = getTypeConfig(item.type);
+                const config = getTypeConfig(item.statusCode);
                 return (
                   <Link
                     to={`/toollogo/${item.id}`}
                     key={item.id}
                     className="block"
-                    state={{ date: item.date }}
+                    state={{ date: item.name }}
                   >
                     <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
                       <div className="flex items-start justify-between mb-3">
@@ -233,10 +211,10 @@ const CountingListPage: React.FC = () => {
                             {item.id}
                           </p>
                           <p className="font-bold text-gray-800 text-lg">
-                            {item.date}
+                            {item.name}
                           </p>
                           <p className="text-sm text-gray-500 mt-1">
-                            {item.typeName}
+                            {item.statusText}
                           </p>
                         </div>
                         <span

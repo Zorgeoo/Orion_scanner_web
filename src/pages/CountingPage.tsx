@@ -26,10 +26,8 @@ const CountingPage = () => {
       setIsLoading(true);
       try {
         const products = await getProducts(userInfo.dbase.dbName, countingId);
-        const res = await getProductList(userInfo.dbase.dbName, countingId);
+        // const res = await getProductList(userInfo.dbase.dbName, countingId);
         // const res2 = await getBarcodeList(userInfo.dbase.dbName, countingId);
-
-        console.log(res);
 
         setProducts(products);
         console.log(products);
@@ -46,7 +44,7 @@ const CountingPage = () => {
   return (
     <div className="min-h-screen pb-48 p-6">
       <div className="max-w-4xl mx-auto">
-        <h4 className="text-3xl font-bold mb-6 text-gray-900">{date}</h4>
+        <h4 className="text-xl font-bold mb-6 text-gray-900">{date}</h4>
 
         {isLoading && <ListSkeleton />}
 
@@ -59,21 +57,19 @@ const CountingPage = () => {
         {!isLoading && products && (
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {products.map((product, index) => {
-              const productId = product[0];
-              const barcodeAndName = product[1];
-              const qtyAndPrice = product[2];
-
               return (
                 <Link
                   key={index}
-                  to={`/toollogo/${countingId}/${productId}`}
+                  to={`/toollogo/${countingId}/${product.lineId}`}
                   state={{ product }}
                 >
                   <div className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
                     <p className="font-semibold text-gray-900 text-lg mb-2">
-                      {barcodeAndName}
+                      {product.barcodeAndName}
                     </p>
-                    <p className="text-gray-500 text-sm">{qtyAndPrice}</p>
+                    <p className="text-gray-500 text-sm">
+                      {product.qtyAndPrice}
+                    </p>
                   </div>
                 </Link>
               );

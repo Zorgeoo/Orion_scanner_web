@@ -5,10 +5,37 @@ import { CountingModel } from "@/types/CountingModel";
 import { FullProductModel } from "@/types/FullProductModel";
 import { BarcodeProductModel } from "@/types/BarcodeProductModel";
 import { ProductModel } from "@/types/ProductModel";
+import { ModuleModel } from "@/types/ModuleModel";
 
-export type ModuleModel = [string, string];
+export type ModuleTuple = [string, string];
 type BarcodeProductTuple = [string, string, string, number];
 type ProductTuple = [string, string, string, string, number, number];
+type FullProductTuple = [
+  number,
+  string,
+  string,
+  string,
+  string,
+  string,
+  number,
+  string,
+  number,
+  string | Record<string, unknown>,
+  string | Record<string, unknown>,
+  number,
+  string
+];
+
+type CountingTuple = [
+  string, // 0 - id
+  string, // 1 - name + date + location
+  string, // 2 - status text
+  string, // 3 - status code
+  number, // 4 - total amount
+  boolean, // 5 - canEdit
+  boolean, // 6 - canDelete
+  boolean // 7 - canView
+];
 
 const orionDbName = "orion";
 
@@ -20,12 +47,16 @@ export const getModules = async (
     const input = new InputModel(orionDbName, "spLoad_Ph_PermittedModules");
     input.addParam("@phone", "nvarchar", 50, phone);
     input.addParam("@db_name", "nvarchar", 50, dbName);
-    const res = await api.post<BaseResponse<ModuleModel[]>>(
+    const res = await api.post<BaseResponse<ModuleTuple[]>>(
       "action/exec_proc",
       input
     );
     if (res.data.is_succeeded && res.data.result) {
-      return res.data.result;
+      const modules: ModuleModel[] = res.data.result.map(([code, name]) => ({
+        code,
+        name,
+      }));
+      return modules;
     }
     return [];
   } catch (error: unknown) {
@@ -45,14 +76,35 @@ export const getCountingList = async (
     input.addParam("@date_start", "datetime", 0, startDate);
     input.addParam("@date_end", "datetime", 0, endDate);
 
-    const res = await api.post<BaseResponse<CountingModel[]>>(
+    const res = await api.post<BaseResponse<CountingTuple[]>>(
       "action/exec_proc",
       input
     );
     console.log(res);
 
     if (res.data.is_succeeded && res.data.result) {
-      return res.data.result;
+      const countings: CountingModel[] = res.data.result.map(
+        ([
+          id,
+          name,
+          statusText,
+          statusCode,
+          totalAmount,
+          IsBySeriesNumber,
+          isEnabledPhoneApp,
+          isShowUldApp,
+        ]) => ({
+          id,
+          name,
+          statusText,
+          statusCode,
+          totalAmount,
+          IsBySeriesNumber,
+          isEnabledPhoneApp,
+          isShowUldApp,
+        })
+      );
+      return countings;
     }
     return [];
   } catch (error) {
@@ -60,7 +112,7 @@ export const getCountingList = async (
     return [];
   }
 };
-
+// Тооллогын жагсаалтанд байгаа бараанууд авах
 export const getProducts = async (
   dbName: string,
   id: string
@@ -70,13 +122,44 @@ export const getProducts = async (
 
     input.addParam("@full_id", "nvarchar", 50, id);
 
-    const res = await api.post<BaseResponse<FullProductModel[]>>(
+    const res = await api.post<BaseResponse<FullProductTuple[]>>(
       "action/exec_proc",
       input
     );
 
     if (res.data.is_succeeded && res.data.result) {
-      return res.data.result;
+      const products: FullProductModel[] = res.data.result.map(
+        ([
+          lineId,
+          barcodeAndName,
+          qtyAndPrice,
+          groupNum,
+          name,
+          barcode,
+          quantity,
+          serial,
+          costPrice,
+          expiryISO,
+          expiryDisplay,
+          sellingPrice,
+          createdBy,
+        ]) => ({
+          lineId,
+          barcodeAndName,
+          qtyAndPrice,
+          groupNum,
+          name,
+          barcode,
+          quantity,
+          serial,
+          costPrice,
+          expiryISO,
+          expiryDisplay,
+          sellingPrice,
+          createdBy,
+        })
+      );
+      return products;
     }
     return [];
   } catch (error) {
@@ -98,17 +181,20 @@ export const getBarcodeList = async (
 
     input.addParam("@full_id", "nvarchar", 50, id);
 
-    const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
+    const res = await api.post<BaseResponse<BarcodeProductTuple[]>>(
+      "action/exec_proc",
+      input
+    );
 
     if (res.data.is_succeeded && res.data.result) {
-      const products: BarcodeProductModel[] = (
-        res.data.result as BarcodeProductTuple[]
-      ).map(([groupNum, barcode, name, price]) => ({
-        groupNum,
-        barcode,
-        name,
-        price,
-      }));
+      const products: BarcodeProductModel[] = res.data.result.map(
+        ([groupNum, barcode, name, price]) => ({
+          groupNum,
+          barcode,
+          name,
+          price,
+        })
+      );
 
       return products;
     }
@@ -118,7 +204,7 @@ export const getBarcodeList = async (
     return [];
   }
 };
-
+// Барааны жагсаалт авах асуух ??????
 export const getProductList = async (
   dbName: string,
   id: string
@@ -128,10 +214,13 @@ export const getProductList = async (
 
     input.addParam("@full_id", "nvarchar", 50, id);
 
-    const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
+    const res = await api.post<BaseResponse<ProductTuple[]>>(
+      "action/exec_proc",
+      input
+    );
 
     if (res.data.is_succeeded && res.data.result) {
-      const products: ProductModel[] = (res.data.result as ProductTuple[]).map(
+      const products: ProductModel[] = res.data.result.map(
         ([barcode, groupNum, name, category, price, quantity]) => ({
           barcode,
           groupNum,
