@@ -16,7 +16,9 @@ const ProductPage = () => {
   const product = location.state?.product as FullProductModel | undefined;
 
   // quantity editable (index 6 in your tuple)
-  const [quantity, setQuantity] = useState<number | null>(product?.[6] ?? null);
+  const [quantity, setQuantity] = useState<number | null>(
+    product?.quantity ?? null
+  );
 
   if (!product) return <p className="p-4">No product data available</p>;
 
@@ -54,7 +56,7 @@ const ProductPage = () => {
             </div>
             <div>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                {product[1]}
+                {product.lineId}
               </h1>
             </div>
           </div>
@@ -109,31 +111,31 @@ const ProductPage = () => {
               Дотоод код
             </span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {product[3]}
+              {product.groupNum}
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">Нэр</span>
             <span className="text-sm font-semibold text-gray-800">
-              {product[4]}
+              {product.name}
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">Barcode</span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {product[5]}
+              {product.barcode}
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">Үлдэгдэл</span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {product[6]}
+              {product.quantity}
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">Сери</span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {product[7]}
+              {product.serial}
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
@@ -141,7 +143,8 @@ const ProductPage = () => {
               Дуусах хугацаа
             </span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {typeof product[10] === "string" && product[10]}
+              {typeof product.expiryDisplay === "string" &&
+                product.expiryDisplay}
             </span>
           </div>
 
@@ -151,13 +154,17 @@ const ProductPage = () => {
               <p className="text-xs font-medium text-green-600 mb-1">
                 Авсан үнэ
               </p>
-              <p className="text-2xl font-bold text-green-700">{product[8]}₮</p>
+              <p className="text-2xl font-bold text-green-700">
+                {product.costPrice}₮
+              </p>
             </div>
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
               <p className="text-xs font-medium text-blue-600 mb-1">
                 Зарах үнэ
               </p>
-              <p className="text-2xl font-bold text-blue-700">{product[11]}₮</p>
+              <p className="text-2xl font-bold text-blue-700">
+                {product.sellingPrice}₮
+              </p>
             </div>
           </div>
         </div>
