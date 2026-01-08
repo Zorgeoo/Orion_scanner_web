@@ -3,10 +3,13 @@ import api from "./axios";
 import { InputModel } from "@/types/InputModel";
 import { CountingModel } from "@/types/CountingModel";
 import { FullProductModel } from "@/types/FullProductModel";
+import { BarcodeProductModel } from "@/types/BarcodeProductModel";
 import { ProductModel } from "@/types/ProductModel";
 
 export type ModuleModel = [string, string];
-type ProductTuple = [string, string, string, number];
+type BarcodeProductTuple = [string, string, string, number];
+type ProductTuple = [string, string, string, string, number, number];
+
 const orionDbName = "orion";
 
 export const getModules = async (
@@ -82,10 +85,11 @@ export const getProducts = async (
   }
 };
 
+// Барааны баркод авах
 export const getBarcodeList = async (
   dbName: string,
   id: string
-): Promise<ProductModel[]> => {
+): Promise<BarcodeProductModel[]> => {
   try {
     const input = new InputModel(
       dbName,
@@ -97,14 +101,14 @@ export const getBarcodeList = async (
     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
 
     if (res.data.is_succeeded && res.data.result) {
-      const products: ProductModel[] = (res.data.result as ProductTuple[]).map(
-        ([id, barcode, name, price]) => ({
-          id,
-          barcode,
-          name,
-          price,
-        })
-      );
+      const products: BarcodeProductModel[] = (
+        res.data.result as BarcodeProductTuple[]
+      ).map(([groupNum, barcode, name, price]) => ({
+        groupNum,
+        barcode,
+        name,
+        price,
+      }));
 
       return products;
     }
@@ -115,7 +119,10 @@ export const getBarcodeList = async (
   }
 };
 
-export const getProductList = async (dbName: string, id: string) => {
+export const getProductList = async (
+  dbName: string,
+  id: string
+): Promise<ProductModel[]> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_ProductList");
 
@@ -124,7 +131,18 @@ export const getProductList = async (dbName: string, id: string) => {
     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
 
     if (res.data.is_succeeded && res.data.result) {
-      return res.data.result;
+      const products: ProductModel[] = (res.data.result as ProductTuple[]).map(
+        ([barcode, groupNum, name, category, price, quantity]) => ({
+          barcode,
+          groupNum,
+          name,
+          category,
+          price,
+          quantity,
+        })
+      );
+
+      return products;
     }
     return [];
   } catch (error) {

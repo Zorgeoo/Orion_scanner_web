@@ -26,10 +26,10 @@ const CountingPage = () => {
       setIsLoading(true);
       try {
         const products = await getProducts(userInfo.dbase.dbName, countingId);
-        // const res = await getProductList(userInfo.dbase.dbName, countingId);
-        const res2 = await getBarcodeList(userInfo.dbase.dbName, countingId);
+        const res = await getProductList(userInfo.dbase.dbName, countingId);
+        // const res2 = await getBarcodeList(userInfo.dbase.dbName, countingId);
 
-        console.log(res2);
+        console.log(res);
 
         setProducts(products);
         console.log(products);
