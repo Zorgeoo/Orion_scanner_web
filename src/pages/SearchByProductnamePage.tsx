@@ -1,79 +1,13 @@
-// import { ProductContext } from "@/context/ProductContext";
-// import { useContext } from "react";
-
-// const SearchByProductnamePage = () => {
-//   const productContext = useContext(ProductContext);
-
-//   if (!productContext) return null;
-//   const { productList } = productContext;
-
-//   console.log(`here ${productList}`);
-
-//   return <div></div>;
-// };
-
-// export default SearchByProductnamePage;
-
+import { ProductContext } from "@/context/ProductContext";
+import { ProductModel } from "@/types/ProductModel";
 import { useState, useMemo, useContext } from "react";
 
-// Mock context for demo
-const ProductContext = { Provider: () => null };
-const useProductContext = () => ({
-  productList: [
-    {
-      barcode: "1001",
-      groupNum: "G01",
-      name: "Сүү 1л",
-      category: "Хоол хүнс",
-      price: 2500,
-      quantity: 50,
-    },
-    {
-      barcode: "1002",
-      groupNum: "G01",
-      name: "Талх цагаан",
-      category: "Хоол хүнс",
-      price: 800,
-      quantity: 100,
-    },
-    {
-      barcode: "1003",
-      groupNum: "G02",
-      name: "Шүүс алим",
-      category: "Ундаа",
-      price: 1200,
-      quantity: 75,
-    },
-    {
-      barcode: "1004",
-      groupNum: "G02",
-      name: "Кола 0.5л",
-      category: "Ундаа",
-      price: 1500,
-      quantity: 120,
-    },
-    {
-      barcode: "1005",
-      groupNum: "G03",
-      name: "Сүлжмэл",
-      category: "Хувцас",
-      price: 25000,
-      quantity: 30,
-    },
-  ],
-});
-
-export type ProductModel = {
-  barcode: string;
-  groupNum: string;
-  name: string;
-  category: string;
-  price: number;
-  quantity: number;
-};
-
 const SearchByProductnamePage = () => {
-  const { productList } = useProductContext();
+  const productContext = useContext(ProductContext);
+
+  if (!productContext) return null;
+
+  const { productList } = productContext;
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
