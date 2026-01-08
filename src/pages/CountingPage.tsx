@@ -1,4 +1,4 @@
-import { getProducts } from "@/api/services";
+import { getBarcodeList, getProducts } from "@/api/services";
 import ListSkeleton from "@/components/common/ListSkeleton";
 import { UserContext } from "@/context/UserContext";
 import { ProductModel } from "@/types/ProductModel";
@@ -25,6 +25,12 @@ const CountingPage = () => {
       setIsLoading(true);
       try {
         const products = await getProducts(userInfo.dbase.dbName, countingId);
+        const barcodes = await getBarcodeList(
+          userInfo.dbase.dbName,
+          countingId
+        );
+        console.log(`Barcode list : ${barcodes}`);
+
         setProducts(products);
         console.log(products);
       } catch (error) {
