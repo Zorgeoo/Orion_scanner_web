@@ -1,5 +1,6 @@
 import { getBarcodeList, getProductList, getProducts } from "@/api/services";
 import ListSkeleton from "@/components/common/ListSkeleton";
+import { ProductContext } from "@/context/ProductContext";
 import { UserContext, UserInfo } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
 
@@ -24,6 +25,11 @@ const CountingPage = () => {
   const context = useContext(UserContext);
   if (!context) return null;
   const { userInfo } = context;
+
+  const productContext = useContext(ProductContext);
+  if (!productContext) return null;
+
+  const { setProductList } = productContext;
 
   const { countingId } = useParams<{ countingId: string }>();
 
@@ -76,8 +82,11 @@ const CountingPage = () => {
       setIsLoading(true);
       try {
         const products = await getProducts(userInfo.dbase.dbName, countingId);
-        // const res = await getProductList(userInfo.dbase.dbName, countingId);
+        const res = await getProductList(userInfo.dbase.dbName, countingId);
         // const res2 = await getBarcodeList(userInfo.dbase.dbName, countingId);
+        if (res.success) {
+          setProductList(res.products);
+        }
 
         setProducts(products);
         console.log(products);

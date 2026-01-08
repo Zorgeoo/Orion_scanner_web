@@ -208,7 +208,7 @@ export const getBarcodeList = async (
 export const getProductList = async (
   dbName: string,
   id: string
-): Promise<ProductModel[]> => {
+): Promise<{ products: ProductModel[]; success: boolean }> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_ProductList");
 
@@ -230,13 +230,12 @@ export const getProductList = async (
           quantity,
         })
       );
-
-      return products;
+      return { products: products, success: true };
     }
-    return [];
+    return { products: [], success: false };
   } catch (error) {
     console.log(error);
-    return [];
+    return { products: [], success: false };
   }
 };
 
