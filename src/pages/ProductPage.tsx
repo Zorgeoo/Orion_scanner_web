@@ -59,7 +59,7 @@ const ProductPage = () => {
               Тоолсон тоо хэмжээгээ оруулна уу:
             </div>
             <div className="flex justify-between gap-8 items-center">
-              <div>
+              <div className="relative">
                 <input
                   type="number"
                   value={quantity ? quantity : ""}
