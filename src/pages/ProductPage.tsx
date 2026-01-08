@@ -35,7 +35,7 @@ const ProductPage = () => {
           countingId
         );
         if (res) {
-          showToast.error("Амжилттай хадгаллаа.");
+          showToast.success("Амжилттай хадгаллаа.");
         } else {
           showToast.error("Алдаа гарлаа. Амжилтгүй");
         }
