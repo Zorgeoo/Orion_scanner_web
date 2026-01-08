@@ -1,17 +1,18 @@
 import { ProductContext } from "@/context/ProductContext";
 import { ProductModel } from "@/types/ProductModel";
 import { useState, useMemo, useContext } from "react";
+import { useNavigate } from "react-router-dom";
 
 const SearchByProductnamePage = () => {
   const productContext = useContext(ProductContext);
 
   if (!productContext) return null;
 
-  const { productList } = productContext;
+  const { productList, currentCounting } = productContext;
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
-
+  const navigate = useNavigate();
   // Filter products based on search query
   const filteredProducts = useMemo(() => {
     if (!productList) return [];
@@ -40,6 +41,17 @@ const SearchByProductnamePage = () => {
       return;
     }
     setSelectedProduct(barcode);
+  };
+
+  const handleNextButton = () => {
+    // const product = displayProducts.find(
+    //   (p: ProductModel) => p.barcode === selectedProduct
+    // );
+
+    if (currentCounting?.IsBySeriesNumber) {
+      navigate(`/toollogo/serialList`);
+    }
+    console.log(selectedProduct);
   };
 
   return (
@@ -152,12 +164,7 @@ const SearchByProductnamePage = () => {
         {selectedProduct && (
           <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md">
             <button
-              onClick={() => {
-                const product = displayProducts.find(
-                  (p: ProductModel) => p.barcode === selectedProduct
-                );
-                console.log("Selected product:", product);
-              }}
+              onClick={() => {}}
               className="
                 w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white
                 px-8 py-4 rounded-2xl font-semibold shadow-2xl

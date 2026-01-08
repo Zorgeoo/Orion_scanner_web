@@ -1,5 +1,6 @@
 import { getCountingList } from "@/api/services";
 import ListSkeleton from "@/components/common/ListSkeleton";
+import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
 import { CountingModel } from "@/types/CountingModel";
 import { showToast } from "@/utils/toast";
@@ -45,6 +46,12 @@ const CountingListPage: React.FC = () => {
 
   const { userInfo } = context;
 
+  const productContext = useContext(ProductContext);
+
+  if (!productContext) return null;
+
+  const { setCurrentCounting } = productContext;
+
   const [startDate, setStartDate] = useState<string>(
     threeMonthsAgo.toISOString().split("T")[0]
   );
@@ -85,6 +92,7 @@ const CountingListPage: React.FC = () => {
   const handleCountingClick = (item: CountingModel) => {
     if (item.statusCode === "draft") {
       if (item.isEnabledPhoneApp) {
+        setCurrentCounting(item);
         navigate(`/toollogo/${item.id}`, { state: { date: item.name } });
       } else {
         showToast.error("Тооллогыг утсаар тоолох үйлдлийг Хаасан байна!");

@@ -11,6 +11,7 @@ import ProductPage from "./pages/ProductPage";
 import { Bounce, ToastContainer } from "react-toastify";
 import { ProductContextProvider } from "./context/ProductContext";
 import SearchByProductnamePage from "./pages/SearchByProductnamePage";
+import SerialListPage from "./pages/SerialListPage";
 function App() {
   return (
     <>
@@ -37,6 +38,7 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/barcodeScanner" element={<FullscreenScanner />} />
             <Route path="/toollogo" element={<CountingListPage />} />
+            <Route path="/toollogo/serialList" element={<SerialListPage />} />
             <Route path="/toollogo/:countingId" element={<CountingPage />} />
             <Route
               path="/toollogo/:countingId/searchByProductName"
