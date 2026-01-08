@@ -100,6 +100,24 @@ export const getBarcodeList = async (dbName: string, id: string) => {
   }
 };
 
+export const getProductList = async (dbName: string, id: string) => {
+  try {
+    const input = new InputModel(dbName, "spLoad_CntApp_ProductList");
+
+    input.addParam("@full_id", "nvarchar", 50, id);
+
+    const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
+
+    if (res.data.is_succeeded && res.data.result) {
+      return res.data.result;
+    }
+    return [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 // export const saveProductQuantity = async (
 //   dbName: string,
 //   product: ProductModel
