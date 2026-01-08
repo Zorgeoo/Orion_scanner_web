@@ -256,8 +256,8 @@ export const saveProductQuantity = async (
     input.addParam("@qty", "decimal", 0, newQty);
     input.addParam("@user_id", "int", 0, userId);
     input.addParam("@series_number", "nvarchar", 50, product.serial);
-    input.addParam("@cost", "decimal", 0, product.costPrice.toString());
-    input.addParam("@line_id", "int", 0, product.lineId.toString());
+    input.addParam("@cost", "decimal", 0, product.costPrice);
+    input.addParam("@line_id", "int", 0, product.lineId);
 
     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
 
