@@ -60,7 +60,7 @@ const CountingListPage: React.FC = () => {
 
       return true;
     });
-  }, [startDate, endDate, filterType]);
+  }, [startDate, endDate, filterType, countingList]);
 
   const stats = useMemo(() => {
     return {
