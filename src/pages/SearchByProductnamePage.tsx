@@ -46,12 +46,9 @@ const SearchByProductnamePage = () => {
     <div className="min-h-screen p-4 md:p-6">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <div className="mb-6">
-          <h1 className="text-lg md:text-3xl font-bold text-gray-800 mb-2">
-            🔍 Хайж буй барааныхаа нэрээр хайх
-          </h1>
-        </div>
-
+        <h1 className="mx-auto text-base md:text-3xl font-bold text-gray-800 mb-2">
+          🔍 Хайж буй барааныхаа нэрийг бичнэ үү!
+        </h1>
         {/* Search Input */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg mb-6">
           <div className="relative">
