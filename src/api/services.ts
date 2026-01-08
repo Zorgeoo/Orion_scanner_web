@@ -240,30 +240,33 @@ export const getProductList = async (
   }
 };
 
-// export const saveProductQuantity = async (
-//   dbName: string,
-//   product: ProductModel
-// ) => {
-//   try {
-//     const input = new InputModel(dbName, "spPh_SaveCountingLine");
+export const saveProductQuantity = async (
+  dbName: string,
+  product: FullProductModel,
+  newQty: number,
+  userId: string,
+  countingId: string
+) => {
+  try {
+    const input = new InputModel(dbName, "spPh_SaveCountingLine");
 
-//     input.addParam("@full_id", "nvarchar", 50, id);
-//     input.addParam("@group_num", "nvarchar", 200, id);
-//     input.addParam("@bar_code", "nvarchar", 200, id);
-//     input.addParam("@qty", "decimal", 0, id);
-//     input.addParam("@user_id", "int", 0, id);
-//     input.addParam("@series_number", "nvarchar", 50, id);
-//     input.addParam("@cost", "decimal", 0, id);
-//     input.addParam("@line_id", "int", 0, id);
+    input.addParam("@full_id", "nvarchar", 50, countingId);
+    input.addParam("@group_num", "nvarchar", 200, product.groupNum);
+    input.addParam("@bar_code", "nvarchar", 200, product.barcode);
+    input.addParam("@qty", "decimal", 0, newQty.toString());
+    input.addParam("@user_id", "int", 0, userId);
+    input.addParam("@series_number", "nvarchar", 50, product.serial);
+    input.addParam("@cost", "decimal", 0, product.costPrice.toString());
+    input.addParam("@line_id", "int", 0, product.lineId.toString());
 
-//     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
+    const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
 
-//     if (res.data.is_succeeded && res.data.result) {
-//       return res.data.result;
-//     }
-//     return [];
-//   } catch (error) {
-//     console.log(error);
-//     return [];
-//   }
-// };
+    if (res.data.is_succeeded && res.data.result) {
+      return res.data.result;
+    }
+    return [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};

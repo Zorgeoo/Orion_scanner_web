@@ -61,7 +61,7 @@ const CountingPage = () => {
                 <Link
                   key={index}
                   to={`/toollogo/${countingId}/${product.lineId}`}
-                  state={{ product }}
+                  state={{ product, countingId: countingId }}
                 >
                   <div className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
                     <p className="font-semibold text-gray-900 text-lg mb-2">
