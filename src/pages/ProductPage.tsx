@@ -105,39 +105,44 @@ const ProductPage = () => {
             </svg>
             Дэлгэрэнгүй мэдээлэл
           </h2>
-
-          {/* Info Row */}
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">
-              Quantity & Price
-            </span>
-            <span className="text-sm font-semibold text-gray-800">
-              {product[2]}
-            </span>
-          </div>
-
-          <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-sm font-medium text-gray-600">
-              Internal Code
+              Дотоод код
             </span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
               {product[3]}
             </span>
           </div>
-
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-sm font-medium text-gray-600">
-              Product Name
-            </span>
+            <span className="text-sm font-medium text-gray-600">Нэр</span>
             <span className="text-sm font-semibold text-gray-800">
               {product[4]}
             </span>
           </div>
-
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">Barcode</span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
               {product[5]}
+            </span>
+          </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="text-sm font-medium text-gray-600">Үлдэгдэл</span>
+            <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
+              {product[6]}
+            </span>
+          </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="text-sm font-medium text-gray-600">Сери</span>
+            <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
+              {product[7]}
+            </span>
+          </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="text-sm font-medium text-gray-600">
+              Дуусах хугацаа
+            </span>
+            <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
+              {typeof product[9] === "string" && product[9]}
             </span>
           </div>
 
@@ -145,13 +150,13 @@ const ProductPage = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
             <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
               <p className="text-xs font-medium text-green-600 mb-1">
-                Purchase Price
+                Авсан үнэ
               </p>
               <p className="text-2xl font-bold text-green-700">{product[8]}₮</p>
             </div>
             <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
               <p className="text-xs font-medium text-blue-600 mb-1">
-                Selling Price
+                Зарах үнэ
               </p>
               <p className="text-2xl font-bold text-blue-700">{product[11]}₮</p>
             </div>
@@ -159,57 +164,6 @@ const ProductPage = () => {
         </div>
       </div>
     </div>
-    // <div className="min-h-screen p-6 max-w-2xl mx-auto space-y-6">
-    //   <h1 className="text-2xl font-bold text-gray-800">{product[1]}</h1>
-
-    //   <div className="bg-white p-6 rounded-2xl shadow space-y-4">
-    //     {/* Quantity */}
-    //     <div className="flex items-center justify-between">
-    //       <span className="font-medium text-gray-700">Quantity</span>
-    //       <input
-    //         type="number"
-    //         value={quantity ? quantity : ""}
-    //         onChange={(e) => setQuantity(Number(e.target.value))}
-    //         className="w-20 text-center border rounded-lg px-2 py-1 focus:ring-2 focus:ring-blue-500 outline-none"
-    //       />
-    //       <CustomButton title="Хадгалах" />
-    //     </div>
-
-    //     {/* Price info */}
-    //     <div className="flex justify-between">
-    //       <span className="font-medium text-gray-700">Quantity & Price</span>
-    //       <span className="text-gray-600">{product[2]}</span>
-    //     </div>
-
-    //     {/* Internal code */}
-    //     <div className="flex justify-between">
-    //       <span className="font-medium text-gray-700">Internal Code</span>
-    //       <span className="text-gray-600">{product[3]}</span>
-    //     </div>
-
-    //     {/* Product name */}
-    //     <div className="flex justify-between">
-    //       <span className="font-medium text-gray-700">Product Name</span>
-    //       <span className="text-gray-600">{product[4]}</span>
-    //     </div>
-
-    //     {/* Barcode */}
-    //     <div className="flex justify-between">
-    //       <span className="font-medium text-gray-700">Barcode</span>
-    //       <span className="text-gray-600">{product[5]}</span>
-    //     </div>
-
-    //     {/* Purchase and Selling price */}
-    //     <div className="flex justify-between">
-    //       <span className="font-medium text-gray-700">Purchase Price</span>
-    //       <span className="text-gray-600">{product[8]}₮</span>
-    //     </div>
-    //     <div className="flex justify-between">
-    //       <span className="font-medium text-gray-700">Selling Price</span>
-    //       <span className="text-gray-600">{product[11]}₮</span>
-    //     </div>
-    //   </div>
-    // </div>
   );
 };
 
