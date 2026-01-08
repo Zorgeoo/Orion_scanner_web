@@ -35,9 +35,13 @@ const ProductPage = () => {
           countingId
         );
         if (res) {
-          showToast.success("Амжилттай хадгаллаа.");
+          showToast.success("Амжилттай хадгаллаа.", {
+            position: "bottom-center",
+          });
         } else {
-          showToast.error("Алдаа гарлаа. Амжилтгүй");
+          showToast.error("Алдаа гарлаа. Амжилтгүй", {
+            position: "bottom-center",
+          });
         }
       }
     } catch (error) {
