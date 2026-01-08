@@ -54,12 +54,12 @@ const ProductPage = () => {
       <div className="max-w-3xl mx-auto space-y-6">
         {/* Quantity Input Card */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
-          <div className="flex flex-col items-center justify-center gap-8">
-            <div className="block text-sm font-semibold text-gray-700 mb-2">
+          <div className="flex flex-col gap-4">
+            <div className="text-sm font-semibold text-gray-700 mb-2">
               Тоолсон тоо хэмжээгээ оруулна уу:
             </div>
-            <div className="flex justify-between">
-              <div className="relative">
+            <div className="flex justify-between gap-8 items-center">
+              <div>
                 <input
                   type="number"
                   value={quantity ? quantity : ""}
