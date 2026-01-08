@@ -53,7 +53,6 @@ const ProductPage = () => {
               </svg>
             </div>
             <div>
-              <p className="text-sm text-gray-500 font-medium">Бүтээгдэхүүн</p>
               <h1 className="text-2xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
                 {product[1]}
               </h1>
@@ -66,7 +65,7 @@ const ProductPage = () => {
           <div className="flex items-center justify-between gap-4">
             <div className="flex-1">
               <label className="block text-sm font-medium text-gray-700 mb-2">
-                Quantity
+                Тоо хэмжээ
               </label>
               <div className="relative">
                 <input
@@ -142,7 +141,7 @@ const ProductPage = () => {
               Дуусах хугацаа
             </span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {typeof product[9] === "string" && product[9]}
+              {typeof product[10] === "string" && product[10]}
             </span>
           </div>
 

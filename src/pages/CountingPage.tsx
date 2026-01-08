@@ -26,6 +26,7 @@ const CountingPage = () => {
       try {
         const products = await getProducts(userInfo.dbase.dbName, countingId);
         setProducts(products);
+        console.log(products);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
