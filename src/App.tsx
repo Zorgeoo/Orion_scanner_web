@@ -27,7 +27,7 @@ function App() {
             width: "360px",
             maxWidth: "80vw",
             borderRadius: "12px",
-            padding: "4px",
+            padding: "12px",
           }}
         />
         <Routes>
