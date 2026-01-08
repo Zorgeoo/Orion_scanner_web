@@ -55,10 +55,10 @@ const ProductPage = () => {
         {/* Quantity Input Card */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
           <div className="flex items-center justify-between gap-4">
-            <div className="flex-1">
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Тоолсон тоо хэмжээгээ оруулна уу:
-              </label>
+            <div className="block text-sm font-semibold text-gray-700 mb-2">
+              Тоолсон тоо хэмжээгээ оруулна уу:
+            </div>
+            <div className="flex justify-between">
               <div className="relative">
                 <input
                   type="number"
@@ -71,9 +71,9 @@ const ProductPage = () => {
                   ширхэг
                 </div>
               </div>
-            </div>
-            <div className="pt-7">
-              <CustomButton title="Хадгалах" onClick={saveQuantity} />
+              <div className="pt-7">
+                <CustomButton title="Хадгалах" onClick={saveQuantity} />
+              </div>
             </div>
           </div>
         </div>
@@ -137,9 +137,21 @@ const ProductPage = () => {
                 product.expiryDisplay}
             </span>
           </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="text-sm font-medium text-gray-600">Авсан үнэ</span>
+            <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
+              {product.costPrice}₮
+            </span>
+          </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="text-sm font-medium text-gray-600">Зарах үнэ</span>
+            <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
+              {product.sellingPrice}₮
+            </span>
+          </div>
 
           {/* Price Section */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
+          {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
             <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
               <p className="text-xs font-medium text-green-600 mb-1">
                 Авсан үнэ
@@ -156,7 +168,7 @@ const ProductPage = () => {
                 {product.sellingPrice}₮
               </p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
