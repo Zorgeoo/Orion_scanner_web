@@ -19,6 +19,28 @@ const CountingPage = () => {
   const [products, setProducts] = useState<FullProductModel[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  // Scan хийж байгаа эсэх
+  const [isScanning, setIsScanning] = useState<boolean>(false);
+
+  // Scan хийгдсэн код
+  const [scannedCode, setScannedCode] = useState<string | null>(null);
+
+  const startScanning = () => {
+    if (window.webkit?.messageHandlers?.barcodeScanner) {
+      // iOS
+      setScannedCode(null);
+      setIsScanning(true);
+      window.webkit.messageHandlers.barcodeScanner.postMessage("openScanner");
+    } else if ((window as any).barcodeScanner) {
+      // Android
+      setScannedCode(null);
+      setIsScanning(true);
+      (window as any).barcodeScanner.postMessage("openScanner");
+    } else {
+      alert("Barcode scanner not available.");
+    }
+  };
+
   useEffect(() => {
     const fetchProducts = async () => {
       if (!userInfo?.dbase?.dbName || !countingId) return;
@@ -79,11 +101,12 @@ const CountingPage = () => {
       </div>
       {/* Fixed bottom buttons */}
       <div className="fixed bottom-0 left-1/2 transform -translate-x-1/2 z-20 flex flex-col gap-3 w-[90%] max-w-md bg-white">
-        <Link to={"/barcodeScanner"}>
-          <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
-            Баркод уншуулж тоолох
-          </button>
-        </Link>
+        <button
+          onClick={startScanning}
+          className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all"
+        >
+          Баркод уншуулж тоолох
+        </button>
         <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
           Барааны нэрээр хайж тоолох
         </button>
