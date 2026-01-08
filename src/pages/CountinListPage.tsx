@@ -5,7 +5,7 @@ import { CountingModel } from "@/types/CountingModel";
 import React, { useState, useMemo, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
-// Тооллого бүрийн type-г авж тохирох дизайнег өгж байна
+// Тооллого бүрийн type-г авж тохирох дизайн-г өгж байна
 const getTypeConfig = (type: string) => {
   switch (type) {
     case "confirmed":
@@ -56,12 +56,6 @@ const CountingListPage: React.FC = () => {
 
   const filteredData = useMemo(() => {
     return countingList.filter((item) => {
-      const itemDate = new Date(item.name);
-      const from = startDate ? new Date(startDate) : null;
-      const to = endDate ? new Date(endDate) : null;
-
-      if (from && itemDate < from) return false;
-      if (to && itemDate > to) return false;
       if (filterType !== "all" && item.statusCode !== filterType) return false;
 
       return true;
@@ -101,7 +95,7 @@ const CountingListPage: React.FC = () => {
     };
 
     fetchCountingLists();
-  }, [userInfo, startDate, endDate]);
+  }, [startDate, endDate]);
 
   return (
     <div className="min-h-screen p-4 md:p-6 lg:p-8">
