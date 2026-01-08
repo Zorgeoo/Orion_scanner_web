@@ -35,9 +35,11 @@ const SearchByProductnamePage = () => {
   }, [productList, searchQuery, filteredProducts]);
 
   const handleSelectProduct = (barcode: string) => {
+    if (barcode == selectedProduct) {
+      setSelectedProduct(null);
+      return;
+    }
     setSelectedProduct(barcode);
-
-    console.log(barcode);
   };
 
   return (
@@ -97,7 +99,7 @@ const SearchByProductnamePage = () => {
         </div>
 
         {/* Products List - Name Only */}
-        <div className="space-y-2">
+        <div className="space-y-4">
           {displayProducts.length === 0 ? (
             <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-12 text-center shadow-lg">
               <div className="text-6xl mb-4">📦</div>
@@ -141,9 +143,7 @@ const SearchByProductnamePage = () => {
 
                   {/* Product Name */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="font-semibold text-gray-800 truncate">
-                      {product.name}
-                    </h3>
+                    <h3 className="text-gray-700 truncate">{product.name}</h3>
                   </div>
                 </div>
               </div>
