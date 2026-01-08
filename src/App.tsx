@@ -8,7 +8,7 @@ import { UserProvider } from "./context/UserContext";
 import CountingPage from "./pages/CountingPage";
 import CountingListPage from "./pages/CountinListPage";
 import ProductPage from "./pages/ProductPage";
-import { Slide, ToastContainer } from "react-toastify";
+import { Bounce, ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
@@ -21,7 +21,7 @@ function App() {
           pauseOnHover
           pauseOnFocusLoss
           rtl={false}
-          transition={Slide}
+          transition={Bounce}
           theme="colored"
           toastStyle={{
             width: "360px",
