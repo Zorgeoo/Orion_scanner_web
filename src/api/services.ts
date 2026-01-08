@@ -253,7 +253,7 @@ export const saveProductQuantity = async (
     input.addParam("@full_id", "nvarchar", 50, countingId);
     input.addParam("@group_num", "nvarchar", 200, product.groupNum);
     input.addParam("@bar_code", "nvarchar", 200, product.barcode);
-    input.addParam("@qty", "decimal", 0, newQty.toFixed(2));
+    input.addParam("@qty", "decimal", 0, newQty);
     input.addParam("@user_id", "int", 0, userId);
     input.addParam("@series_number", "nvarchar", 50, product.serial);
     input.addParam("@cost", "decimal", 0, product.costPrice.toString());
