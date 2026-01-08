@@ -1,10 +1,24 @@
 import { getBarcodeList, getProductList, getProducts } from "@/api/services";
 import ListSkeleton from "@/components/common/ListSkeleton";
-import { UserContext } from "@/context/UserContext";
+import { UserContext, UserInfo } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
 
 import { useContext, useEffect, useState } from "react";
 import { Link, useLocation, useParams } from "react-router-dom";
+
+declare global {
+  interface Window {
+    webkit?: {
+      messageHandlers: {
+        barcodeScanner: {
+          postMessage: (message: string) => void;
+        };
+      };
+    };
+    onBarcodeScanned?: (result: string) => void;
+    setUserInfo?: (userInfo: UserInfo) => void;
+  }
+}
 
 const CountingPage = () => {
   const context = useContext(UserContext);
@@ -40,6 +54,20 @@ const CountingPage = () => {
       alert("Barcode scanner not available.");
     }
   };
+
+  useEffect(() => {
+    window.onBarcodeScanned = (result: string | null) => {
+      setIsScanning(false);
+      if (result !== null) {
+        setScannedCode(result);
+      }
+      console.log(result);
+    };
+
+    return () => {
+      delete window.onBarcodeScanned;
+    };
+  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {

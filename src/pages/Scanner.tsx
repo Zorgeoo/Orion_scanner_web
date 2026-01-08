@@ -1,17 +1,3 @@
-declare global {
-  interface Window {
-    webkit?: {
-      messageHandlers: {
-        barcodeScanner: {
-          postMessage: (message: string) => void;
-        };
-      };
-    };
-    onBarcodeScanned?: (result: string) => void;
-    setUserInfo?: (userInfo: UserInfo) => void;
-  }
-}
-
 import CustomButton from "@/components/common/CustomButton";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
