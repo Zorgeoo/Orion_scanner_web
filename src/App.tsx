@@ -26,6 +26,8 @@ function App() {
           toastStyle={{
             width: "360px",
             maxWidth: "80vw",
+            borderRadius: "12px",
+            padding: "4px",
           }}
         />
         <Routes>
