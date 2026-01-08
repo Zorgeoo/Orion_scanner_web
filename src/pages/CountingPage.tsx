@@ -44,9 +44,7 @@ const CountingPage = () => {
   }, [userInfo, countingId]);
 
   return (
-    <div className="min-h-screen pb-40 p-6">
-      {" "}
-      {/* pb-40 ensures content doesn't go under buttons */}
+    <div className="min-h-screen pb-48 p-6">
       <div className="max-w-4xl mx-auto">
         <h4 className="text-3xl font-bold mb-6 text-gray-900">{date}</h4>
 
