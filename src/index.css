@@ -29,18 +29,21 @@ body {
   padding-bottom: 0;
 }
 
+.custom-toaster-container {
+  top: 1rem !important; /* Adjust value as needed */
+  left: 50% !important;
+  transform: translateX(-50%) !important;
+}
+
 .app-root {
-  /* height: 100%;
-   */
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 }
 
 .app-content {
-  height: 100%;
+  flex: 1; /* takes remaining space */
   overflow-y: auto;
-
   /* 🚨 THIS is the important part */
   padding-top: calc(var(--header-height) + env(safe-area-inset-top));
   padding-bottom: 0;

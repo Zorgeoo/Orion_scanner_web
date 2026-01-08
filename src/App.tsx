@@ -8,11 +8,22 @@ import { UserProvider } from "./context/UserContext";
 import CountingPage from "./pages/CountingPage";
 import CountingListPage from "./pages/CountinListPage";
 import ProductPage from "./pages/ProductPage";
-
+import { ToastContainer, Zoom } from "react-toastify";
 function App() {
   return (
     <>
       <UserProvider>
+        <ToastContainer
+          position="top-center"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          pauseOnHover
+          pauseOnFocusLoss
+          rtl={false}
+          transition={Zoom}
+          theme="colored"
+        />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/barcodeScanner" element={<FullscreenScanner />} />

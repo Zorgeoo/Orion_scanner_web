@@ -2,6 +2,7 @@ import { getCountingList } from "@/api/services";
 import ListSkeleton from "@/components/common/ListSkeleton";
 import { UserContext } from "@/context/UserContext";
 import { CountingModel } from "@/types/CountingModel";
+import { showToast } from "@/utils/toast";
 import React, { useState, useMemo, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 
@@ -67,7 +68,7 @@ const CountingListPage: React.FC = () => {
       батлагдсан: filteredData.filter((i) => i.statusCode === "confirmed")
         .length,
       ноорог: filteredData.filter((i) => i.statusCode === "draft").length,
-      total: filteredData.length,
+      total: countingList.length,
     };
   }, [filteredData]);
 
@@ -174,7 +175,6 @@ const CountingListPage: React.FC = () => {
           </div>
         </div>
 
-        {/* Loading State */}
         {isLoading ? (
           // <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg">
           //   <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-500 mx-auto mb-4"></div>
@@ -191,43 +191,52 @@ const CountingListPage: React.FC = () => {
             ) : (
               filteredData.map((item) => {
                 const config = getTypeConfig(item.statusCode);
-                return (
+                const content = (
+                  <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
+                    <div className="flex items-start justify-between mb-3">
+                      <div>
+                        <p className="text-xs text-gray-500 mb-1">{item.id}</p>
+                        <p className="font-bold text-gray-800 text-lg">
+                          {item.name}
+                        </p>
+                        <p className="text-sm text-gray-500 mt-1">
+                          {item.statusText}
+                        </p>
+                      </div>
+                      <span
+                        className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}
+                      >
+                        <span>{config.icon}</span>
+                        {config.label}
+                      </span>
+                    </div>
+                    <div className="flex items-center justify-between pt-3 border-t border-gray-200">
+                      <span className="text-sm text-gray-500">Нийт дүн :</span>
+                      <span className="text-xl font-bold text-gray-800">
+                        {item.totalAmount.toLocaleString()}₮
+                      </span>
+                    </div>
+                  </div>
+                );
+                return item.statusCode === "draft" ? (
                   <Link
-                    to={`/toollogo/${item.id}`}
                     key={item.id}
-                    className="block"
+                    to={`/toollogo/${item.id}`}
                     state={{ date: item.name }}
                   >
-                    <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
-                      <div className="flex items-start justify-between mb-3">
-                        <div>
-                          <p className="text-xs text-gray-500 mb-1">
-                            {item.id}
-                          </p>
-                          <p className="font-bold text-gray-800 text-lg">
-                            {item.name}
-                          </p>
-                          <p className="text-sm text-gray-500 mt-1">
-                            {item.statusText}
-                          </p>
-                        </div>
-                        <span
-                          className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}
-                        >
-                          <span>{config.icon}</span>
-                          {config.label}
-                        </span>
-                      </div>
-                      <div className="flex items-center justify-between pt-3 border-t border-gray-200">
-                        <span className="text-sm text-gray-500">
-                          Нийт дүн :
-                        </span>
-                        <span className="text-xl font-bold text-gray-800">
-                          {item.totalAmount.toLocaleString()}₮
-                        </span>
-                      </div>
-                    </div>
+                    {content}
                   </Link>
+                ) : (
+                  <div
+                    key={item.id}
+                    onClick={() =>
+                      showToast.error(
+                        "Зөвхөн ноорог төлөвтэй тооллогыг нээх боломжтой!"
+                      )
+                    }
+                  >
+                    {content}
+                  </div>
                 );
               })
             )}
