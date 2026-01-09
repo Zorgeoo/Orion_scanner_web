@@ -100,7 +100,7 @@ const CountingPage = () => {
   return (
     <div className="min-h-screen pb-48 p-6">
       <div className="max-w-4xl mx-auto">
-        <h4 className="text-xl font-bold mb-6 text-gray-900">
+        <h4 className="text-xl font-bold text-gray-900">
           {currentCounting?.name}
         </h4>
 
@@ -121,7 +121,7 @@ const CountingPage = () => {
                   to={`/toollogo/${countingId}/${product.lineId}`}
                   state={{ product, countingId: countingId }}
                 >
-                  <div className="flex flex-col pt-2 border-b-2 border-green-600 text-sm">
+                  <div className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm">
                     <p className="">{product.barcodeAndName}</p>
                     <p className="">{product.qtyAndPrice}</p>
                   </div>
