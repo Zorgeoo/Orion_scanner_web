@@ -63,7 +63,7 @@ const SearchByProductnamePage = () => {
           Хайж буй барааныхаа нэрийг бичнэ үү!
         </h1>
         {/* Search Input */}
-        <div className="pb-2">
+        <div className="pb-4">
           <div className="relative">
             <svg
               className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -121,7 +121,7 @@ const SearchByProductnamePage = () => {
                 key={product.barcode}
                 onClick={() => handleSelectProduct(product.barcode)}
                 className={`
-                 px-4 rounded-2xl
+                 px-4 py-2 rounded-2xl
                   ${
                     selectedProduct === product.barcode
                       ? "ring-2 ring-blue-500 bg-blue-50/70"
