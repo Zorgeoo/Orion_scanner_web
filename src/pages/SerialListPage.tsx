@@ -22,6 +22,7 @@ const SerialListPage = () => {
   const [selectedSerial, setSelectedSerial] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [barcode, setBarcode] = useState<string | null>(null);
+  console.log(countingId, groupNum);
 
   useEffect(() => {
     const getSeries = async () => {
