@@ -68,10 +68,14 @@ const CountingListPage: React.FC = () => {
         setCurrentCounting(item);
         navigate(`/toollogo/${item.id}`);
       } else {
-        showToast.error("Тооллогыг утсаар тоолох үйлдлийг Хаасан байна!");
+        showToast.error("Тооллогыг утсаар тоолох үйлдлийг Хаасан байна!", {
+          position: "bottom-center",
+        });
       }
     } else {
-      showToast.error("Зөвхөн ноорог төлөвтэй тооллогыг нээх боломжтой!");
+      showToast.error("Зөвхөн ноорог төлөвтэй тооллогыг нээх боломжтой!", {
+        position: "bottom-center",
+      });
     }
   };
 
