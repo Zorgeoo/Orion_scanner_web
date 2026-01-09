@@ -155,7 +155,7 @@ const CountingListPage: React.FC = () => {
               countingList.map((item) => {
                 const isDraft =
                   item.statusCode == "draft"
-                    ? "font-semibold bg-green-500"
+                    ? "font-semibold bg-green-100"
                     : "text-gray-500";
 
                 return (
@@ -164,21 +164,15 @@ const CountingListPage: React.FC = () => {
                     onClick={() => handleCountingClick(item)}
                     className={`${isDraft}`}
                   >
-                    <div className="rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
+                    <div className="rounded-2xl overflow-hidden p-4 shadow-lg hover:shadow-xl transition-all">
                       {/* Card content */}
                       <div className="flex items-start justify-between">
                         <div>
                           <p>{item.name}</p>
                           <p>{item.statusText}</p>
                         </div>
-                        {/* <span
-                          className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}
-                        >
-                          <span>{config.icon}</span>
-                          {config.label}
-                        </span> */}
                       </div>
-                      <div className="flex items-center justify-between">
+                      <div className="flex items-center">
                         <span>Тоолсон үнийн дүн :</span>
                         <span>{item.totalAmount.toLocaleString()}₮</span>
                       </div>
