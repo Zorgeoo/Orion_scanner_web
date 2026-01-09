@@ -22,8 +22,6 @@ const ProductPage = () => {
     product?.quantity ?? null
   );
 
-  if (!product) return <p className="p-4">No product data available</p>;
-
   const saveQuantity = async () => {
     try {
       if (userInfo?.dbase?.dbName && quantity) {
