@@ -59,11 +59,11 @@ const SearchByProductnamePage = () => {
     <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <h1 className="mx-auto text-base font-semibold mb-2">
+        <h1 className="px-4 mx-auto text-base font-semibold">
           Хайж буй барааныхаа нэрийг бичнэ үү!
         </h1>
         {/* Search Input */}
-        <div className="p-4 mb-6">
+        <div>
           <div className="relative">
             <svg
               className="absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400"
@@ -111,7 +111,7 @@ const SearchByProductnamePage = () => {
         {/* Products List - Name Only */}
         <div className="space-y-2">
           {displayProducts.length === 0 ? (
-            <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-12 text-center shadow-lg">
+            <div className="rounded-2xl p-12 text-center">
               <div className="text-6xl mb-4">📦</div>
               <p className="text-gray-500 text-lg">Бараа олдсонгүй</p>
             </div>
@@ -121,7 +121,7 @@ const SearchByProductnamePage = () => {
                 key={product.barcode}
                 onClick={() => handleSelectProduct(product.barcode)}
                 className={`
-                 px-4 py-2 
+                 px-4 py-2 rounded-2xl
                   ${
                     selectedProduct === product.barcode
                       ? "ring-2 ring-blue-500 bg-blue-50/70"
