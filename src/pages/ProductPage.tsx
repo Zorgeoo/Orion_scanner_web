@@ -43,9 +43,7 @@ const ProductPage = () => {
           showToast.success("Амжилттай хадгаллаа.", {
             position: "bottom-center",
           });
-          navigate(`/toollogo/${countingId}/searchByProductName`, {
-            replace: true,
-          });
+          navigate(-2);
         } else {
           showToast.error("Алдаа гарлаа. Амжилтгүй", {
             position: "bottom-center",
