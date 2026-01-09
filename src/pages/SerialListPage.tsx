@@ -89,7 +89,6 @@ const SerialListPage = () => {
             serials.map((serial, index) => {
               return (
                 <div
-                  onClick={() => getBarcode()}
                   key={index}
                   className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
                 >
