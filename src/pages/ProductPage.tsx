@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useContext, useState } from "react";
 import { FullProductModel } from "@/types/FullProductModel";
 import CustomButton from "@/components/common/CustomButton";
@@ -12,6 +12,8 @@ const ProductPage = () => {
   if (!context) return null; // fallback if context not provided
 
   const { userInfo } = context;
+
+  const navigate = useNavigate();
 
   const location = useLocation();
 
@@ -41,6 +43,7 @@ const ProductPage = () => {
           showToast.success("Амжилттай хадгаллаа.", {
             position: "bottom-center",
           });
+          navigate(`/toollogo/${countingId}/searchByProductName`);
         } else {
           showToast.error("Алдаа гарлаа. Амжилтгүй", {
             position: "bottom-center",
