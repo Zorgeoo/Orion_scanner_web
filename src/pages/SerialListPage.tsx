@@ -1,4 +1,4 @@
-import { getSeriesList } from "@/api/services";
+import { getBarcodeByGroupNum, getSeriesList } from "@/api/services";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
@@ -42,6 +42,15 @@ const SerialListPage = () => {
     };
     getSeries();
   }, []);
+
+  const getBarcode = async () => {
+    try {
+      if (userInfo?.dbase?.dbName && groupNum) {
+        const res = getBarcodeByGroupNum(userInfo?.dbase?.dbName, groupNum);
+        console.log(res);
+      }
+    } catch (error) {}
+  };
   return (
     <div className="p-4 mx-auto">
       <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
@@ -59,7 +68,7 @@ const SerialListPage = () => {
             serials.map((serial, index) => {
               return (
                 <div
-                  // onClick={()=>setSelectedSerial(serial.)}
+                  onClick={() => getBarcode()}
                   key={index}
                   className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
                 >

@@ -284,7 +284,7 @@ export const getSeriesList = async (
   dbName: string,
   fullId: string,
   groupNum: string
-): Promise<any[]> => {
+): Promise<SerialModel[]> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_Series");
 
@@ -308,6 +308,38 @@ export const getSeriesList = async (
         })
       );
       return serials;
+    }
+    return [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const getBarcodeByGroupNum = async (
+  dbName: string,
+  groupNum: string
+): Promise<any[]> => {
+  try {
+    const input = new InputModel(dbName, "spPh_GetBarcodeByGroupnum");
+
+    input.addParam("@group_num", "nvarchar", 200, groupNum);
+
+    const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
+
+    if (res.data.is_succeeded && res.data.result) {
+      // const serials: SerialModel[] = res.data.result.map(
+      //   ([seriesNumber, cost, endDate, fullSeriesNumber, qty, something]) => ({
+      //     seriesNumber,
+      //     cost,
+      //     endDate,
+      //     fullSeriesNumber,
+      //     qty,
+      //     something,
+      //   })
+      // );
+      // return serials;
+      return res.data.result;
     }
     return [];
   } catch (error) {
