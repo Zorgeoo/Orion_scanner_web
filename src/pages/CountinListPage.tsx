@@ -131,14 +131,12 @@ const CountingListPage: React.FC = () => {
             ) : (
               countingList.map((item) => {
                 const isDraft =
-                  item.statusCode == "draft"
-                    ? "font-medium bg-green-100"
-                    : "text-gray-500 bg-gray-100";
+                  item.statusCode == "draft" ? "font-medium" : "text-gray-500";
 
                 return (
                   <div key={item.id} onClick={() => handleCountingClick(item)}>
                     <div
-                      className={`rounded-2xl overflow-hidden p-4 ${isDraft}`}
+                      className={`rounded-2xl overflow-hidden pt-4 border-b-2 border-green-300 ${isDraft}`}
                     >
                       <div className="flex items-start justify-between">
                         <div>
