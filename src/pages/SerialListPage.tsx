@@ -1,4 +1,5 @@
 import { getSeriesList } from "@/api/services";
+import { Skeleton } from "@/components/ui/skeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
 import { SerialModel } from "@/types/SerialModel";
@@ -19,9 +20,11 @@ const SerialListPage = () => {
 
   const [serials, setSerials] = useState<SerialModel[] | null>(null);
   const [selectedSerial, setSelectedSerial] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
     const getSeries = async () => {
+      setIsLoading(true);
       try {
         if (userInfo?.dbase?.dbName && currentCounting && groupNum) {
           const serials = await getSeriesList(
@@ -31,8 +34,10 @@ const SerialListPage = () => {
           );
           setSerials(serials);
         }
+        setIsLoading(false);
       } catch (error) {
         console.log(error);
+        setIsLoading(false);
       }
     };
     getSeries();
@@ -42,20 +47,28 @@ const SerialListPage = () => {
       <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
         Тоолж буй серийн дугаараа сонгоно уу!
       </h1>
-      <div className="flex flex-col gap-2">
-        {serials &&
-          serials.map((serial, index) => {
-            return (
-              <div
-                // onClick={()=>setSelectedSerial(serial.)}
-                key={index}
-                className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
-              >
-                <p className="">{serial.fullSeriesNumber}</p>
-              </div>
-            );
-          })}
-      </div>
+      {isLoading ? (
+        <div className="space-y-2 flex flex-col items-center content-center pt-16">
+          <Skeleton className="h-4 w-fit" />
+          <Skeleton className="h-4 w-fit" />
+          <Skeleton className="h-4 w-fit" />
+        </div>
+      ) : (
+        <div className="flex flex-col gap-2">
+          {serials &&
+            serials.map((serial, index) => {
+              return (
+                <div
+                  // onClick={()=>setSelectedSerial(serial.)}
+                  key={index}
+                  className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
+                >
+                  <p className="">{serial.fullSeriesNumber}</p>
+                </div>
+              );
+            })}
+        </div>
+      )}
     </div>
   );
 };
