@@ -3,11 +3,10 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
-import { ProductModel } from "@/types/ProductModel";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const SerialListPage = () => {
   const userContext = useContext(UserContext);
@@ -16,15 +15,11 @@ const SerialListPage = () => {
   if (!productContext) return;
   if (!userContext) return;
 
-  const { currentCounting, setSerials, serials } = productContext;
+  const { currentCounting, setSerials, serials, selectedProduct } =
+    productContext;
   const { userInfo } = userContext;
 
   const { groupNum } = useParams<{ groupNum: string }>();
-
-  const location = useLocation();
-
-  const product = location.state?.product as ProductModel | undefined;
-  if (!product) return <p className="p-4">No product data available</p>;
 
   const [selectedSerial, setSelectedSerial] = useState<SerialModel | null>(
     null
@@ -107,7 +102,7 @@ const SerialListPage = () => {
                       barcodeAndName: "",
                       qtyAndPrice: "",
                       groupNum: groupNum,
-                      name: product.name,
+                      name: selectedProduct?.name,
                       barcode: barcode,
                       quantity: selectedSerial?.qty,
                       serial: serial.seriesNumber,

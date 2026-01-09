@@ -8,12 +8,11 @@ const SearchByProductnamePage = () => {
 
   if (!productContext) return null;
 
-  const { productList, currentCounting } = productContext;
+  const { productList, currentCounting, selectedProduct, setSelectedProduct } =
+    productContext;
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
-    null
-  );
+
   const navigate = useNavigate();
   // Filter products based on search query
   const filteredProducts = useMemo(() => {
@@ -47,9 +46,7 @@ const SearchByProductnamePage = () => {
 
   const handleNextButton = () => {
     if (currentCounting?.IsBySeriesNumber) {
-      navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`, {
-        state: { product: selectedProduct },
-      });
+      navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`);
     }
   };
 

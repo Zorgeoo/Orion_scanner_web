@@ -9,6 +9,8 @@ interface ProductContextValue {
   productList: ProductModel[] | null;
   currentCounting: CountingModel | null;
   serials: SerialModel[] | null;
+  selectedProduct: ProductModel | null;
+  setSelectedProduct: (product: ProductModel | null) => void;
   setSerials: (serial: SerialModel[] | null) => void;
   setBarcodeList: (barcodeList: BarcodeProductModel[] | null) => void;
   setProductList: (productList: ProductModel[] | null) => void;
@@ -35,6 +37,10 @@ export const ProductContextProvider = ({ children }: ProductProviderProps) => {
 
   const [serials, setSerials] = useState<SerialModel[] | null>(null);
 
+  const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
+    null
+  );
+
   return (
     <ProductContext.Provider
       value={{
@@ -46,6 +52,8 @@ export const ProductContextProvider = ({ children }: ProductProviderProps) => {
         setCurrentCounting,
         serials,
         setSerials,
+        selectedProduct,
+        setSelectedProduct,
       }}
     >
       {children}
