@@ -136,7 +136,7 @@ const CountingListPage: React.FC = () => {
                 return (
                   <div key={item.id} onClick={() => handleCountingClick(item)}>
                     <div
-                      className={`rounded-2xl overflow-hidden pt-4 border-b-2 border-green-300 ${isDraft}`}
+                      className={`overflow-hidden pt-2 border-b-2 border-green-600 ${isDraft}`}
                     >
                       <div className="flex items-start justify-between">
                         <div>
