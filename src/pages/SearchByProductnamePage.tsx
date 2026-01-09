@@ -41,7 +41,7 @@ const SearchByProductnamePage = () => {
     if (product === selectedProduct) {
       setSelectedProduct(null);
     } else {
-      setSelectedProduct(selectedProduct);
+      setSelectedProduct(product);
     }
   };
 
