@@ -123,7 +123,7 @@ const SearchByProductnamePage = () => {
                 className={`
                  px-4 py-2 rounded-2xl
                   ${
-                    selectedProduct === product.barcode
+                    selectedProduct === product.groupNum
                       ? "ring-2 ring-blue-500 bg-blue-50/70"
                       : ""
                   }
@@ -137,13 +137,13 @@ const SearchByProductnamePage = () => {
                         w-5 h-5 rounded-full border-2 flex items-center justify-center
                         transition-all duration-200
                         ${
-                          selectedProduct === product.barcode
+                          selectedProduct === product.groupNum
                             ? "border-blue-500 bg-blue-500"
                             : "border-gray-300 bg-white"
                         }
                       `}
                     >
-                      {selectedProduct === product.barcode && (
+                      {selectedProduct === product.groupNum && (
                         <div className="w-2.5 h-2.5 rounded-full bg-white" />
                       )}
                     </div>
