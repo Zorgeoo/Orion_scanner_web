@@ -156,15 +156,13 @@ const CountingListPage: React.FC = () => {
                 const isDraft =
                   item.statusCode == "draft"
                     ? "font-semibold bg-green-100"
-                    : "text-gray-500";
+                    : "text-gray-500 bg-gray-100";
 
                 return (
-                  <div
-                    key={item.id}
-                    onClick={() => handleCountingClick(item)}
-                    className={`${isDraft}`}
-                  >
-                    <div className="rounded-2xl overflow-hidden p-4 shadow-lg hover:shadow-xl transition-all">
+                  <div key={item.id} onClick={() => handleCountingClick(item)}>
+                    <div
+                      className={`rounded-2xl overflow-hidden p-4 ${isDraft}`}
+                    >
                       {/* Card content */}
                       <div className="flex items-start justify-between">
                         <div>
