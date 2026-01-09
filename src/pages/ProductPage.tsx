@@ -14,7 +14,10 @@ const ProductPage = () => {
   const { userInfo } = context;
 
   const location = useLocation();
+
   const product = location.state?.product as FullProductModel | undefined;
+  if (!product) return <p className="p-4">No product data available</p>;
+
   const countingId = location.state.countingId;
   if (!countingId) {
     <div>No countingId</div>;
@@ -23,8 +26,6 @@ const ProductPage = () => {
   const [quantity, setQuantity] = useState<number | null>(
     product?.quantity ?? null
   );
-
-  if (!product) return <p className="p-4">No product data available</p>;
 
   const saveQuantity = async () => {
     try {

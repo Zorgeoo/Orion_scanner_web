@@ -2,10 +2,12 @@ import { getBarcodeByGroupNum, getSeriesList } from "@/api/services";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
+import { FullProductModel } from "@/types/FullProductModel";
+import { ProductModel } from "@/types/ProductModel";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useLocation, useParams } from "react-router-dom";
 
 const SerialListPage = () => {
   const userContext = useContext(UserContext);
@@ -19,8 +21,16 @@ const SerialListPage = () => {
 
   const { groupNum } = useParams<{ groupNum: string }>();
 
+  const location = useLocation();
+
+  const product = location.state?.product as ProductModel | undefined;
+  if (!product) return <p className="p-4">No product data available</p>;
+
   const [serials, setSerials] = useState<SerialModel[] | null>(null);
-  const [selectedSerial, setSelectedSerial] = useState<string | null>(null);
+  const [selectedSerial, setSelectedSerial] = useState<SerialModel | null>(
+    null
+  );
+
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [barcode, setBarcode] = useState<string | null>(null);
 
@@ -90,7 +100,24 @@ const SerialListPage = () => {
               return (
                 <Link
                   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
-                  state={{ countingId: currentCounting?.id }}
+                  state={{
+                    countingId: currentCounting?.id,
+                    product: {
+                      lineId: 0,
+                      barcodeAndName: "",
+                      qtyAndPrice: "",
+                      groupNum: groupNum,
+                      name: product.name,
+                      barcode: barcode,
+                      quantity: selectedSerial?.qty,
+                      serial: serial.seriesNumber,
+                      costPrice: serial.cost,
+                      expiryISO: serial.endDate,
+                      expiryDisplay: serial.endDate,
+                      sellingPrice: 0,
+                      createdBy: "",
+                    } as FullProductModel,
+                  }}
                 >
                   <div
                     key={index}

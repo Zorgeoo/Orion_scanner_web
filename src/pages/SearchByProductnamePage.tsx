@@ -11,7 +11,9 @@ const SearchByProductnamePage = () => {
   const { productList, currentCounting } = productContext;
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedGroupNum, setSelectedProduct] = useState<string | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
+    null
+  );
   const navigate = useNavigate();
   // Filter products based on search query
   const filteredProducts = useMemo(() => {
@@ -35,17 +37,19 @@ const SearchByProductnamePage = () => {
     return filteredProducts;
   }, [productList, searchQuery, filteredProducts]);
 
-  const handleSelectProduct = (groupNum: string) => {
-    if (groupNum == selectedGroupNum) {
+  const handleSelectProduct = (product: ProductModel) => {
+    if (product == selectedProduct) {
       setSelectedProduct(null);
       return;
     }
-    setSelectedProduct(groupNum);
+    setSelectedProduct(selectedProduct);
   };
 
   const handleNextButton = () => {
     if (currentCounting?.IsBySeriesNumber) {
-      navigate(`/toollogo/serialList/${selectedGroupNum}`);
+      navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`, {
+        state: { product: selectedProduct },
+      });
     }
   };
 
@@ -113,11 +117,11 @@ const SearchByProductnamePage = () => {
             displayProducts.map((product: ProductModel) => (
               <div
                 key={product.barcode}
-                onClick={() => handleSelectProduct(product.groupNum)}
+                onClick={() => handleSelectProduct(product)}
                 className={`
                  px-4 py-2 rounded-2xl
                   ${
-                    selectedGroupNum === product.groupNum
+                    selectedProduct === product
                       ? "ring-2 ring-blue-500 bg-blue-50/70"
                       : ""
                   }
@@ -131,13 +135,13 @@ const SearchByProductnamePage = () => {
                         w-5 h-5 rounded-full border-2 flex items-center justify-center
                         transition-all duration-200
                         ${
-                          selectedGroupNum === product.groupNum
+                          selectedProduct === product
                             ? "border-blue-500 bg-blue-500"
                             : "border-gray-300 bg-white"
                         }
                       `}
                     >
-                      {selectedGroupNum === product.groupNum && (
+                      {selectedProduct === product && (
                         <div className="w-2.5 h-2.5 rounded-full bg-white" />
                       )}
                     </div>
@@ -154,7 +158,7 @@ const SearchByProductnamePage = () => {
         </div>
 
         {/* Selected Product Action */}
-        {selectedGroupNum && (
+        {selectedProduct && (
           <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md">
             <button
               onClick={handleNextButton}
