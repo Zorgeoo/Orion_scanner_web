@@ -100,9 +100,7 @@ const CountingPage = () => {
   return (
     <div className="min-h-screen pb-48 p-6">
       <div className="max-w-4xl mx-auto">
-        <h4 className="text-xl font-bold text-gray-900 pb-2">
-          {currentCounting?.name}
-        </h4>
+        <h4 className="text-xl font-semibold pb-2">{currentCounting?.name}</h4>
 
         {isLoading && <ListSkeleton />}
 
