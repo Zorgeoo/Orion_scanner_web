@@ -113,7 +113,7 @@ const CountingListPage: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 md:p-6 shadow-lg mb-6">
+        <div className="p-4 mb-6">
           <div className="flex flex-col gap-4">
             <div className="flex gap-4 justify-between pr-4">
               <div className="w-fit">
@@ -124,7 +124,7 @@ const CountingListPage: React.FC = () => {
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full bg-gradient-to-br from-orange-400 to-orange-500 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
               <div className="w-fit">
@@ -135,7 +135,7 @@ const CountingListPage: React.FC = () => {
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full bg-gradient-to-br from-orange-400 to-orange-500 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
             </div>
@@ -145,7 +145,7 @@ const CountingListPage: React.FC = () => {
         {isLoading ? (
           <ListSkeleton />
         ) : (
-          <div className="space-y-4">
+          <div className="space-y-2">
             {countingList.length === 0 ? (
               <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-8 text-center shadow-lg">
                 <div className="text-6xl mb-4">📭</div>
@@ -163,14 +163,13 @@ const CountingListPage: React.FC = () => {
                     <div
                       className={`rounded-2xl overflow-hidden p-4 ${isDraft}`}
                     >
-                      {/* Card content */}
                       <div className="flex items-start justify-between">
                         <div>
                           <p>{item.name}</p>
                           <p>{item.statusText}</p>
                         </div>
                       </div>
-                      <div className="flex items-center">
+                      <div className="flex items-center gap-2">
                         <span>Тоолсон үнийн дүн :</span>
                         <span>{item.totalAmount.toLocaleString()}₮</span>
                       </div>
