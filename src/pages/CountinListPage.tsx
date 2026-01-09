@@ -106,9 +106,9 @@ const CountingListPage: React.FC = () => {
     <div className="min-h-screen p-4 md:p-6 lg:p-8">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <div className="mb-6 md:mb-8">
+        <div>
           <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
-            📋 Тооллогын жагсаалт
+            Тооллогын жагсаалт
           </h1>
         </div>
 
@@ -124,7 +124,7 @@ const CountingListPage: React.FC = () => {
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full bg-gradient-to-br from-orange-400 to-orange-500 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
               <div className="w-fit">
@@ -135,7 +135,7 @@ const CountingListPage: React.FC = () => {
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full bg-gradient-to-br from-orange-400 to-orange-500 px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
             </div>
