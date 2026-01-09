@@ -151,7 +151,7 @@ const SearchByProductnamePage = () => {
 
                   {/* Product Name */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-gray-700 truncate">{product.name}</h3>
+                    <h3 className="text-gray-500 truncate">{product.name}</h3>
                   </div>
                 </div>
               </div>
