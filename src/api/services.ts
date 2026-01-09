@@ -90,7 +90,6 @@ export const getCountingList = async (
       "action/exec_proc",
       input
     );
-    console.log(res);
 
     if (res.data.is_succeeded && res.data.result) {
       const countings: CountingModel[] = res.data.result.map(

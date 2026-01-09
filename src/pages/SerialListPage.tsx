@@ -4,7 +4,6 @@ import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
-import { P } from "node_modules/framer-motion/dist/types.d-BJcRxCew";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -62,7 +61,6 @@ const SerialListPage = () => {
         );
         if (barcode) {
           setBarcode(barcode);
-          console.log(barcode);
         } else {
           showToast.error("Баркод авахад алдаа гарлаа", {
             position: "bottom-center",

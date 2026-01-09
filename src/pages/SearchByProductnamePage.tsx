@@ -11,7 +11,7 @@ const SearchByProductnamePage = () => {
   const { productList, currentCounting } = productContext;
 
   const [searchQuery, setSearchQuery] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState<string | null>(null);
+  const [selectedGroupNum, setSelectedProduct] = useState<string | null>(null);
   const navigate = useNavigate();
   // Filter products based on search query
   const filteredProducts = useMemo(() => {
@@ -36,7 +36,7 @@ const SearchByProductnamePage = () => {
   }, [productList, searchQuery, filteredProducts]);
 
   const handleSelectProduct = (groupNum: string) => {
-    if (groupNum == selectedProduct) {
+    if (groupNum == selectedGroupNum) {
       setSelectedProduct(null);
       return;
     }
@@ -44,15 +44,9 @@ const SearchByProductnamePage = () => {
   };
 
   const handleNextButton = () => {
-    // const product = displayProducts.find(
-    //   (p: ProductModel) => p.barcode === selectedProduct
-    // );
-    console.log(currentCounting?.IsBySeriesNumber);
-
     if (currentCounting?.IsBySeriesNumber) {
-      navigate(`/toollogo/serialList/${selectedProduct}`);
+      navigate(`/toollogo/serialList/${selectedGroupNum}`);
     }
-    console.log(selectedProduct);
   };
 
   return (
@@ -123,7 +117,7 @@ const SearchByProductnamePage = () => {
                 className={`
                  px-4 py-2 rounded-2xl
                   ${
-                    selectedProduct === product.groupNum
+                    selectedGroupNum === product.groupNum
                       ? "ring-2 ring-blue-500 bg-blue-50/70"
                       : ""
                   }
@@ -137,13 +131,13 @@ const SearchByProductnamePage = () => {
                         w-5 h-5 rounded-full border-2 flex items-center justify-center
                         transition-all duration-200
                         ${
-                          selectedProduct === product.groupNum
+                          selectedGroupNum === product.groupNum
                             ? "border-blue-500 bg-blue-500"
                             : "border-gray-300 bg-white"
                         }
                       `}
                     >
-                      {selectedProduct === product.groupNum && (
+                      {selectedGroupNum === product.groupNum && (
                         <div className="w-2.5 h-2.5 rounded-full bg-white" />
                       )}
                     </div>
@@ -160,7 +154,7 @@ const SearchByProductnamePage = () => {
         </div>
 
         {/* Selected Product Action */}
-        {selectedProduct && (
+        {selectedGroupNum && (
           <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md">
             <button
               onClick={handleNextButton}
