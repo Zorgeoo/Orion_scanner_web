@@ -38,11 +38,11 @@ const SearchByProductnamePage = () => {
   }, [productList, searchQuery, filteredProducts]);
 
   const handleSelectProduct = (product: ProductModel) => {
-    if (product == selectedProduct) {
+    if (product === selectedProduct) {
       setSelectedProduct(null);
-      return;
+    } else {
+      setSelectedProduct(selectedProduct);
     }
-    setSelectedProduct(selectedProduct);
   };
 
   const handleNextButton = () => {
