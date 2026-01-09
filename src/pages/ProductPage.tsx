@@ -43,7 +43,7 @@ const ProductPage = () => {
           showToast.success("Амжилттай хадгаллаа.", {
             position: "bottom-center",
           });
-          navigate(-2);
+          // navigate(-2);
         } else {
           showToast.error("Алдаа гарлаа. Амжилтгүй", {
             position: "bottom-center",
