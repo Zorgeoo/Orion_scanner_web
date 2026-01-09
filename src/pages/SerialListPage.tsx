@@ -38,7 +38,7 @@ const SerialListPage = () => {
     getSeries();
   }, []);
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col p-8 gap-2">
       {serials &&
         serials.map((serial, index) => {
           return (
