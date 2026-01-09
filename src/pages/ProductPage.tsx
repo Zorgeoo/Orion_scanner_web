@@ -16,11 +16,16 @@ const ProductPage = () => {
   const location = useLocation();
   const product = location.state?.product as FullProductModel | undefined;
   const countingId = location.state.countingId;
+  if (!countingId) {
+    <div>No countingId</div>;
+  }
 
   // quantity editable (index 6 in your tuple)
   const [quantity, setQuantity] = useState<number | null>(
     product?.quantity ?? null
   );
+
+  if (!product) return <p className="p-4">No product data available</p>;
 
   const saveQuantity = async () => {
     try {
