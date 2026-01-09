@@ -39,7 +39,7 @@ function App() {
             <Route path="/barcodeScanner" element={<FullscreenScanner />} />
             <Route path="/toollogo" element={<CountingListPage />} />
             <Route
-              path="/toollogo/serialList/:groupNum"
+              path="/toollogo/serialList/:groupNum/:countingId"
               element={<SerialListPage />}
             />
             <Route path="/toollogo/:countingId" element={<CountingPage />} />

@@ -1,7 +1,7 @@
 import { ProductContext } from "@/context/ProductContext";
 import { ProductModel } from "@/types/ProductModel";
 import { useState, useMemo, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const SearchByProductnamePage = () => {
   const productContext = useContext(ProductContext);
@@ -9,6 +9,8 @@ const SearchByProductnamePage = () => {
   if (!productContext) return null;
 
   const { productList, currentCounting } = productContext;
+
+  const { countingId } = useParams();
 
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedGroupNum, setSelectedProduct] = useState<string | null>(null);
@@ -44,7 +46,7 @@ const SearchByProductnamePage = () => {
 
   const handleNextButton = () => {
     if (currentCounting?.IsBySeriesNumber) {
-      navigate(`/toollogo/serialList/${selectedGroupNum}`);
+      navigate(`/toollogo/serialList/${selectedGroupNum}/${countingId}`);
     }
   };
 

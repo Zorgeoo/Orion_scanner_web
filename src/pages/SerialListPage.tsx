@@ -1,6 +1,5 @@
 import { getBarcodeByGroupNum, getSeriesList } from "@/api/services";
 import { Skeleton } from "@/components/ui/skeleton";
-import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
@@ -9,15 +8,15 @@ import { Link, useParams } from "react-router-dom";
 
 const SerialListPage = () => {
   const userContext = useContext(UserContext);
-  const productContext = useContext(ProductContext);
 
-  if (!productContext) return;
   if (!userContext) return;
 
-  const { currentCounting } = productContext;
   const { userInfo } = userContext;
 
-  const { groupNum } = useParams<{ groupNum: string }>();
+  const { groupNum, countingId } = useParams<{
+    groupNum: string;
+    countingId: string;
+  }>();
 
   const [serials, setSerials] = useState<SerialModel[] | null>(null);
   const [selectedSerial, setSelectedSerial] = useState<string | null>(null);
@@ -28,10 +27,10 @@ const SerialListPage = () => {
     const getSeries = async () => {
       setIsLoading(true);
       try {
-        if (userInfo?.dbase?.dbName && currentCounting && groupNum) {
+        if (userInfo?.dbase?.dbName && countingId && groupNum) {
           const res = await getSeriesList(
             userInfo?.dbase?.dbName,
-            currentCounting?.id,
+            countingId,
             groupNum
           );
           if (res.isSuccess) {
@@ -51,7 +50,6 @@ const SerialListPage = () => {
     };
     getSeries();
   }, []);
-  console.log(currentCounting?.id);
 
   const getBarcode = async () => {
     try {
@@ -88,14 +86,13 @@ const SerialListPage = () => {
           {serials &&
             serials.map((serial, index) => {
               return (
-                <Link to={`/toollogo/${currentCounting?.id}/${groupNum}`}>
+                <Link to={`/toollogo/${countingId}/${groupNum}`}>
                   <div
                     key={index}
                     className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
                   >
                     <p className="">{serial.fullSeriesNumber}</p>
                   </div>
-                  //{" "}
                 </Link>
               );
             })}
