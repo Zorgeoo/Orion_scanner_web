@@ -153,42 +153,34 @@ const CountingListPage: React.FC = () => {
               </div>
             ) : (
               countingList.map((item) => {
-                const config = getTypeConfig(item.statusCode);
+                const isDraft =
+                  item.statusCode == "draft"
+                    ? "font-semibold bg-green-500"
+                    : "text-gray-500";
 
                 return (
                   <div
                     key={item.id}
                     onClick={() => handleCountingClick(item)}
-                    className="cursor-pointer"
+                    className={`${isDraft}`}
                   >
-                    <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
+                    <div className="rounded-2xl p-4 shadow-lg hover:shadow-xl transition-all">
                       {/* Card content */}
-                      <div className="flex items-start justify-between mb-3">
+                      <div className="flex items-start justify-between">
                         <div>
-                          <p className="text-xs text-gray-500 mb-1">
-                            {item.id}
-                          </p>
-                          <p className="font-bold text-gray-800 text-lg">
-                            {item.name}
-                          </p>
-                          <p className="text-sm text-gray-500 mt-1">
-                            {item.statusText}
-                          </p>
+                          <p>{item.name}</p>
+                          <p>{item.statusText}</p>
                         </div>
-                        <span
+                        {/* <span
                           className={`flex items-center gap-1 px-3 py-1 rounded-full text-xs font-medium border ${config.color}`}
                         >
                           <span>{config.icon}</span>
                           {config.label}
-                        </span>
+                        </span> */}
                       </div>
-                      <div className="flex items-center justify-between pt-3 border-t border-gray-200">
-                        <span className="text-sm text-gray-500">
-                          Нийт дүн :
-                        </span>
-                        <span className="text-xl font-bold text-gray-800">
-                          {item.totalAmount.toLocaleString()}₮
-                        </span>
+                      <div className="flex items-center justify-between">
+                        <span>Тоолсон үнийн дүн :</span>
+                        <span>{item.totalAmount.toLocaleString()}₮</span>
                       </div>
                     </div>
                   </div>
