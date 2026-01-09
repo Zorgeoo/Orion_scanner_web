@@ -3,6 +3,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
 import { SerialModel } from "@/types/SerialModel";
+import { showToast } from "@/utils/toast";
+import { P } from "node_modules/framer-motion/dist/types.d-BJcRxCew";
 import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
@@ -21,18 +23,26 @@ const SerialListPage = () => {
   const [serials, setSerials] = useState<SerialModel[] | null>(null);
   const [selectedSerial, setSelectedSerial] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [barcode, setBarcode] = useState<string | null>(null);
 
   useEffect(() => {
     const getSeries = async () => {
       setIsLoading(true);
       try {
         if (userInfo?.dbase?.dbName && currentCounting && groupNum) {
-          const serials = await getSeriesList(
+          const res = await getSeriesList(
             userInfo?.dbase?.dbName,
             currentCounting?.id,
             groupNum
           );
-          setSerials(serials);
+          if (res.isSuccess) {
+            setSerials(res.serials);
+            await getBarcode();
+          } else {
+            showToast.error("Баркод авахад алдаа гарлаа", {
+              position: "bottom-center",
+            });
+          }
         }
         setIsLoading(false);
       } catch (error) {
@@ -46,10 +56,21 @@ const SerialListPage = () => {
   const getBarcode = async () => {
     try {
       if (userInfo?.dbase?.dbName && groupNum) {
-        const res = getBarcodeByGroupNum(userInfo?.dbase?.dbName, groupNum);
-        console.log(res);
+        const barcode = await getBarcodeByGroupNum(
+          userInfo?.dbase?.dbName,
+          groupNum
+        );
+        if (barcode) {
+          setBarcode(barcode);
+        } else {
+          showToast.error("Баркод авахад алдаа гарлаа", {
+            position: "bottom-center",
+          });
+        }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
   };
   return (
     <div className="p-4 mx-auto">

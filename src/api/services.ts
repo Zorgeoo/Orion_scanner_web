@@ -284,7 +284,7 @@ export const getSeriesList = async (
   dbName: string,
   fullId: string,
   groupNum: string
-): Promise<SerialModel[]> => {
+): Promise<{ serials: SerialModel[]; isSuccess: boolean }> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_Series");
 
@@ -307,19 +307,19 @@ export const getSeriesList = async (
           something,
         })
       );
-      return serials;
+      return { serials: serials, isSuccess: true };
     }
-    return [];
+    return { serials: [], isSuccess: false };
   } catch (error) {
     console.log(error);
-    return [];
+    return { serials: [], isSuccess: false };
   }
 };
 
 export const getBarcodeByGroupNum = async (
   dbName: string,
   groupNum: string
-): Promise<any[]> => {
+): Promise<string> => {
   try {
     const input = new InputModel(dbName, "spPh_GetBarcodeByGroupnum");
 
@@ -328,22 +328,11 @@ export const getBarcodeByGroupNum = async (
     const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
 
     if (res.data.is_succeeded && res.data.result) {
-      // const serials: SerialModel[] = res.data.result.map(
-      //   ([seriesNumber, cost, endDate, fullSeriesNumber, qty, something]) => ({
-      //     seriesNumber,
-      //     cost,
-      //     endDate,
-      //     fullSeriesNumber,
-      //     qty,
-      //     something,
-      //   })
-      // );
-      // return serials;
-      return res.data.result;
+      return res.data.result[0][0];
     }
-    return [];
+    return "";
   } catch (error) {
     console.log(error);
-    return [];
+    return "";
   }
 };
