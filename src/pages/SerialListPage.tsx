@@ -1,5 +1,6 @@
 import { getBarcodeByGroupNum, getSeriesList } from "@/api/services";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
@@ -8,30 +9,29 @@ import { Link, useParams } from "react-router-dom";
 
 const SerialListPage = () => {
   const userContext = useContext(UserContext);
+  const productContext = useContext(ProductContext);
 
+  if (!productContext) return;
   if (!userContext) return;
 
+  const { currentCounting } = productContext;
   const { userInfo } = userContext;
 
-  const { groupNum, countingId } = useParams<{
-    groupNum: string;
-    countingId: string;
-  }>();
+  const { groupNum } = useParams<{ groupNum: string }>();
 
   const [serials, setSerials] = useState<SerialModel[] | null>(null);
   const [selectedSerial, setSelectedSerial] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [barcode, setBarcode] = useState<string | null>(null);
-  console.log(countingId, groupNum);
 
   useEffect(() => {
     const getSeries = async () => {
       setIsLoading(true);
       try {
-        if (userInfo?.dbase?.dbName && countingId && groupNum) {
+        if (userInfo?.dbase?.dbName && currentCounting && groupNum) {
           const res = await getSeriesList(
             userInfo?.dbase?.dbName,
-            countingId,
+            currentCounting?.id,
             groupNum
           );
           if (res.isSuccess) {
@@ -51,6 +51,7 @@ const SerialListPage = () => {
     };
     getSeries();
   }, []);
+  console.log(currentCounting?.id);
 
   const getBarcode = async () => {
     try {
@@ -87,7 +88,10 @@ const SerialListPage = () => {
           {serials &&
             serials.map((serial, index) => {
               return (
-                <Link to={`/toollogo/${countingId}/${groupNum}`}>
+                <Link
+                  to={`/toollogo/${currentCounting?.id}/${groupNum}`}
+                  state={{ countingId: currentCounting?.id }}
+                >
                   <div
                     key={index}
                     className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
