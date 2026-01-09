@@ -51,6 +51,7 @@ const SerialListPage = () => {
     };
     getSeries();
   }, []);
+  console.log(currentCounting?.id);
 
   const getBarcode = async () => {
     try {
@@ -87,14 +88,14 @@ const SerialListPage = () => {
           {serials &&
             serials.map((serial, index) => {
               return (
-                <Link to={`/toollogo/${currentCounting?.id}/${groupNum}`}>
-                  <div
-                    key={index}
-                    className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
-                  >
-                    <p className="">{serial.fullSeriesNumber}</p>
-                  </div>
-                </Link>
+                // <Link to={`/toollogo/${currentCounting?.id}/${groupNum}`}>
+                <div
+                  key={index}
+                  className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
+                >
+                  <p className="">{serial.fullSeriesNumber}</p>
+                </div>
+                // </Link>
               );
             })}
         </div>
