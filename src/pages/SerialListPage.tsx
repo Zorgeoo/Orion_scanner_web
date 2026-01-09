@@ -38,7 +38,7 @@ const SerialListPage = () => {
     getSeries();
   }, []);
   return (
-    <div className="p-8 mx-auto">
+    <div className="p-4 mx-auto">
       <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
         Тоолж буй серийн дугаараа сонгоно уу!
       </h1>
