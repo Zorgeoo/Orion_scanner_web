@@ -62,6 +62,7 @@ const SerialListPage = () => {
         );
         if (barcode) {
           setBarcode(barcode);
+          console.log(barcode);
         } else {
           showToast.error("Баркод авахад алдаа гарлаа", {
             position: "bottom-center",
