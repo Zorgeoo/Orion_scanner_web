@@ -1,5 +1,4 @@
 import { getSeriesList } from "@/api/services";
-import ListSkeleton from "@/components/common/ListSkeleton";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
@@ -49,7 +48,11 @@ const SerialListPage = () => {
         Тоолж буй серийн дугаараа сонгоно уу!
       </h1>
       {isLoading ? (
-        <ListSkeleton />
+        <div className="space-y-4 flex flex-col items-center content-center">
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+          <Skeleton className="h-4 w-full" />
+        </div>
       ) : (
         <div className="flex flex-col gap-2">
           {serials &&
