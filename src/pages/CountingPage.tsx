@@ -121,7 +121,7 @@ const CountingPage = () => {
                   to={`/toollogo/${countingId}/${product.lineId}`}
                   state={{ product, countingId: countingId }}
                 >
-                  <div className="flex flex-col">
+                  <div className="flex flex-col pt-2 border-b-2 border-green-600 text-sm">
                     <p className="">{product.barcodeAndName}</p>
                     <p className="">{product.qtyAndPrice}</p>
                   </div>

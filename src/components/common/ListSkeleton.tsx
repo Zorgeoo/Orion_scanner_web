@@ -6,9 +6,6 @@ export default function ListSkeleton() {
       <Skeleton className="h-32 w-full" />
       <Skeleton className="h-32 w-full" />
       <Skeleton className="h-32 w-full" />
-      <Skeleton className="h-32 w-full" />
-      <Skeleton className="h-32 w-full" />
-      <Skeleton className="h-32 w-full" />
     </div>
   );
 }
