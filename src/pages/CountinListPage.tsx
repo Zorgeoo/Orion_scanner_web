@@ -113,7 +113,7 @@ const CountingListPage: React.FC = () => {
         </div>
 
         {/* Filters */}
-        <div className="p-4 mb-6">
+        <div className="p-4">
           <div className="flex flex-col gap-4">
             <div className="flex gap-4 justify-between pr-4">
               <div className="w-fit">
@@ -161,7 +161,7 @@ const CountingListPage: React.FC = () => {
                 return (
                   <div key={item.id} onClick={() => handleCountingClick(item)}>
                     <div
-                      className={`rounded-2xl overflow-hidden p-4 ${isDraft}`}
+                      className={`rounded-2xl overflow-hidden p-2 ${isDraft}`}
                     >
                       <div className="flex items-start justify-between">
                         <div>
