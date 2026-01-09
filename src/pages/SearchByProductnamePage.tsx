@@ -35,12 +35,12 @@ const SearchByProductnamePage = () => {
     return filteredProducts;
   }, [productList, searchQuery, filteredProducts]);
 
-  const handleSelectProduct = (barcode: string) => {
-    if (barcode == selectedProduct) {
+  const handleSelectProduct = (groupNum: string) => {
+    if (groupNum == selectedProduct) {
       setSelectedProduct(null);
       return;
     }
-    setSelectedProduct(barcode);
+    setSelectedProduct(groupNum);
   };
 
   const handleNextButton = () => {
@@ -50,7 +50,7 @@ const SearchByProductnamePage = () => {
     console.log(currentCounting?.IsBySeriesNumber);
 
     if (currentCounting?.IsBySeriesNumber) {
-      navigate(`/toollogo/serialList`);
+      navigate(`/toollogo/serialList/${selectedProduct}`);
     }
     console.log(selectedProduct);
   };
@@ -119,7 +119,7 @@ const SearchByProductnamePage = () => {
             displayProducts.map((product: ProductModel) => (
               <div
                 key={product.barcode}
-                onClick={() => handleSelectProduct(product.barcode)}
+                onClick={() => handleSelectProduct(product.groupNum)}
                 className={`
                  px-4 py-2 rounded-2xl
                   ${

@@ -269,3 +269,26 @@ export const saveProductQuantity = async (
     return false;
   }
 };
+
+export const getSeriesList = async (
+  dbName: string,
+  fullId: string,
+  groupNum: string
+): Promise<any[]> => {
+  try {
+    const input = new InputModel(dbName, "spLoad_CntApp_Series");
+
+    input.addParam("@full_id", "nvarchar", 50, fullId);
+    input.addParam("@group_num", "nvarchar", 200, groupNum);
+
+    const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
+
+    if (res.data.is_succeeded && res.data.result) {
+      return [];
+    }
+    return [];
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
