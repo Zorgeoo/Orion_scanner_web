@@ -38,7 +38,10 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/barcodeScanner" element={<FullscreenScanner />} />
             <Route path="/toollogo" element={<CountingListPage />} />
-            <Route path="/toollogo/serialList" element={<SerialListPage />} />
+            <Route
+              path="/toollogo/serialList/:groupNum"
+              element={<SerialListPage />}
+            />
             <Route path="/toollogo/:countingId" element={<CountingPage />} />
             <Route
               path="/toollogo/:countingId/searchByProductName"

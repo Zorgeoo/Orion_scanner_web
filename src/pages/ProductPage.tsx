@@ -20,7 +20,6 @@ const ProductPage = () => {
     <div>No countingId</div>;
   }
 
-  // quantity editable (index 6 in your tuple)
   const [quantity, setQuantity] = useState<number | null>(
     product?.quantity ?? null
   );
