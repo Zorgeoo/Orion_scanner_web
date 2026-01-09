@@ -36,10 +36,19 @@ body {
   flex-direction: column;
 }
 
-.app-content {
+/* .app-content {
   flex: 1;
   overflow-y: auto;
   padding-top: calc(var(--header-height) + env(safe-area-inset-top));
+  padding-bottom: 0;
+} */
+
+.app-content {
+  flex: 1;
+  overflow-y: auto;
+  /* Remove the safe-area-inset-top here because Swift's .automatic behavior 
+     will now correctly push the entire webview content down below the notch. */
+  padding-top: var(--header-height);
   padding-bottom: 0;
 }
 
