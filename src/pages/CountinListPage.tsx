@@ -7,33 +7,6 @@ import { showToast } from "@/utils/toast";
 import React, { useState, useEffect, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 
-// Тооллого бүрийн type-г авж тохирох дизайн-г өгж байна
-const getTypeConfig = (type: string) => {
-  switch (type) {
-    case "confirmed":
-      return {
-        label: "Батлагдсан",
-        color: "bg-green-100 text-green-700 border-green-200",
-        icon: "✓",
-        badgeColor: "bg-green-500",
-      };
-    case "draft":
-      return {
-        label: "Ноорог",
-        color: "bg-yellow-100 text-yellow-700 border-yellow-200",
-        icon: "⏳",
-        badgeColor: "bg-yellow-500",
-      };
-    default:
-      return {
-        label: "Төлөвгүй",
-        color: "bg-blue-100 text-blue-700 border-blue-200",
-        icon: "⏳",
-        badgeColor: "bg-blue-500",
-      };
-  }
-};
-
 const CountingListPage: React.FC = () => {
   const navigate = useNavigate();
   const today = new Date();
@@ -155,13 +128,13 @@ const CountingListPage: React.FC = () => {
               countingList.map((item) => {
                 const isDraft =
                   item.statusCode == "draft"
-                    ? "font-semibold bg-green-100"
+                    ? "font-medium bg-green-100"
                     : "text-gray-500 bg-gray-100";
 
                 return (
                   <div key={item.id} onClick={() => handleCountingClick(item)}>
                     <div
-                      className={`rounded-2xl overflow-hidden p-2 ${isDraft}`}
+                      className={`rounded-2xl overflow-hidden p-4 ${isDraft}`}
                     >
                       <div className="flex items-start justify-between">
                         <div>
@@ -169,7 +142,7 @@ const CountingListPage: React.FC = () => {
                           <p>{item.statusText}</p>
                         </div>
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex items-center gap-1">
                         <span>Тоолсон үнийн дүн :</span>
                         <span>{item.totalAmount.toLocaleString()}₮</span>
                       </div>
