@@ -38,7 +38,7 @@ const SearchByProductnamePage = () => {
   }, [productList, searchQuery, filteredProducts]);
 
   const handleSelectProduct = (product: ProductModel) => {
-    if (product === selectedProduct) {
+    if (product.groupNum === selectedProduct?.groupNum) {
       setSelectedProduct(null);
     } else {
       setSelectedProduct(product);
