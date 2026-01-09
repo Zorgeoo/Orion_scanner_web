@@ -38,19 +38,24 @@ const SerialListPage = () => {
     getSeries();
   }, []);
   return (
-    <div className="flex flex-col p-8 gap-2">
-      {serials &&
-        serials.map((serial, index) => {
-          return (
-            <div
-              // onClick={()=>setSelectedSerial(serial.)}
-              key={index}
-              className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
-            >
-              <p className="">{serial.fullSeriesNumber}</p>
-            </div>
-          );
-        })}
+    <div className="p-8 mx-auto">
+      <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
+        Тоолж буй серийн дугаараа сонгоно уу!
+      </h1>
+      <div className="flex flex-col gap-2">
+        {serials &&
+          serials.map((serial, index) => {
+            return (
+              <div
+                // onClick={()=>setSelectedSerial(serial.)}
+                key={index}
+                className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
+              >
+                <p className="">{serial.fullSeriesNumber}</p>
+              </div>
+            );
+          })}
+      </div>
     </div>
   );
 };

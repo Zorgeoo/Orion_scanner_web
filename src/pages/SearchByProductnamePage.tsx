@@ -59,7 +59,7 @@ const SearchByProductnamePage = () => {
     <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <h1 className="px-4 mx-auto text-base font-semibold pb-2">
+        <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
           Хайж буй барааныхаа нэрийг бичнэ үү!
         </h1>
         {/* Search Input */}
