@@ -24,7 +24,6 @@ const SearchByProductnamePage = () => {
     return filtered.slice(0, 30);
   }, [productList, searchQuery]);
 
-  // Default to first 30 products
   const displayProducts = useMemo(() => {
     if (!productList) return [];
 

@@ -5,7 +5,7 @@ import { UserContext } from "@/context/UserContext";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 const SerialListPage = () => {
   const userContext = useContext(UserContext);
@@ -87,12 +87,14 @@ const SerialListPage = () => {
           {serials &&
             serials.map((serial, index) => {
               return (
-                <div
-                  key={index}
-                  className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
-                >
-                  <p className="">{serial.fullSeriesNumber}</p>
-                </div>
+                <Link to={`/toollogo/${currentCounting?.id}/${groupNum}`}>
+                  <div
+                    key={index}
+                    className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
+                  >
+                    <p className="">{serial.fullSeriesNumber}</p>
+                  </div>
+                </Link>
               );
             })}
         </div>
