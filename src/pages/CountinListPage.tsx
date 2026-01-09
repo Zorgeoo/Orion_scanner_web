@@ -66,7 +66,7 @@ const CountingListPage: React.FC = () => {
     if (item.statusCode === "draft") {
       if (item.isEnabledPhoneApp) {
         setCurrentCounting(item);
-        navigate(`/toollogo/${item.id}`, { state: { date: item.name } });
+        navigate(`/toollogo/${item.id}`);
       } else {
         showToast.error("Тооллогыг утсаар тоолох үйлдлийг Хаасан байна!");
       }
@@ -80,7 +80,7 @@ const CountingListPage: React.FC = () => {
       <div className="max-w-6xl mx-auto">
         {/* Header */}
         <div>
-          <h1 className="text-2xl md:text-4xl font-bold text-gray-800 mb-2">
+          <h1 className="text-xl font-bold text-gray-800">
             Тооллогын жагсаалт
           </h1>
         </div>

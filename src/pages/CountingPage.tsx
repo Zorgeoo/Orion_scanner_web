@@ -5,7 +5,7 @@ import { UserContext, UserInfo } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
 
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -29,12 +29,9 @@ const CountingPage = () => {
   const productContext = useContext(ProductContext);
   if (!productContext) return null;
 
-  const { setProductList } = productContext;
+  const { setProductList, currentCounting } = productContext;
 
   const { countingId } = useParams<{ countingId: string }>();
-
-  const location = useLocation();
-  const date = location.state?.date;
 
   const [products, setProducts] = useState<FullProductModel[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -103,7 +100,9 @@ const CountingPage = () => {
   return (
     <div className="min-h-screen pb-48 p-6">
       <div className="max-w-4xl mx-auto">
-        <h4 className="text-xl font-bold mb-6 text-gray-900">{date}</h4>
+        <h4 className="text-xl font-bold mb-6 text-gray-900">
+          {currentCounting?.name}
+        </h4>
 
         {isLoading && <ListSkeleton />}
 
@@ -114,7 +113,7 @@ const CountingPage = () => {
         )}
 
         {!isLoading && products && (
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <div className="flex flex-col gap-2">
             {products.map((product, index) => {
               return (
                 <Link
@@ -122,13 +121,9 @@ const CountingPage = () => {
                   to={`/toollogo/${countingId}/${product.lineId}`}
                   state={{ product, countingId: countingId }}
                 >
-                  <div className="bg-white p-5 rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 flex flex-col">
-                    <p className="font-semibold text-gray-900 text-lg mb-2">
-                      {product.barcodeAndName}
-                    </p>
-                    <p className="text-gray-500 text-sm">
-                      {product.qtyAndPrice}
-                    </p>
+                  <div className="flex flex-col">
+                    <p className="">{product.barcodeAndName}</p>
+                    <p className="">{product.qtyAndPrice}</p>
                   </div>
                 </Link>
               );
