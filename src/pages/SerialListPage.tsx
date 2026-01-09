@@ -16,7 +16,7 @@ const SerialListPage = () => {
   if (!productContext) return;
   if (!userContext) return;
 
-  const { currentCounting } = productContext;
+  const { currentCounting, setSerials, serials } = productContext;
   const { userInfo } = userContext;
 
   const { groupNum } = useParams<{ groupNum: string }>();
@@ -26,7 +26,6 @@ const SerialListPage = () => {
   const product = location.state?.product as ProductModel | undefined;
   if (!product) return <p className="p-4">No product data available</p>;
 
-  const [serials, setSerials] = useState<SerialModel[] | null>(null);
   const [selectedSerial, setSelectedSerial] = useState<SerialModel | null>(
     null
   );
