@@ -6,10 +6,20 @@ import { FullProductModel } from "@/types/FullProductModel";
 import { BarcodeProductModel } from "@/types/BarcodeProductModel";
 import { ProductModel } from "@/types/ProductModel";
 import { ModuleModel } from "@/types/ModuleModel";
+import { SerialModel } from "@/types/SerialModel";
 
 export type ModuleTuple = [string, string];
 type BarcodeProductTuple = [string, string, string, number];
 type ProductTuple = [string, string, string, string, number, number];
+type SerialTuple = [
+  string,
+  number,
+  string | Record<string, unknown>,
+  string,
+  number,
+  string | Record<string, unknown>
+];
+
 type FullProductTuple = [
   number,
   string,
@@ -281,10 +291,23 @@ export const getSeriesList = async (
     input.addParam("@full_id", "nvarchar", 50, fullId);
     input.addParam("@group_num", "nvarchar", 200, groupNum);
 
-    const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
+    const res = await api.post<BaseResponse<SerialTuple[]>>(
+      "action/exec_proc",
+      input
+    );
 
     if (res.data.is_succeeded && res.data.result) {
-      return [];
+      const serials: SerialModel[] = res.data.result.map(
+        ([seriesNumber, cost, endDate, fullSeriesNumber, qty, something]) => ({
+          seriesNumber,
+          cost,
+          endDate,
+          fullSeriesNumber,
+          qty,
+          something,
+        })
+      );
+      return serials;
     }
     return [];
   } catch (error) {
