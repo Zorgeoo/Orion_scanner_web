@@ -121,7 +121,7 @@ const SearchByProductnamePage = () => {
                 key={product.barcode}
                 onClick={() => handleSelectProduct(product.barcode)}
                 className={`
-                 px-4 py-2 rounded-2xl
+                 px-4 rounded-2xl
                   ${
                     selectedProduct === product.barcode
                       ? "ring-2 ring-blue-500 bg-blue-50/70"
