@@ -70,6 +70,7 @@ const SearchByProductnamePage = () => {
               sellingPrice: selectedProduct?.price,
               createdBy: "",
             } as FullProductModel,
+            countingId: currentCounting?.id,
           },
         }
       );
