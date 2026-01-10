@@ -49,7 +49,9 @@ const SearchByProductnamePage = () => {
 
   const handleNextButton = () => {
     if (currentCounting?.IsBySeriesNumber) {
-      navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`, {});
+      navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`, {
+        replace: true,
+      });
     } else {
       navigate(
         `/toollogo/${currentCounting?.id}/${selectedProduct?.groupNum}`,
