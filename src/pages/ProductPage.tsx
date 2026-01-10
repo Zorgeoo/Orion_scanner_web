@@ -39,7 +39,6 @@ const ProductPage = () => {
           userInfo.userId,
           countingId
         );
-        console.log(res);
 
         if (res) {
           showToast.success("Амжилттай хадгаллаа.", {

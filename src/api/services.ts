@@ -268,6 +268,7 @@ export const saveProductQuantity = async (
     input.addParam("@line_id", "int", 0, product.lineId);
 
     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
+    console.log(res);
 
     if (res.data.is_succeeded && res.data.result) {
       return true;
