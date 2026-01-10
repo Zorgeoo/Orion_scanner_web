@@ -1,4 +1,5 @@
 import { ProductContext } from "@/context/ProductContext";
+import { FullProductModel } from "@/types/FullProductModel";
 import { ProductModel } from "@/types/ProductModel";
 import { useState, useMemo, useContext } from "react";
 import { useNavigate } from "react-router-dom";
@@ -47,6 +48,29 @@ const SearchByProductnamePage = () => {
   const handleNextButton = () => {
     if (currentCounting?.IsBySeriesNumber) {
       navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`);
+    } else {
+      navigate(
+        `/toollogo/${currentCounting?.id}/${selectedProduct?.groupNum}`,
+        {
+          state: {
+            product: {
+              lineId: 0,
+              barcodeAndName: "",
+              qtyAndPrice: "",
+              groupNum: selectedProduct?.groupNum,
+              name: selectedProduct?.name,
+              barcode: selectedProduct?.barcode,
+              quantity: selectedProduct?.quantity,
+              serial: "",
+              costPrice: 0,
+              expiryISO: "",
+              expiryDisplay: "",
+              sellingPrice: selectedProduct?.price,
+              createdBy: "",
+            } as FullProductModel,
+          },
+        }
+      );
     }
   };
 
