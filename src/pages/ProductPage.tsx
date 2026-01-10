@@ -39,6 +39,8 @@ const ProductPage = () => {
           userInfo.userId,
           countingId
         );
+        console.log(res);
+
         if (res) {
           showToast.success("Амжилттай хадгаллаа.", {
             position: "bottom-center",
@@ -115,6 +117,12 @@ const ProductPage = () => {
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
+            <span className="text-sm font-medium text-gray-600">Зарах үнэ</span>
+            <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
+              {product.sellingPrice}₮
+            </span>
+          </div>
+          <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">Barcode</span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
               {product.barcode}
@@ -147,32 +155,6 @@ const ProductPage = () => {
               {product.costPrice}₮
             </span>
           </div>
-          <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-sm font-medium text-gray-600">Зарах үнэ</span>
-            <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {product.sellingPrice}₮
-            </span>
-          </div>
-
-          {/* Price Section */}
-          {/* <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-4">
-            <div className="bg-gradient-to-br from-green-50 to-green-100 rounded-xl p-4 border border-green-200">
-              <p className="text-xs font-medium text-green-600 mb-1">
-                Авсан үнэ
-              </p>
-              <p className="text-2xl font-bold text-green-700">
-                {product.costPrice}₮
-              </p>
-            </div>
-            <div className="bg-gradient-to-br from-blue-50 to-blue-100 rounded-xl p-4 border border-blue-200">
-              <p className="text-xs font-medium text-blue-600 mb-1">
-                Зарах үнэ
-              </p>
-              <p className="text-2xl font-bold text-blue-700">
-                {product.sellingPrice}₮
-              </p>
-            </div>
-          </div> */}
         </div>
       </div>
     </div>
