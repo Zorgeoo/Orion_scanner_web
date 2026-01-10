@@ -93,6 +93,7 @@ const SerialListPage = () => {
             serials.map((serial, index) => {
               return (
                 <Link
+                  replace={true}
                   onClick={() => setSelectedSerial(serial)}
                   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
                   state={{
