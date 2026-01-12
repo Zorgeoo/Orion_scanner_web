@@ -36,7 +36,7 @@ const SerialListPage = () => {
   );
   const [serial, setSerial] = useState<string>("");
   const [cost, setCost] = useState<string>("");
-
+  const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [barcode, setBarcode] = useState<string | null>(null);
 
@@ -105,6 +105,9 @@ const SerialListPage = () => {
         cost,
         expiryDate
       );
+      if (res) {
+        setOpen(false);
+      }
     } catch (error) {
       console.log(error);
     }
@@ -160,7 +163,7 @@ const SerialListPage = () => {
         </div>
       )}
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2">
-        <Dialog>
+        <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger className="px-4 py-2 bg-orange-400 text-white rounded-xl">
             Шинэ сери нэмэх
           </DialogTrigger>
