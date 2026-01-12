@@ -34,6 +34,7 @@ const CountingPage = () => {
   const {
     setProductList,
     setBarcodeList,
+    setSelectedProduct,
     productList,
     barcodeList,
     currentCounting,
@@ -74,13 +75,20 @@ const CountingPage = () => {
         (product) => product.groupNum == selectedTbarcode.groupNum
       );
     }
-    console.log(selectedTbarcode);
 
     if (!selectedTbarcode || !selectedTProduct) {
       showToast.error(
         `${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`
       );
     } else if (currentCounting?.IsBySeriesNumber) {
+      setSelectedProduct({
+        barcode: "",
+        groupNum: selectedTbarcode?.groupNum ?? "",
+        name: selectedTbarcode?.name ?? "Нэр олдсонгүй",
+        category: "",
+        price: selectedTbarcode?.price ?? 0,
+        quantity: 0,
+      });
       navigate(`/toollogo/serialList/${selectedTbarcode.groupNum}`);
     } else {
       navigate(`/toollogo/${countingId}/${selectedTbarcode.groupNum},`, {
