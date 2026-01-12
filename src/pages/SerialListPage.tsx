@@ -1,4 +1,8 @@
-import { getBarcodeByGroupNum, getSeriesList } from "@/api/services";
+import {
+  createNewSeries,
+  getBarcodeByGroupNum,
+  getSeriesList,
+} from "@/api/services";
 import { Skeleton } from "@/components/ui/skeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
@@ -63,7 +67,6 @@ const SerialListPage = () => {
     };
     getSeries();
   }, []);
-  console.log(currentCounting?.id);
 
   const getBarcode = async () => {
     try {
@@ -80,6 +83,28 @@ const SerialListPage = () => {
           });
         }
       }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  const handleCreateSerial = async () => {
+    if (!userInfo?.dbase?.dbName || !groupNum) return;
+
+    if (!serial) {
+      showToast.error("Серийн дугаар оруулна уу");
+    }
+    if (!expiryDate) {
+      showToast.error("Дуусах хугацааг оруулна уу");
+    }
+    try {
+      const res = await createNewSeries(
+        userInfo?.dbase?.dbName,
+        groupNum,
+        serial,
+        cost,
+        expiryDate
+      );
     } catch (error) {
       console.log(error);
     }
@@ -149,7 +174,9 @@ const SerialListPage = () => {
                     * Серийн дугаар :
                   </label>
                   <input
-                    type="number"
+                    type="text"
+                    inputMode="numeric"
+                    pattern="[0-9]*"
                     value={serial}
                     onChange={(e) => setSerial(e.target.value)}
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
@@ -181,6 +208,7 @@ const SerialListPage = () => {
                 </div>
               </div>
               <div
+                onClick={handleCreateSerial}
                 className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
              bg-gradient-to-r from-blue-500 to-purple-600 
              hover:from-blue-600 hover:to-purple-700 

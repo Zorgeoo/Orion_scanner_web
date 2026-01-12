@@ -71,7 +71,9 @@ const ProductPage = () => {
             <div className="flex justify-start gap-8 items-center">
               <div className="relative w-3/4">
                 <input
-                  type="number"
+                  type="text"
+                  inputMode="decimal"
+                  pattern="[0-9,]*"
                   value={quantity ? quantity : ""}
                   onChange={(e) => setQuantity(Number(e.target.value))}
                   className="w-full text-lg font-bold text-gray-800 border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"

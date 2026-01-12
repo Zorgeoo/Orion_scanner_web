@@ -335,3 +335,35 @@ export const getBarcodeByGroupNum = async (
     return "";
   }
 };
+
+export const createNewSeries = async (
+  dbName: string,
+  groupNum: string,
+  seriesNumber: string,
+  cost: string,
+  endDate: string
+): Promise<string> => {
+  try {
+    const date = new Date(endDate);
+    const formattedDate = `${date.getFullYear()}/${(date.getMonth() + 1)
+      .toString()
+      .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
+    const input = new InputModel(dbName, "spPh_AddSeries");
+
+    input.addParam("@group_num", "nvarchar", 200, groupNum);
+    input.addParam("@series_number", "nvarchar", 50, seriesNumber);
+    input.addParam("@price_avsan", "decimal", 0, cost);
+    input.addParam("@date_end", "datetime", 0, formattedDate);
+
+    const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
+    console.log(res);
+
+    if (res.data.is_succeeded && res.data.result) {
+      return res.data.result[0][0];
+    }
+    return "";
+  } catch (error) {
+    console.log(error);
+    return "";
+  }
+};
