@@ -3,6 +3,7 @@ import ListSkeleton from "@/components/common/ListSkeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext, UserInfo } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
+import { ProductModel } from "@/types/ProductModel";
 import { showToast } from "@/utils/toast";
 
 import { useContext, useEffect, useState } from "react";
@@ -64,12 +65,41 @@ const CountingPage = () => {
   useEffect(() => {
     if (!scannedCode) return;
 
-    const matchedBarcode = barcodeList?.find(
+    const selectedTbarcode = barcodeList?.find(
       (barcode) => barcode.barcode === scannedCode
     );
-    if (matchedBarcode) {
-      console.log(matchedBarcode);
-      navigate(`/toollogo/${countingId}/${matchedBarcode.groupNum}`);
+    let selectedTProduct: ProductModel | undefined;
+    if (selectedTbarcode) {
+      selectedTProduct = productList?.find(
+        (product) => product.groupNum == selectedTbarcode.groupNum
+      );
+    }
+    console.log(selectedTbarcode);
+
+    if (!selectedTbarcode || !selectedTProduct) {
+      showToast.error(
+        `${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`
+      );
+    } else {
+      navigate(`/toollogo/${countingId}/${selectedTbarcode.groupNum},`, {
+        state: {
+          product: {
+            lineId: 0,
+            barcodeAndName: "",
+            qtyAndPrice: "",
+            groupNum: selectedTbarcode.groupNum,
+            name: selectedTbarcode.name,
+            barcode: scannedCode,
+            quantity: selectedTProduct?.quantity ?? 0,
+            serial: "",
+            costPrice: selectedTbarcode.price,
+            expiryISO: "",
+            expiryDisplay: "",
+            sellingPrice: 0,
+            createdBy: "",
+          } as FullProductModel,
+        },
+      });
     }
   }, [scannedCode]);
 
