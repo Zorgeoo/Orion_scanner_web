@@ -120,6 +120,7 @@ const SerialListPage = () => {
               createdBy: "",
             } as FullProductModel,
             countingId: currentCounting?.id,
+            withSerial: true,
           },
         });
       }
