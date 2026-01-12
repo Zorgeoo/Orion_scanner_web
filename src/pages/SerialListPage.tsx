@@ -168,7 +168,6 @@ const SerialListPage = () => {
             Шинэ сери нэмэх
           </DialogTrigger>
           <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
-            {/* <DialogTitle></DialogTitle> */}
             <div className="font-semibold text-gray-800 ">
               Серийн дугаар шинээр үүсгэх :
             </div>

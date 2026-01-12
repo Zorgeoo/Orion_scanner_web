@@ -351,7 +351,7 @@ export const createNewSeries = async (
   seriesNumber: string,
   cost: string,
   endDate: string
-): Promise<string> => {
+): Promise<boolean> => {
   try {
     const decimalCost = parseFloat(cost || "0");
     const input = new InputModel(dbName, "spPh_AddSeries");
@@ -365,11 +365,11 @@ export const createNewSeries = async (
     console.log(res);
 
     if (res.data.is_succeeded && res.data.result) {
-      return res.data.result[0][0];
+      return true;
     }
-    return "";
+    return false;
   } catch (error) {
     console.log(error);
-    return "";
+    return false;
   }
 };
