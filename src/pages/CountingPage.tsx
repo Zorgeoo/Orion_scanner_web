@@ -78,117 +78,52 @@ const CountingPage = () => {
       if (!userInfo?.dbase?.dbName || !countingId) return;
 
       setIsLoading(true);
-
       try {
-        // 1️⃣ Fetch main product data
         const productResponse = await getProducts(
           userInfo.dbase.dbName,
           countingId
         );
+        if (productResponse.isSuccess) {
+          setProducts(productResponse.products);
+          if (!productList) {
+            const productListResponse = await getProductList(
+              userInfo.dbase.dbName,
+              countingId
+            );
+            if (productListResponse.success) {
+              setProductList(productListResponse.products);
+              if (!barcodeList) {
+                const barcodes = await getBarcodeList(
+                  userInfo.dbase.dbName,
+                  countingId
+                );
+                console.log(barcodes);
 
-        if (!productResponse.isSuccess) {
+                setBarcodeList(barcodes);
+              } else {
+                showToast.error(
+                  "Бараа бүтээгдэхүүний баркод жагсаалт авахад алдаа гарлаа.",
+                  {
+                    position: "bottom-center",
+                  }
+                );
+              }
+            }
+          }
+        } else {
           showToast.error("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.", {
             position: "bottom-center",
           });
-          setIsLoading(false);
-          return;
-        }
-
-        setProducts(productResponse.products);
-
-        // 2️⃣ Only fetch ProductList if not already set
-        if (!productList) {
-          const productListResponse = await getProductList(
-            userInfo.dbase.dbName,
-            countingId
-          );
-
-          if (productListResponse.success) {
-            setProductList(productListResponse.products);
-          } else {
-            showToast.error(
-              "Бараа бүтээгдэхүүний жагсаалт авахад алдаа гарлаа.",
-              { position: "bottom-center" }
-            );
-          }
-        }
-
-        // 3️⃣ Only fetch BarcodeList if not already set
-        if (!barcodeList) {
-          const barcodes = await getBarcodeList(
-            userInfo.dbase.dbName,
-            countingId
-          );
-          setBarcodeList(barcodes);
         }
       } catch (error) {
         console.error("Error fetching products:", error);
-        showToast.error("Сервертэй холбогдоход алдаа гарлаа.", {
-          position: "bottom-center",
-        });
       } finally {
         setIsLoading(false);
       }
     };
 
     fetchProducts();
-  }, [
-    userInfo?.dbase?.dbName,
-    countingId,
-    productList,
-    barcodeList,
-    setProductList,
-    setBarcodeList,
-  ]);
-
-  // useEffect(() => {
-  //   const fetchProducts = async () => {
-  //     if (!userInfo?.dbase?.dbName || !countingId) return;
-
-  //     setIsLoading(true);
-  //     try {
-  //       const productResponse = await getProducts(
-  //         userInfo.dbase.dbName,
-  //         countingId
-  //       );
-  //       if (productResponse.isSuccess) {
-  //         setProducts(productResponse.products);
-
-  //         const productListResponse = await getProductList(
-  //           userInfo.dbase.dbName,
-  //           countingId
-  //         );
-  //         if (productListResponse.success && !barcodeList) {
-  //           setProductList(productListResponse.products);
-  //           const barcodes = await getBarcodeList(
-  //             userInfo.dbase.dbName,
-  //             countingId
-  //           );
-  //           console.log(barcodes);
-
-  //           setBarcodeList(barcodes);
-  //         } else {
-  //           showToast.error(
-  //             "Бараа бүтээгдэхүүний жагсаалт авахад алдаа гарлаа.",
-  //             {
-  //               position: "bottom-center",
-  //             }
-  //           );
-  //         }
-  //       } else {
-  //         showToast.error("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.", {
-  //           position: "bottom-center",
-  //         });
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching products:", error);
-  //     } finally {
-  //       setIsLoading(false);
-  //     }
-  //   };
-
-  //   fetchProducts();
-  // }, [userInfo, countingId]);
+  }, [userInfo, countingId]);
 
   return (
     <div className="min-h-screen pb-48 p-6">
