@@ -80,6 +80,8 @@ const CountingPage = () => {
       showToast.error(
         `${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`
       );
+    } else if (currentCounting?.IsBySeriesNumber) {
+      navigate(`/toollogo/serialList/${selectedTbarcode.groupNum}`);
     } else {
       navigate(`/toollogo/${countingId}/${selectedTbarcode.groupNum},`, {
         state: {
@@ -92,10 +94,10 @@ const CountingPage = () => {
             barcode: scannedCode,
             quantity: selectedTProduct?.quantity ?? 0,
             serial: "",
-            costPrice: selectedTbarcode.price,
+            costPrice: 0,
             expiryISO: "",
             expiryDisplay: "",
-            sellingPrice: 0,
+            sellingPrice: selectedTProduct.price,
             createdBy: "",
           } as FullProductModel,
         },
