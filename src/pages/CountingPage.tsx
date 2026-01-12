@@ -219,20 +219,11 @@ const CountingPage = () => {
         >
           Баркод уншуулж тоолох
         </button>
-        {!isLoading ? (
-          <Link to={`/toollogo/${countingId}/searchByProductName`}>
-            <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
-              Барааны нэрээр хайж тоолох
-            </button>
-          </Link>
-        ) : (
-          <button
-            disabled
-            className="w-full py-4 bg-yellow-400 text-white font-semibold rounded-2xl shadow-lg cursor-not-allowed"
-          >
+        <Link to={`/toollogo/${countingId}/searchByProductName`}>
+          <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
             Барааны нэрээр хайж тоолох
           </button>
-        )}
+        </Link>
       </div>
     </div>
   );
