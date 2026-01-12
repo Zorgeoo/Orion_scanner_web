@@ -10,6 +10,8 @@ const Header = () => {
 
   const isHome = location.pathname === "/";
 
+  console.log(isHome);
+
   // const historyStack = useRef<string[]>([]);
   // const [canGoBack, setCanGoBack] = useState(false);
 
