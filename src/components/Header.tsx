@@ -9,6 +9,9 @@ const Header = () => {
   // Current pathname авахын тулд
   const location = useLocation();
   const isHome = location.pathname === "/home";
+
+  console.log(location.pathname);
+
   // const historyStack = useRef<string[]>([]);
   // const [canGoBack, setCanGoBack] = useState(false);
 
