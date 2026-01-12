@@ -173,6 +173,7 @@ const SerialListPage = () => {
                   <input
                     type="text"
                     inputMode="decimal"
+                    pattern="[0-9,]*"
                     value={cost ? cost : ""}
                     onChange={(e) => setCost(Number(e.target.value))}
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
