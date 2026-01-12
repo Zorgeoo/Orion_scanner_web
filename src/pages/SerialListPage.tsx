@@ -130,18 +130,18 @@ const SerialListPage = () => {
             })}
         </div>
       )}
-      <Dialog>
-        <DialogTrigger>Open</DialogTrigger>
-        <DialogContent>
-          <DialogHeader>
-            <DialogTitle>Are you absolutely sure?</DialogTitle>
-            <DialogDescription>
-              This action cannot be undone. This will permanently delete your
-              account and remove your data from our servers.
-            </DialogDescription>
-          </DialogHeader>
-        </DialogContent>
-      </Dialog>
+      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2">
+        <Dialog>
+          <DialogTrigger className="px-4 py-2 bg-blue-500 text-white rounded-xl">
+            Open
+          </DialogTrigger>
+          <DialogContent className="max-w-xs">
+            <DialogHeader>
+              <DialogTitle>Серийн дугаар шинээр үүсгэх :</DialogTitle>
+            </DialogHeader>
+          </DialogContent>
+        </Dialog>
+      </div>
     </div>
   );
 };
