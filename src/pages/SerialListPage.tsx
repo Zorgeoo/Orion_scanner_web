@@ -178,7 +178,7 @@ const SerialListPage = () => {
                 </div>
               </div>
               <div
-                className="w-full px-6 py-4 font-semibold rounded-2xl shadow-md text-white text-center 
+                className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
              bg-gradient-to-r from-blue-500 to-purple-600 
              hover:from-blue-600 hover:to-purple-700 
              transition-all duration-300"
