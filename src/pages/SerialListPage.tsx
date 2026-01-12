@@ -137,7 +137,7 @@ const SerialListPage = () => {
       <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2">
         <Dialog>
           <DialogTrigger className="px-4 py-2 g-gradient-to-br from-orange-400 to-orange-500 text-white rounded-xl">
-            Open
+            Шинэ сери нэмэх
           </DialogTrigger>
           <DialogContent className="max-w-xs">
             <DialogHeader>
