@@ -186,6 +186,7 @@ const SerialListPage = () => {
                 Хадгалах
               </div>
             </div>
+            <div className="[data-radix-dialog-close]:hidden" />
           </DialogContent>
         </Dialog>
       </div>
