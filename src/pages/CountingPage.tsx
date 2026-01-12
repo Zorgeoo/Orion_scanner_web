@@ -66,18 +66,6 @@ const CountingPage = () => {
       delete window.onBarcodeScanned;
     };
   }, []);
-  useEffect(() => {
-    window.onBarcodeScanned = (result: string | null) => {
-      if (result !== null) {
-        setScannedCode(result);
-      }
-      console.log(result);
-    };
-
-    return () => {
-      delete window.onBarcodeScanned;
-    };
-  }, []);
 
   useEffect(() => {
     const fetchProducts = async () => {
@@ -117,8 +105,6 @@ const CountingPage = () => {
             position: "bottom-center",
           });
         }
-
-        console.log(products);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
