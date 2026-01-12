@@ -94,9 +94,6 @@ const CountingListPage: React.FC = () => {
           <div className="flex flex-col gap-4">
             <div className="flex gap-4 justify-between pr-4">
               <div className="w-fit">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Эхлэх огноо :
-                </label>
                 <input
                   type="date"
                   value={startDate}
@@ -105,9 +102,6 @@ const CountingListPage: React.FC = () => {
                 />
               </div>
               <div className="w-fit">
-                <label className="block text-sm font-medium text-gray-700 mb-2">
-                  Дуусах огноо :
-                </label>
                 <input
                   type="date"
                   value={endDate}
