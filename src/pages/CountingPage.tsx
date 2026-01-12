@@ -94,7 +94,7 @@ const CountingPage = () => {
             userInfo.dbase.dbName,
             countingId
           );
-          setProducts(products);
+          setProducts(productResponse.products);
           if (productListResponse.success) {
             setProductList(productListResponse.products);
             const barcodes = await getBarcodeList(
