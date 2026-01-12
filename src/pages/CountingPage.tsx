@@ -3,6 +3,7 @@ import ListSkeleton from "@/components/common/ListSkeleton";
 import { ProductContext } from "@/context/ProductContext";
 import { UserContext, UserInfo } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
+import { showToast } from "@/utils/toast";
 
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -29,15 +30,12 @@ const CountingPage = () => {
   const productContext = useContext(ProductContext);
   if (!productContext) return null;
 
-  const { setProductList, currentCounting } = productContext;
+  const { setProductList, setBarcodeList, currentCounting } = productContext;
 
   const { countingId } = useParams<{ countingId: string }>();
 
   const [products, setProducts] = useState<FullProductModel[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
-
-  // Scan хийж байгаа эсэх
-  const [isScanning, setIsScanning] = useState<boolean>(false);
 
   // Scan хийгдсэн код
   const [scannedCode, setScannedCode] = useState<string | null>(null);
@@ -46,12 +44,10 @@ const CountingPage = () => {
     if (window.webkit?.messageHandlers?.barcodeScanner) {
       // iOS
       setScannedCode(null);
-      setIsScanning(true);
       window.webkit.messageHandlers.barcodeScanner.postMessage("openScanner");
     } else if ((window as any).barcodeScanner) {
       // Android
       setScannedCode(null);
-      setIsScanning(true);
       (window as any).barcodeScanner.postMessage("openScanner");
     } else {
       alert("Barcode scanner not available.");
@@ -60,7 +56,18 @@ const CountingPage = () => {
 
   useEffect(() => {
     window.onBarcodeScanned = (result: string | null) => {
-      setIsScanning(false);
+      if (result !== null) {
+        setScannedCode(result);
+      }
+      console.log(result);
+    };
+
+    return () => {
+      delete window.onBarcodeScanned;
+    };
+  }, []);
+  useEffect(() => {
+    window.onBarcodeScanned = (result: string | null) => {
       if (result !== null) {
         setScannedCode(result);
       }
@@ -78,14 +85,39 @@ const CountingPage = () => {
 
       setIsLoading(true);
       try {
-        const products = await getProducts(userInfo.dbase.dbName, countingId);
-        const res = await getProductList(userInfo.dbase.dbName, countingId);
-        // const res2 = await getBarcodeList(userInfo.dbase.dbName, countingId);
-        if (res.success) {
-          setProductList(res.products);
+        const productResponse = await getProducts(
+          userInfo.dbase.dbName,
+          countingId
+        );
+        if (productResponse.isSuccess) {
+          const productListResponse = await getProductList(
+            userInfo.dbase.dbName,
+            countingId
+          );
+          setProducts(products);
+          if (productListResponse.success) {
+            setProductList(productListResponse.products);
+            const barcodes = await getBarcodeList(
+              userInfo.dbase.dbName,
+              countingId
+            );
+            console.log(barcodes);
+
+            setBarcodeList(barcodes);
+          } else {
+            showToast.error(
+              "Бараа бүтээгдэхүүний жагсаалт авахад алдаа гарлаа.",
+              {
+                position: "bottom-center",
+              }
+            );
+          }
+        } else {
+          showToast.error("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.", {
+            position: "bottom-center",
+          });
         }
 
-        setProducts(products);
         console.log(products);
       } catch (error) {
         console.error("Error fetching products:", error);
