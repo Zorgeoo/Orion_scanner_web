@@ -22,10 +22,6 @@ const SerialListPage = () => {
 
   const [serials, setSerials] = useState<SerialModel[] | null>(null);
 
-  const [selectedSerial, setSelectedSerial] = useState<SerialModel | null>(
-    null
-  );
-
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [barcode, setBarcode] = useState<string | null>(null);
 
@@ -95,7 +91,6 @@ const SerialListPage = () => {
               return (
                 <Link
                   replace={true}
-                  onClick={() => setSelectedSerial(serial)}
                   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
                   state={{
                     withSerial: true,
@@ -107,12 +102,12 @@ const SerialListPage = () => {
                       groupNum: groupNum,
                       name: selectedProduct?.name,
                       barcode: barcode,
-                      quantity: selectedSerial?.qty,
+                      sellingPrice: selectedProduct?.price,
+                      quantity: serial.qty,
                       serial: serial.seriesNumber,
                       costPrice: serial.cost,
                       expiryISO: serial.endDate,
                       expiryDisplay: serial.endDate,
-                      sellingPrice: 0,
                       createdBy: "",
                     } as FullProductModel,
                   }}
