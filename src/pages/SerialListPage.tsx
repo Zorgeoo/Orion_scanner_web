@@ -140,7 +140,8 @@ const SerialListPage = () => {
             Шинэ сери нэмэх
           </DialogTrigger>
           <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
-            <DialogTitle>Серийн дугаар шинээр үүсгэх :</DialogTitle>
+            {/* <DialogTitle></DialogTitle> */}
+            <div>Серийн дугаар шинээр үүсгэх :</div>
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-4 items-start rounded-xl">
                 <div>
