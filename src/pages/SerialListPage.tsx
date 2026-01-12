@@ -142,33 +142,39 @@ const SerialListPage = () => {
           <DialogContent className="max-w-xs">
             <DialogTitle>Серийн дугаар шинээр үүсгэх :</DialogTitle>
             <div className="flex flex-col gap-4 items-start rounded-xl">
-              <label className="block text-sm font-medium text-gray-700">
-                Серийн дугаар :
-              </label>
-              <input
-                type="number"
-                value={serial}
-                onChange={(e) => setSerial(e.target.value)}
-                className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              />
-              <label className="block text-sm font-medium text-gray-700">
-                Дуусах хугацаа :
-              </label>
-              <input
-                type="date"
-                value={expiryDate}
-                onChange={(e) => setExpiryDate(e.target.value)}
-                className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              />
-              <label className="block text-sm font-medium text-gray-700">
-                Авсан үнэ :
-              </label>
-              <input
-                type="number"
-                value={cost ? cost : ""}
-                onChange={(e) => setCost(Number(e.target.value))}
-                className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-              />
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Серийн дугаар :
+                </label>
+                <input
+                  type="number"
+                  value={serial}
+                  onChange={(e) => setSerial(e.target.value)}
+                  className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Дуусах хугацаа :
+                </label>
+                <input
+                  type="date"
+                  value={expiryDate}
+                  onChange={(e) => setExpiryDate(e.target.value)}
+                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-gray-700">
+                  Авсан үнэ :
+                </label>
+                <input
+                  type="number"
+                  value={cost ? cost : ""}
+                  onChange={(e) => setCost(Number(e.target.value))}
+                  className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                />
+              </div>
             </div>
           </DialogContent>
         </Dialog>
