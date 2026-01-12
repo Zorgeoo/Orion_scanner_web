@@ -31,7 +31,7 @@ const SerialListPage = () => {
     new Date().toISOString().split("T")[0]
   );
   const [serial, setSerial] = useState<string>("");
-  const [cost, setCost] = useState<number | undefined>();
+  const [cost, setCost] = useState<string>("");
 
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [barcode, setBarcode] = useState<string | null>(null);
@@ -175,7 +175,7 @@ const SerialListPage = () => {
                     inputMode="decimal"
                     pattern="[0-9,]*"
                     value={cost ? cost : ""}
-                    onChange={(e) => setCost(Number(e.target.value))}
+                    onChange={(e) => setCost(e.target.value)}
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   />
                 </div>
