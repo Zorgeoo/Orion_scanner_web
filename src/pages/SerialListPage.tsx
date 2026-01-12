@@ -139,13 +139,13 @@ const SerialListPage = () => {
           <DialogTrigger className="px-4 py-2 bg-orange-400 text-white rounded-xl">
             Шинэ сери нэмэх
           </DialogTrigger>
-          <DialogContent className="max-w-xs">
+          <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
             <DialogTitle>Серийн дугаар шинээр үүсгэх :</DialogTitle>
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-4 items-start rounded-xl">
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Серийн дугаар :
+                  <label className="block text-sm font-medium text-gray-700 pb-2">
+                    * Серийн дугаар :
                   </label>
                   <input
                     type="number"
@@ -155,8 +155,8 @@ const SerialListPage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
-                    Дуусах хугацаа :
+                  <label className="block text-sm font-medium text-gray-700 pb-2">
+                    * Дуусах хугацаа :
                   </label>
                   <input
                     type="date"
@@ -166,7 +166,7 @@ const SerialListPage = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-sm font-medium text-gray-700">
+                  <label className="block text-sm font-medium text-gray-700 pb-2">
                     Авсан үнэ :
                   </label>
                   <input
