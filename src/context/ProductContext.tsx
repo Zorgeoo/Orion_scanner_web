@@ -8,10 +8,8 @@ interface ProductContextValue {
   barcodeList: BarcodeProductModel[] | null;
   productList: ProductModel[] | null;
   currentCounting: CountingModel | null;
-  serials: SerialModel[] | null;
   selectedProduct: ProductModel | null;
   setSelectedProduct: (product: ProductModel | null) => void;
-  setSerials: (serial: SerialModel[] | null) => void;
   setBarcodeList: (barcodeList: BarcodeProductModel[] | null) => void;
   setProductList: (productList: ProductModel[] | null) => void;
   setCurrentCounting: (counting: CountingModel | null) => void;
@@ -35,8 +33,6 @@ export const ProductContextProvider = ({ children }: ProductProviderProps) => {
     null
   );
 
-  const [serials, setSerials] = useState<SerialModel[] | null>(null);
-
   const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
     null
   );
@@ -50,8 +46,6 @@ export const ProductContextProvider = ({ children }: ProductProviderProps) => {
         setProductList,
         currentCounting,
         setCurrentCounting,
-        serials,
-        setSerials,
         selectedProduct,
         setSelectedProduct,
       }}

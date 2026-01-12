@@ -15,11 +15,12 @@ const SerialListPage = () => {
   if (!productContext) return;
   if (!userContext) return;
 
-  const { currentCounting, setSerials, serials, selectedProduct } =
-    productContext;
+  const { currentCounting, selectedProduct } = productContext;
   const { userInfo } = userContext;
 
   const { groupNum } = useParams<{ groupNum: string }>();
+
+  const [serials, setSerials] = useState<SerialModel[] | null>(null);
 
   const [selectedSerial, setSelectedSerial] = useState<SerialModel | null>(
     null
