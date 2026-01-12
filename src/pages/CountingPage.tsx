@@ -213,16 +213,26 @@ const CountingPage = () => {
       {/* Fixed bottom buttons */}
       <div className="fixed bottom-0 pb-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col gap-3 w-[90%] max-w-md bg-white">
         <button
+          disabled={isLoading}
           onClick={startScanning}
           className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all"
         >
           Баркод уншуулж тоолох
         </button>
-        <Link to={`/toollogo/${countingId}/searchByProductName`}>
-          <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
+        {!isLoading ? (
+          <Link to={`/toollogo/${countingId}/searchByProductName`}>
+            <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
+              Барааны нэрээр хайж тоолох
+            </button>
+          </Link>
+        ) : (
+          <button
+            disabled
+            className="w-full py-4 bg-yellow-400 text-white font-semibold rounded-2xl shadow-lg cursor-not-allowed"
+          >
             Барааны нэрээр хайж тоолох
           </button>
-        </Link>
+        )}
       </div>
     </div>
   );
