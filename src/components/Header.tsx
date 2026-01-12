@@ -8,38 +8,38 @@ const Header = () => {
 
   // Current pathname авахын тулд
   const location = useLocation();
+  const isHome = location.pathname === "/home";
+  // const historyStack = useRef<string[]>([]);
+  // const [canGoBack, setCanGoBack] = useState(false);
 
-  const historyStack = useRef<string[]>([]);
-  const [canGoBack, setCanGoBack] = useState(false);
+  // useEffect(() => {
+  //   // Current Pathname avj baina ex : /inventory
+  //   const currentPath = location.pathname;
 
-  useEffect(() => {
-    // Current Pathname avj baina ex : /inventory
-    const currentPath = location.pathname;
+  //   // Push current path if different from last in stack
+  //   if (historyStack.current[historyStack.current.length - 1] !== currentPath) {
+  //     historyStack.current.push(currentPath);
+  //   }
 
-    // Push current path if different from last in stack
-    if (historyStack.current[historyStack.current.length - 1] !== currentPath) {
-      historyStack.current.push(currentPath);
-    }
+  //   // Update whether back button should be shown
+  //   setCanGoBack(historyStack.current.length > 1);
+  // }, [location]);
 
-    // Update whether back button should be shown
-    setCanGoBack(historyStack.current.length > 1);
-  }, [location]);
-
-  const goBack = () => {
-    if (historyStack.current.length > 1) {
-      // Remove current page
-      historyStack.current.pop();
-      const previousPath =
-        historyStack.current[historyStack.current.length - 1];
-      if (previousPath) {
-        navigate(previousPath);
-      } else {
-        navigate("/");
-      }
-    } else {
-      navigate("/");
-    }
-  };
+  // const goBack = () => {
+  //   if (historyStack.current.length > 1) {
+  //     // Remove current page
+  //     historyStack.current.pop();
+  //     const previousPath =
+  //       historyStack.current[historyStack.current.length - 1];
+  //     if (previousPath) {
+  //       navigate(previousPath);
+  //     } else {
+  //       navigate("/");
+  //     }
+  //   } else {
+  //     navigate("/");
+  //   }
+  // };
 
   const logOut = () => {
     if (window.webkit?.messageHandlers?.barcodeScanner) {
@@ -57,21 +57,25 @@ const Header = () => {
     <nav className="fixed top-0 left-0 w-full z-40 bg-white/80 backdrop-blur-md border-b border-gray-200/50 shadow-sm">
       <div className="flex justify-between items-center px-4 h-16 max-w-7xl mx-auto">
         {/* Back Button */}
-        <button
-          onClick={goBack}
-          disabled={!canGoBack}
-          className={`
+        {isHome ? (
+          <></>
+        ) : (
+          <button
+            onClick={() => navigate(-1)}
+            disabled={!isHome}
+            className={`
             group flex items-center justify-center w-10 h-10 rounded-xl
             transition-all duration-200
             ${
-              canGoBack
+              isHome
                 ? "bg-gradient-to-br from-orange-400 to-orange-500 hover:from-orange-500 hover:to-orange-600 shadow-md hover:shadow-lg active:scale-95"
                 : "opacity-0 pointer-events-none"
             }
           `}
-        >
-          <ArrowLeft className="w-5 h-5 text-white group-hover:-translate-x-0.5 transition-transform" />
-        </button>
+          >
+            <ArrowLeft className="w-5 h-5 text-white group-hover:-translate-x-0.5 transition-transform" />
+          </button>
+        )}
 
         {/* Logo/Title */}
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2">
