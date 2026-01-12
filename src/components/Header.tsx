@@ -10,40 +10,6 @@ const Header = () => {
 
   const isHome = location.pathname === "/";
 
-  console.log(isHome);
-
-  // const historyStack = useRef<string[]>([]);
-  // const [canGoBack, setCanGoBack] = useState(false);
-
-  // useEffect(() => {
-  //   // Current Pathname avj baina ex : /inventory
-  //   const currentPath = location.pathname;
-
-  //   // Push current path if different from last in stack
-  //   if (historyStack.current[historyStack.current.length - 1] !== currentPath) {
-  //     historyStack.current.push(currentPath);
-  //   }
-
-  //   // Update whether back button should be shown
-  //   setCanGoBack(historyStack.current.length > 1);
-  // }, [location]);
-
-  // const goBack = () => {
-  //   if (historyStack.current.length > 1) {
-  //     // Remove current page
-  //     historyStack.current.pop();
-  //     const previousPath =
-  //       historyStack.current[historyStack.current.length - 1];
-  //     if (previousPath) {
-  //       navigate(previousPath);
-  //     } else {
-  //       navigate("/");
-  //     }
-  //   } else {
-  //     navigate("/");
-  //   }
-  // };
-
   const logOut = () => {
     if (window.webkit?.messageHandlers?.barcodeScanner) {
       // iOS
