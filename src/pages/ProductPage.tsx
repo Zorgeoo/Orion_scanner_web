@@ -20,6 +20,8 @@ const ProductPage = () => {
   const product = location.state?.product as FullProductModel | undefined;
   if (!product) return <p className="p-4">No product data available</p>;
 
+  const withSerial = location.state.withSerial as boolean | undefined;
+
   const countingId = location.state.countingId;
   if (!countingId) {
     <div>No countingId</div>;
@@ -41,7 +43,11 @@ const ProductPage = () => {
         );
 
         if (res) {
-          navigate(-2);
+          if (withSerial) {
+            navigate(-2);
+          } else {
+            navigate(-1);
+          }
         } else {
           showToast.error("Алдаа гарлаа. Амжилтгүй", {
             position: "bottom-center",

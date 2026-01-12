@@ -97,6 +97,7 @@ const SerialListPage = () => {
                   onClick={() => setSelectedSerial(serial)}
                   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
                   state={{
+                    withSerial: true,
                     countingId: currentCounting?.id,
                     product: {
                       lineId: 0,
