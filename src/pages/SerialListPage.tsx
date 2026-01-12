@@ -119,6 +119,7 @@ const SerialListPage = () => {
               sellingPrice: selectedProduct?.price,
               createdBy: "",
             } as FullProductModel,
+            countingId: currentCounting?.id,
           },
         });
       }
