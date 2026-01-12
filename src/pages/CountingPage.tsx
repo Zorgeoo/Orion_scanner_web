@@ -6,7 +6,7 @@ import { FullProductModel } from "@/types/FullProductModel";
 import { showToast } from "@/utils/toast";
 
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -43,6 +43,8 @@ const CountingPage = () => {
   const [products, setProducts] = useState<FullProductModel[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigate = useNavigate();
+
   // Scan хийгдсэн код
   const [scannedCode, setScannedCode] = useState<string | null>(null);
 
@@ -59,6 +61,17 @@ const CountingPage = () => {
       alert("Barcode scanner not available.");
     }
   };
+  useEffect(() => {
+    if (!scannedCode) return;
+
+    const matchedBarcode = barcodeList?.find(
+      (barcode) => barcode.barcode === scannedCode
+    );
+    if (matchedBarcode) {
+      console.log(matchedBarcode);
+      navigate(`/toollogo/${countingId}/${matchedBarcode.groupNum}`);
+    }
+  }, [scannedCode]);
 
   useEffect(() => {
     window.onBarcodeScanned = (result: string | null) => {
