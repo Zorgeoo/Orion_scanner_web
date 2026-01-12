@@ -148,8 +148,15 @@ const ProductPage = () => {
               Дуусах хугацаа
             </span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {typeof product.expiryDisplay === "string" &&
-                product.expiryDisplay.split("T")[0]}
+              {product.expiryDisplay &&
+              typeof product.expiryDisplay === "string"
+                ? new Date(product.expiryDisplay)
+                    .toLocaleDateString("en-CA", {
+                      year: "numeric",
+                      month: "2-digit",
+                    })
+                    .replace("-", "/")
+                : ""}
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
