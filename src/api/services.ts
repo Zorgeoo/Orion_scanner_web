@@ -348,11 +348,12 @@ export const createNewSeries = async (
     const formattedDate = `${date.getFullYear()}/${(date.getMonth() + 1)
       .toString()
       .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
+    const decimalCost = parseFloat(cost || "0");
     const input = new InputModel(dbName, "spPh_AddSeries");
 
     input.addParam("@group_num", "nvarchar", 200, groupNum);
     input.addParam("@series_number", "nvarchar", 50, seriesNumber);
-    input.addParam("@price_avsan", "decimal", 0, cost);
+    input.addParam("@price_avsan", "decimal", 0, decimalCost);
     input.addParam("@date_end", "datetime", 0, formattedDate);
 
     const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
