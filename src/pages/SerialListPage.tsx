@@ -7,7 +7,14 @@ import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 const SerialListPage = () => {
   const userContext = useContext(UserContext);
   const productContext = useContext(ProductContext);
@@ -123,6 +130,18 @@ const SerialListPage = () => {
             })}
         </div>
       )}
+      <Dialog>
+        <DialogTrigger>Open</DialogTrigger>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Are you absolutely sure?</DialogTitle>
+            <DialogDescription>
+              This action cannot be undone. This will permanently delete your
+              account and remove your data from our servers.
+            </DialogDescription>
+          </DialogHeader>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
