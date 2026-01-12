@@ -10,15 +10,10 @@ import { FullProductModel } from "@/types/FullProductModel";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
-import { Link, useParams } from "react-router-dom";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 const SerialListPage = () => {
+  const navigate = useNavigate();
   const userContext = useContext(UserContext);
   const productContext = useContext(ProductContext);
 
@@ -107,6 +102,25 @@ const SerialListPage = () => {
       );
       if (res) {
         setOpen(false);
+        navigate(`/toollogo/${currentCounting?.id}/${groupNum}`, {
+          state: {
+            product: {
+              lineId: 0,
+              barcodeAndName: "",
+              qtyAndPrice: "",
+              groupNum: groupNum,
+              name: selectedProduct?.name,
+              barcode: barcode,
+              quantity: 0,
+              serial: serial,
+              costPrice: parseFloat(cost),
+              expiryISO: expiryDate,
+              expiryDisplay: expiryDate,
+              sellingPrice: selectedProduct?.price,
+              createdBy: "",
+            } as FullProductModel,
+          },
+        });
       }
     } catch (error) {
       console.log(error);
