@@ -30,7 +30,13 @@ const CountingPage = () => {
   const productContext = useContext(ProductContext);
   if (!productContext) return null;
 
-  const { setProductList, setBarcodeList, currentCounting } = productContext;
+  const {
+    setProductList,
+    setBarcodeList,
+    productList,
+    barcodeList,
+    currentCounting,
+  } = productContext;
 
   const { countingId } = useParams<{ countingId: string }>();
 
@@ -77,13 +83,13 @@ const CountingPage = () => {
           userInfo.dbase.dbName,
           countingId
         );
-        if (productResponse.isSuccess) {
+        if (productResponse.isSuccess && !productList) {
           const productListResponse = await getProductList(
             userInfo.dbase.dbName,
             countingId
           );
           setProducts(productResponse.products);
-          if (productListResponse.success) {
+          if (productListResponse.success && !barcodeList) {
             setProductList(productListResponse.products);
             const barcodes = await getBarcodeList(
               userInfo.dbase.dbName,
