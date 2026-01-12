@@ -123,7 +123,7 @@ const CountingPage = () => {
     };
 
     fetchProducts();
-  }, [userInfo, countingId]);
+  }, []);
 
   return (
     <div className="min-h-screen pb-48 p-6">
