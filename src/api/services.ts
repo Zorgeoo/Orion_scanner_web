@@ -336,6 +336,15 @@ export const getBarcodeByGroupNum = async (
   }
 };
 
+export const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0"); // months are 0-indexed
+  const day = String(date.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
+};
+
 export const createNewSeries = async (
   dbName: string,
   groupNum: string,
@@ -344,17 +353,13 @@ export const createNewSeries = async (
   endDate: string
 ): Promise<string> => {
   try {
-    const date = new Date(endDate);
-    const formattedDate = `${date.getFullYear()}/${(date.getMonth() + 1)
-      .toString()
-      .padStart(2, "0")}/${date.getDate().toString().padStart(2, "0")}`;
     const decimalCost = parseFloat(cost || "0");
     const input = new InputModel(dbName, "spPh_AddSeries");
 
     input.addParam("@group_num", "nvarchar", 200, groupNum);
     input.addParam("@series_number", "nvarchar", 50, seriesNumber);
     input.addParam("@price_avsan", "decimal", 0, decimalCost);
-    input.addParam("@date_end", "datetime", 0, formattedDate);
+    input.addParam("@date_end", "datetime", 0, formatDate(endDate));
 
     const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
     console.log(res);
