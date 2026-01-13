@@ -64,7 +64,11 @@ const SearchByProductnamePage = () => {
   };
   const navigateNext = () => {
     if (currentCounting?.IsBySeriesNumber) {
-      navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`);
+      navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`, {
+        state: {
+          fromScanner: false,
+        },
+      });
     } else {
       navigate(
         `/toollogo/${currentCounting?.id}/${selectedProduct?.groupNum}`,
