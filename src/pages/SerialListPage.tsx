@@ -137,6 +137,14 @@ const SerialListPage = () => {
       console.log(error);
     }
   };
+
+  // const handleSelectSerial = (serial: SerialModel) => {
+  //   if (serial.groupNum === selectedserial?.groupNum) {
+  //     setSerial(null);
+  //   } else {
+  //     setSerial(serial);
+  //   }
+  // };
   return (
     <div className="p-4 mx-auto">
       <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
@@ -153,8 +161,29 @@ const SerialListPage = () => {
           {serials &&
             serials.map((serial, index) => {
               return (
-                <div className="flex items-center gap-4">
-                  {/* Radio Button */}
+                <Link
+                  replace={true}
+                  to={`/toollogo/${currentCounting?.id}/${groupNum}`}
+                  state={{
+                    withSerial: fromScanner ? false : true,
+                    product: {
+                      lineId: 0,
+                      barcodeAndName: "",
+                      qtyAndPrice: "",
+                      groupNum: groupNum,
+                      name: selectedProduct?.name,
+                      barcode: barcode,
+                      sellingPrice: selectedProduct?.price,
+                      quantity: serial.qty,
+                      serial: serial.seriesNumber,
+                      costPrice: serial.cost,
+                      expiryISO: serial.endDate,
+                      expiryDisplay: serial.endDate,
+                      createdBy: "",
+                    } as FullProductModel,
+                  }}
+                  className="flex items-center gap-4"
+                >
                   <div className="flex-shrink-0">
                     <div
                       className={`
@@ -163,13 +192,13 @@ const SerialListPage = () => {
                       `}
                     ></div>
                   </div>
-                  {/* Product Name */}
+
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-gray-500 truncate">
+                    <h3 className="text-gray-500 truncate text-sm">
                       {serial.fullSeriesNumber}
                     </h3>
                   </div>
-                </div>
+                </Link>
                 // <Link
                 //   replace={true}
                 //   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
@@ -220,8 +249,6 @@ const SerialListPage = () => {
                   </label>
                   <input
                     type="text"
-                    inputMode="numeric"
-                    pattern="[0-9]*"
                     value={serial}
                     onChange={(e) => setSerial(e.target.value)}
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
