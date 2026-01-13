@@ -12,6 +12,7 @@ import { Bounce, ToastContainer } from "react-toastify";
 import { ProductContextProvider } from "./context/ProductContext";
 import SearchByProductnamePage from "./pages/SearchByProductnamePage";
 import SerialListPage from "./pages/SerialListPage";
+import InventoryPage from "./pages/InventoryPage";
 function App() {
   return (
     <>
@@ -36,8 +37,8 @@ function App() {
           />
           <Routes>
             <Route path="/" element={<HomePage />} />
-            <Route path="/barcodeScanner" element={<FullscreenScanner />} />
             <Route path="/toollogo" element={<CountingListPage />} />
+            <Route path="/inventory" element={<InventoryPage />} />
             <Route
               path="/toollogo/serialList/:groupNum"
               element={<SerialListPage />}
