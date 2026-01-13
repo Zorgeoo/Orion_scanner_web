@@ -306,6 +306,7 @@ export const getSeriesList = async (
           something,
         })
       );
+
       return { serials: serials, isSuccess: true };
     }
     return { serials: [], isSuccess: false };

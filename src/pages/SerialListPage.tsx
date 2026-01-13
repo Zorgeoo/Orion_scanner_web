@@ -11,7 +11,12 @@ import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 const SerialListPage = () => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
@@ -184,9 +189,9 @@ const SerialListPage = () => {
             Шинэ сери нэмэх
           </DialogTrigger>
           <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
-            <div className="font-semibold text-gray-800 ">
+            <DialogTitle className="font-semibold text-gray-800 ">
               Серийн дугаар шинээр үүсгэх :
-            </div>
+            </DialogTitle>
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-4 items-start rounded-xl">
                 <div>

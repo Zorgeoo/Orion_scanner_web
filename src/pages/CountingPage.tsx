@@ -5,7 +5,7 @@ import { UserContext, UserInfo } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
 import { ProductModel } from "@/types/ProductModel";
 import { showToast } from "@/utils/toast";
-import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -236,9 +236,9 @@ const CountingPage = () => {
       </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between">
-          <div className="text-sm text-center p-2">
+          <DialogTitle className="text-sm text-center p-2">
             {`${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`}
-          </div>
+          </DialogTitle>
           <div className="flex justify justify-between gap-4">
             <div
               onClick={handleSaveBarcode}
