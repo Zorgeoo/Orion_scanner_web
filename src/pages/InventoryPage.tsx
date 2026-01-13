@@ -123,7 +123,7 @@ const InventoryPage = () => {
         {isLoading ? (
           <div className="space-y-4 flex flex-col items-center content-center">
             {Array.from({ length: 12 }).map((_, index) => (
-              <Skeleton key={index} className="h-8 w-full" />
+              <Skeleton key={index} className="h-10 px-4 w-full" />
             ))}
           </div>
         ) : (
