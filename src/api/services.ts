@@ -429,3 +429,40 @@ export const getInventoryList = async (
     return { products: [], success: false };
   }
 };
+export const getInventoryDetail = async (
+  dbName: string,
+  groupNum: string,
+  userId: number
+): Promise<{ product: ProductModel | null; success: boolean }> => {
+  try {
+    const input = new InputModel(dbName, "spLoad_CntApp_ProductInfoOne");
+
+    input.addParam("@group_num", "nvarchar", 200, groupNum);
+    input.addParam("@user_id", "int", 0, userId);
+
+    const res = await api.post<BaseResponse<ProductTuple>>(
+      "action/exec_proc",
+      input
+    );
+    console.log(res);
+
+    if (res.data.is_succeeded && res.data.result) {
+      const [barcode, groupNum, name, category, price, quantity] =
+        res.data.result;
+
+      const product: ProductModel = {
+        barcode,
+        groupNum,
+        name,
+        category,
+        price,
+        quantity,
+      };
+      return { product: product, success: true };
+    }
+    return { product: null, success: false };
+  } catch (error) {
+    console.log(error);
+    return { product: null, success: false };
+  }
+};
