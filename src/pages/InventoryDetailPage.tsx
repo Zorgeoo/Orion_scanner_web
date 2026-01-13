@@ -119,7 +119,7 @@ const InventoryDetailPage = () => {
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">Авсан үнэ</span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {product?.cost.toLocaleString()}₮
+              {product?.cost.toLocaleString() + "₮"}
             </span>
           </div>
         </div>
