@@ -35,7 +35,7 @@ const ProductPage = () => {
 
   const saveQuantity = async () => {
     try {
-      if (userInfo?.dbase?.dbName && quantity && currentCounting) {
+      if (userInfo?.dbase?.dbName && quantity != null && currentCounting) {
         const res = await saveProductQuantity(
           userInfo?.dbase?.dbName,
           product,
