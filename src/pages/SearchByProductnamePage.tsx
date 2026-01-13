@@ -120,7 +120,13 @@ const SearchByProductnamePage = () => {
     }
     navigateNext();
   };
+  useEffect(() => {
+    console.log("mounted");
 
+    return () => {
+      console.log("unmounted");
+    };
+  }, []);
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto">

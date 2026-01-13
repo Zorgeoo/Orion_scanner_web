@@ -63,7 +63,7 @@ const HomePage = () => {
         modules &&
         modules.length > 0 && (
           <div className="flex flex-col gap-2 w-64 mx-auto pt-16">
-            {modules.map((module, index) => (
+            {/* {modules.map((module, index) => (
               <Link
                 key={index}
                 to={
@@ -80,7 +80,43 @@ const HomePage = () => {
               >
                 {module.name}
               </Link>
-            ))}
+            ))} */}
+            {modules.map((module, index) => {
+              const isDisabled = module.code === "amar_zahialga";
+
+              return (
+                <Link
+                  key={index}
+                  to={
+                    module.code === "toollogo"
+                      ? "/toollogo"
+                      : module.code === "product_info"
+                      ? "/inventory"
+                      : "/"
+                  }
+                  className={`w-full px-6 py-4 font-semibold rounded-2xl shadow-md text-center 
+        transition-all duration-300 relative
+        ${
+          isDisabled
+            ? "bg-gradient-to-r from-gray-300 to-gray-400 text-gray-500 cursor-not-allowed"
+            : "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white"
+        }
+      `}
+                  onClick={(e) => {
+                    if (isDisabled) {
+                      e.preventDefault();
+                    }
+                  }}
+                >
+                  {module.name}
+                  {isDisabled && (
+                    <span className="ml-2 text-xs bg-gray-500 text-white px-2 py-1 rounded-full">
+                      Тун удахгүй
+                    </span>
+                  )}
+                </Link>
+              );
+            })}
           </div>
         )
       )}
