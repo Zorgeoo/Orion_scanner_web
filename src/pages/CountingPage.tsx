@@ -228,25 +228,27 @@ const CountingPage = () => {
         </Link>
       </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
-        <DialogTrigger className="px-4 py-2 bg-orange-400 text-white rounded-xl">
-          {`\ ${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`}
-        </DialogTrigger>
-        <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg flex justify-between">
-          <div
-            className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
+        <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between">
+          <div className="text-lg font-semibold text-center">
+            {`${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`}
+          </div>
+          <div className="flex justify justify-between">
+            <div
+              className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
              bg-gradient-to-r from-blue-500 to-purple-600 
              hover:from-blue-600 hover:to-purple-700 
              transition-all duration-300"
-          >
-            Тийм
-          </div>{" "}
-          <div
-            className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
+            >
+              Тийм
+            </div>{" "}
+            <div
+              className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
              bg-gradient-to-r from-blue-500 to-purple-600 
              hover:from-blue-600 hover:to-purple-700 
              transition-all duration-300"
-          >
-            Үгүй
+            >
+              Үгүй
+            </div>
           </div>
         </DialogContent>
       </Dialog>
