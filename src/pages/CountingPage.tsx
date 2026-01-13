@@ -229,24 +229,14 @@ const CountingPage = () => {
       </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between">
-          <div className="text-lg font-semibold text-center">
+          <div className="text-sm text-center">
             {`${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`}
           </div>
           <div className="flex justify justify-between">
-            <div
-              className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
-             bg-gradient-to-r from-blue-500 to-purple-600 
-             hover:from-blue-600 hover:to-purple-700 
-             transition-all duration-300"
-            >
+            <div className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-white text-center bg-orange-500">
               Тийм
             </div>{" "}
-            <div
-              className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
-             bg-gradient-to-r from-blue-500 to-purple-600 
-             hover:from-blue-600 hover:to-purple-700 
-             transition-all duration-300"
-            >
+            <div className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-orange-500 bg-white text-center">
               Үгүй
             </div>
           </div>
