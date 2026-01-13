@@ -71,7 +71,7 @@ const InventoryPage = () => {
       <div className="max-w-2xl mx-auto">
         {/* Header */}
         <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
-          Хайж буй барааныхаа нэрийг бичнэ үү!
+          Үлдэгдэл харах барааныхаа нэрийг бичнэ үү!
         </h1>
         {/* Search Input */}
         <div className="pb-4">
@@ -123,7 +123,7 @@ const InventoryPage = () => {
         {isLoading ? (
           <div className="space-y-4 flex flex-col items-center content-center">
             {Array.from({ length: 12 }).map((_, index) => (
-              <Skeleton key={index} className="h-4 w-full" />
+              <Skeleton key={index} className="h-8 w-full" />
             ))}
           </div>
         ) : (
