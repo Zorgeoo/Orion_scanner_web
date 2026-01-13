@@ -53,6 +53,8 @@ const HomePage = () => {
 
     fetchModules();
   }, [userInfo, location.pathname]);
+  console.log(modules);
+
   return (
     <div>
       {isLoading ? (
