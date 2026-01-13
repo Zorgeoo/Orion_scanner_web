@@ -1,21 +1,39 @@
+import { saveBarcode } from "@/api/services";
 import { ProductContext } from "@/context/ProductContext";
+import { UserContext } from "@/context/UserContext";
+import { BarcodeProductModel } from "@/types/BarcodeProductModel";
 import { FullProductModel } from "@/types/FullProductModel";
 import { ProductModel } from "@/types/ProductModel";
 import { useState, useMemo, useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 const SearchByProductnamePage = () => {
   const productContext = useContext(ProductContext);
 
   if (!productContext) return null;
 
-  const { productList, currentCounting, selectedProduct, setSelectedProduct } =
-    productContext;
+  const {
+    productList,
+    currentCounting,
+    selectedProduct,
+    barcodeList,
+    setBarcodeList,
+    setSelectedProduct,
+  } = productContext;
+
+  const userContext = useContext(UserContext);
+  if (!userContext) return null;
+
+  const { userInfo } = userContext;
+
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const toSaveBarcode = location.state.toSaveBarcode as boolean | undefined;
+  const barcode = location.state.barcode as string | undefined;
 
   const [searchQuery, setSearchQuery] = useState("");
 
-  const navigate = useNavigate();
-  // Filter products based on search query
   const filteredProducts = useMemo(() => {
     if (!productList) return [];
 
@@ -26,7 +44,7 @@ const SearchByProductnamePage = () => {
     return filtered.slice(0, 30);
   }, [productList, searchQuery]);
 
-  // Default to first 30 products
+  // Эхний 30 барааг харуулах
   const displayProducts = useMemo(() => {
     if (!productList) return [];
 
@@ -44,10 +62,7 @@ const SearchByProductnamePage = () => {
       setSelectedProduct(product);
     }
   };
-
-  console.log(selectedProduct);
-
-  const handleNextButton = () => {
+  const navigateNext = () => {
     if (currentCounting?.IsBySeriesNumber) {
       navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`);
     } else {
@@ -61,7 +76,7 @@ const SearchByProductnamePage = () => {
               qtyAndPrice: "",
               groupNum: selectedProduct?.groupNum,
               name: selectedProduct?.name,
-              barcode: selectedProduct?.barcode,
+              barcode: toSaveBarcode ? barcode : selectedProduct?.barcode,
               quantity: selectedProduct?.quantity,
               serial: "",
               costPrice: 0,
@@ -77,6 +92,30 @@ const SearchByProductnamePage = () => {
     }
   };
 
+  const handleNextButton = async () => {
+    if (toSaveBarcode) {
+      if (!selectedProduct || !barcode || !userInfo?.dbase) return;
+      const res = await saveBarcode(
+        userInfo?.dbase?.dbName,
+        selectedProduct?.groupNum,
+        barcode
+      );
+      if (res) {
+        if (barcodeList) {
+          setBarcodeList([
+            ...barcodeList,
+            {
+              groupNum: selectedProduct.groupNum,
+              barcode: barcode,
+              name: selectedProduct.name,
+              price: selectedProduct.price,
+            } as BarcodeProductModel,
+          ]);
+        }
+      }
+    }
+    navigateNext();
+  };
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto">

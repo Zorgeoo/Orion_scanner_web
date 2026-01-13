@@ -177,6 +177,16 @@ const CountingPage = () => {
     fetchProducts();
   }, []);
 
+  const handleSaveBarcode = () => {
+    setIsOpen(false);
+    navigate(`/toollogo/${currentCounting?.id}/searchByProductName`, {
+      state: {
+        barcode: scannedCode,
+        toSaveBarcode: true,
+      },
+    });
+  };
+
   return (
     <div className="min-h-screen pb-48 p-6">
       <div className="max-w-4xl mx-auto">
@@ -230,10 +240,16 @@ const CountingPage = () => {
             {`${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`}
           </div>
           <div className="flex justify justify-between gap-4">
-            <div className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-white text-center bg-orange-500">
+            <div
+              onClick={handleSaveBarcode}
+              className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-white text-center bg-orange-500"
+            >
               Тийм
             </div>{" "}
-            <div className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-orange-500 bg-gray-400 text-center">
+            <div
+              onClick={() => setIsOpen(false)}
+              className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-orange-500 bg-white border text-center"
+            >
               Үгүй
             </div>
           </div>

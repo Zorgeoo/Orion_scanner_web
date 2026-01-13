@@ -362,9 +362,33 @@ export const createNewSeries = async (
     input.addParam("@date_end", "datetime", 0, formatDate(endDate));
 
     const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
-    console.log(res);
 
     if (res.data.is_succeeded && res.data.result) {
+      return true;
+    }
+    return false;
+  } catch (error) {
+    console.log(error);
+    return false;
+  }
+};
+
+export const saveBarcode = async (
+  dbName: string,
+  groupNum: string,
+  barcode: string
+): Promise<boolean> => {
+  try {
+    const input = new InputModel(dbName, "spPh_AddBarcode");
+
+    input.addParam("@group_num", "nvarchar", 200, groupNum);
+    input.addParam("@bar_code", "nvarchar", 200, barcode);
+
+    const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
+
+    if (res.data.is_succeeded) {
+      console.log(res);
+
       return true;
     }
     return false;
