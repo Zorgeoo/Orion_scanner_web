@@ -153,35 +153,52 @@ const SerialListPage = () => {
           {serials &&
             serials.map((serial, index) => {
               return (
-                <Link
-                  replace={true}
-                  to={`/toollogo/${currentCounting?.id}/${groupNum}`}
-                  state={{
-                    withSerial: fromScanner ? false : true,
-                    product: {
-                      lineId: 0,
-                      barcodeAndName: "",
-                      qtyAndPrice: "",
-                      groupNum: groupNum,
-                      name: selectedProduct?.name,
-                      barcode: barcode,
-                      sellingPrice: selectedProduct?.price,
-                      quantity: serial.qty,
-                      serial: serial.seriesNumber,
-                      costPrice: serial.cost,
-                      expiryISO: serial.endDate,
-                      expiryDisplay: serial.endDate,
-                      createdBy: "",
-                    } as FullProductModel,
-                  }}
-                >
-                  <div
-                    key={index}
-                    className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
-                  >
-                    <p className="">{serial.fullSeriesNumber}</p>
+                <div className="flex items-center gap-4">
+                  {/* Radio Button */}
+                  <div className="flex-shrink-0">
+                    <div
+                      className={`
+                        w-5 h-5 rounded-full border-2 flex items-center justify-center
+                        transition-all duration-200
+                      `}
+                    ></div>
                   </div>
-                </Link>
+                  {/* Product Name */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-gray-500 truncate">
+                      {serial.fullSeriesNumber}
+                    </h3>
+                  </div>
+                </div>
+                // <Link
+                //   replace={true}
+                //   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
+                //   state={{
+                //     withSerial: fromScanner ? false : true,
+                //     product: {
+                //       lineId: 0,
+                //       barcodeAndName: "",
+                //       qtyAndPrice: "",
+                //       groupNum: groupNum,
+                //       name: selectedProduct?.name,
+                //       barcode: barcode,
+                //       sellingPrice: selectedProduct?.price,
+                //       quantity: serial.qty,
+                //       serial: serial.seriesNumber,
+                //       costPrice: serial.cost,
+                //       expiryISO: serial.endDate,
+                //       expiryDisplay: serial.endDate,
+                //       createdBy: "",
+                //     } as FullProductModel,
+                //   }}
+                // >
+                //   <div
+                //     key={index}
+                //     className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
+                //   >
+                //     <p className="">{serial.fullSeriesNumber}</p>
+                //   </div>
+                // </Link>
               );
             })}
         </div>
