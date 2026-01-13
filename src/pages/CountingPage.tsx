@@ -5,7 +5,7 @@ import { UserContext, UserInfo } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
 import { ProductModel } from "@/types/ProductModel";
 import { showToast } from "@/utils/toast";
-
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 
@@ -44,6 +44,7 @@ const CountingPage = () => {
 
   const [products, setProducts] = useState<FullProductModel[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
 
@@ -77,6 +78,7 @@ const CountingPage = () => {
     }
 
     if (!selectedTbarcode || !selectedTProduct) {
+      setIsOpen(true);
       showToast.error(
         `${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`
       );
@@ -225,6 +227,29 @@ const CountingPage = () => {
           </button>
         </Link>
       </div>
+      <Dialog open={isOpen} onOpenChange={setIsOpen}>
+        <DialogTrigger className="px-4 py-2 bg-orange-400 text-white rounded-xl">
+          {`\ ${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`}
+        </DialogTrigger>
+        <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg flex justify-between">
+          <div
+            className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
+             bg-gradient-to-r from-blue-500 to-purple-600 
+             hover:from-blue-600 hover:to-purple-700 
+             transition-all duration-300"
+          >
+            Тийм
+          </div>{" "}
+          <div
+            className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
+             bg-gradient-to-r from-blue-500 to-purple-600 
+             hover:from-blue-600 hover:to-purple-700 
+             transition-all duration-300"
+          >
+            Үгүй
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 };
