@@ -121,10 +121,8 @@ const SearchByProductnamePage = () => {
     navigateNext();
   };
   useEffect(() => {
-    console.log("mounted");
-
     return () => {
-      console.log("unmounted");
+      setSelectedProduct(null);
     };
   }, []);
   return (
