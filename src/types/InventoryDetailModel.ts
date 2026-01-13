@@ -3,7 +3,7 @@ export interface InventoryDetailModel {
   name: string;
   barcode: string;
   price: number;
-  priceAndInfo?: string;
+  qtyAndInfo?: string;
   seriesNumber?: string;
   endDate?: string | Date;
   cost: string;
