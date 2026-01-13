@@ -10,7 +10,7 @@ import { FullProductModel } from "@/types/FullProductModel";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -27,6 +27,10 @@ const SerialListPage = () => {
 
   const { currentCounting, selectedProduct } = productContext;
   const { userInfo } = userContext;
+
+  const location = useLocation();
+
+  const fromScanner = location.state.fromScanner as boolean | undefined;
 
   const { groupNum } = useParams<{ groupNum: string }>();
 
@@ -125,7 +129,7 @@ const SerialListPage = () => {
               createdBy: "",
             } as FullProductModel,
             countingId: currentCounting?.id,
-            withSerial: true,
+            withSerial: fromScanner ? false : true,
           },
         });
       }
@@ -153,7 +157,7 @@ const SerialListPage = () => {
                   replace={true}
                   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
                   state={{
-                    withSerial: true,
+                    withSerial: fromScanner ? false : true,
                     product: {
                       lineId: 0,
                       barcodeAndName: "",

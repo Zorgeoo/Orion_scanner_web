@@ -88,7 +88,11 @@ const CountingPage = () => {
         price: selectedTbarcode?.price ?? 0,
         quantity: 0,
       });
-      navigate(`/toollogo/serialList/${selectedTbarcode.groupNum}`);
+      navigate(`/toollogo/serialList/${selectedTbarcode.groupNum}`, {
+        state: {
+          fromScanner: true,
+        },
+      });
     } else {
       navigate(`/toollogo/${countingId}/${selectedTbarcode.groupNum},`, {
         state: {
