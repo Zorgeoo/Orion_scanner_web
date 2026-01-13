@@ -79,9 +79,6 @@ const CountingPage = () => {
 
     if (!selectedTbarcode || !selectedTProduct) {
       setIsOpen(true);
-      showToast.error(
-        `${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`
-      );
     } else if (currentCounting?.IsBySeriesNumber) {
       setSelectedProduct({
         barcode: "",
@@ -232,11 +229,11 @@ const CountingPage = () => {
           <div className="text-sm text-center">
             {`${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`}
           </div>
-          <div className="flex justify justify-between">
+          <div className="flex justify justify-between gap-4">
             <div className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-white text-center bg-orange-500">
               Тийм
             </div>{" "}
-            <div className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-orange-500 bg-white text-center">
+            <div className="w-full px-2 py-2 font-semibold rounded-2xl shadow-md text-orange-500 bg-gray-400 text-center">
               Үгүй
             </div>
           </div>
