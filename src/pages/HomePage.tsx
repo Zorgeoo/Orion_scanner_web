@@ -63,53 +63,27 @@ const HomePage = () => {
         modules &&
         modules.length > 0 && (
           <div className="flex flex-col gap-2 w-64 mx-auto pt-16">
-            {/* {modules.map((module, index) => (
-              <Link
-                key={index}
-                to={
-                  module.code === "toollogo"
-                    ? "/toollogo"
-                    : module.code === "product_info"
-                    ? "/inventory"
-                    : "/"
-                }
-                className="w-full px-6 py-4 font-semibold rounded-2xl shadow-md text-white text-center 
-             bg-gradient-to-r from-blue-500 to-purple-600 
-             hover:from-blue-600 hover:to-purple-700 
-             transition-all duration-300"
-              >
-                {module.name}
-              </Link>
-            ))} */}
             {modules.map((module, index) => {
               const isDisabled = module.code === "amar_zahialga";
-
-              return (
-                <Link
-                  key={index}
-                  to={
-                    module.code === "toollogo"
-                      ? "/toollogo"
-                      : module.code === "product_info"
-                      ? "/inventory"
-                      : "/"
-                  }
-                  className={`w-full px-6 py-4 font-semibold rounded-2xl shadow-md text-center transition-all duration-300 relative
-        ${
-          isDisabled
-            ? "bg-gradient-to-r from-gray-300 to-gray-400 text-gray-500 cursor-not-allowed"
-            : "bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white"
-        }
-      `}
-                  onClick={(e) => {
-                    if (isDisabled) {
-                      e.preventDefault();
+              if (!isDisabled) {
+                return (
+                  <Link
+                    key={index}
+                    to={
+                      module.code === "toollogo"
+                        ? "/toollogo"
+                        : module.code === "product_info"
+                        ? "/inventory"
+                        : "/"
                     }
-                  }}
-                >
-                  {module.name}
-                </Link>
-              );
+                    className={`w-full px-6 py-4 font-semibold rounded-2xl shadow-md text-center transition-all duration-300 relative
+bg-gradient-to-r from-blue-500 to-purple-600 hover:from-blue-600 hover:to-purple-700 text-white
+      `}
+                  >
+                    {module.name}
+                  </Link>
+                );
+              }
             })}
           </div>
         )
