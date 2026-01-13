@@ -213,7 +213,7 @@ export const getBarcodeList = async (
     return [];
   }
 };
-// Барааны жагсаалт авах асуух ??????
+// Барааны жагсаалт авах асуух
 export const getProductList = async (
   dbName: string,
   id: string
@@ -396,5 +396,36 @@ export const saveBarcode = async (
   } catch (error) {
     console.log(error);
     return false;
+  }
+};
+// Барааны үлдэгдэл, үнэ авахад ашиглана
+export const getInventoryList = async (
+  dbName: string
+): Promise<{ products: ProductModel[]; success: boolean }> => {
+  try {
+    const input = new InputModel(dbName, "spLoad_CntApp_ProductList");
+
+    const res = await api.post<BaseResponse<ProductTuple[]>>(
+      "action/exec_proc",
+      input
+    );
+
+    if (res.data.is_succeeded && res.data.result) {
+      const products: ProductModel[] = res.data.result.map(
+        ([barcode, groupNum, name, category, price, quantity]) => ({
+          barcode,
+          groupNum,
+          name,
+          category,
+          price,
+          quantity,
+        })
+      );
+      return { products: products, success: true };
+    }
+    return { products: [], success: false };
+  } catch (error) {
+    console.log(error);
+    return { products: [], success: false };
   }
 };
