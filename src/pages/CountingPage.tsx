@@ -207,7 +207,7 @@ const CountingPage = () => {
                 <Link
                   key={index}
                   to={`/toollogo/${countingId}/${product.lineId}`}
-                  state={{ product, countingId: countingId }}
+                  state={{ product }}
                 >
                   <div className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm">
                     <p className="">{product.barcodeAndName}</p>

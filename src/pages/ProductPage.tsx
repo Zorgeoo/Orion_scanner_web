@@ -5,13 +5,20 @@ import CustomButton from "@/components/common/CustomButton";
 import { saveProductQuantity } from "@/api/services";
 import { UserContext } from "@/context/UserContext";
 import { showToast } from "@/utils/toast";
+import { ProductContext } from "@/context/ProductContext";
 
 const ProductPage = () => {
   const context = useContext(UserContext);
 
-  if (!context) return null; // fallback if context not provided
+  if (!context) return null;
 
   const { userInfo } = context;
+
+  const productContext = useContext(ProductContext);
+
+  if (!productContext) return null;
+
+  const { currentCounting } = productContext;
 
   const navigate = useNavigate();
 
@@ -22,24 +29,19 @@ const ProductPage = () => {
 
   const withSerial = location.state.withSerial as boolean | undefined;
 
-  const countingId = location.state.countingId;
-  if (!countingId) {
-    <div>No countingId</div>;
-  }
-
   const [quantity, setQuantity] = useState<number | null>(
     product?.quantity ?? null
   );
 
   const saveQuantity = async () => {
     try {
-      if (userInfo?.dbase?.dbName && quantity) {
+      if (userInfo?.dbase?.dbName && quantity && currentCounting) {
         const res = await saveProductQuantity(
           userInfo?.dbase?.dbName,
           product,
           quantity,
           userInfo.userId,
-          countingId
+          currentCounting?.id
         );
 
         if (res) {
