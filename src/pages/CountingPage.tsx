@@ -226,7 +226,7 @@ const CountingPage = () => {
       </div>
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg flex flex-col justify-between">
-          <div className="text-sm text-center">
+          <div className="text-sm text-center p-2">
             {`${scannedCode} баркод олдсонгүй! Хэрэв бараа нь бүртгэлтэй бол түүнрүү хадгалах уу?`}
           </div>
           <div className="flex justify justify-between gap-4">
