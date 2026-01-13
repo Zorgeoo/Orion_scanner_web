@@ -120,11 +120,13 @@ const SearchByProductnamePage = () => {
     }
     navigateNext();
   };
-  useEffect(() => {
-    return () => {
-      setSelectedProduct(null);
-    };
-  }, []);
+
+  //БОДОХ
+  // useEffect(() => {
+  //   return () => {
+  //     setSelectedProduct(null);
+  //   };
+  // }, []);
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto">
