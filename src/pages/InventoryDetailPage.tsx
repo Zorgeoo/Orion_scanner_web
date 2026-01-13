@@ -86,8 +86,8 @@ const InventoryDetailPage = () => {
           </div>
 
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
-            <span className="text-sm font-medium text-gray-600">Үлдэгдэл</span>
-            <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
+            <span className="text-sm font-medium text-gray-600">Нэр</span>
+            <span className="text-sm font-semibold text-gray-800">
               {product?.qtyAndInfo}
             </span>
           </div>
