@@ -7,6 +7,7 @@ import { BarcodeProductModel } from "@/types/BarcodeProductModel";
 import { ProductModel } from "@/types/ProductModel";
 import { ModuleModel } from "@/types/ModuleModel";
 import { SerialModel } from "@/types/SerialModel";
+import { InventoryDetailModel } from "@/types/InventoryDetailModel";
 
 export type ModuleTuple = [string, string];
 type BarcodeProductTuple = [string, string, string, number];
@@ -433,30 +434,36 @@ export const getInventoryDetail = async (
   dbName: string,
   groupNum: string,
   userId: string
-): Promise<{ product: ProductModel | null; success: boolean }> => {
+): Promise<{ product: InventoryDetailModel | null; success: boolean }> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_ProductInfoOne");
 
     input.addParam("@group_num", "nvarchar", 200, groupNum);
     input.addParam("@user_id", "int", 0, Number(userId));
 
-    const res = await api.post<BaseResponse<ProductTuple>>(
-      "action/exec_proc",
-      input
-    );
-    console.log(res);
+    const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
 
     if (res.data.is_succeeded && res.data.result) {
-      const [barcode, groupNum, name, category, price, quantity] =
-        res.data.result;
-
-      const product: ProductModel = {
-        barcode,
+      const [
         groupNum,
         name,
-        category,
+        barcode,
         price,
-        quantity,
+        priceAndInfo,
+        seriesNumber,
+        endDate,
+        cost,
+      ] = res.data.result[0];
+
+      const product: InventoryDetailModel = {
+        groupNum,
+        name,
+        barcode,
+        price,
+        priceAndInfo: priceAndInfo ?? undefined,
+        seriesNumber: seriesNumber ?? undefined,
+        endDate: endDate ?? undefined,
+        cost,
       };
       return { product: product, success: true };
     }
