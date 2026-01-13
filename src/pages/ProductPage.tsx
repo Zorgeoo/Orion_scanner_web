@@ -62,7 +62,7 @@ const ProductPage = () => {
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-6">
+    <div className="min-h-screen p-4">
       <div className="max-w-3xl mx-auto space-y-6">
         {/* Quantity Input Card */}
         <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg">
