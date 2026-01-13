@@ -94,8 +94,7 @@ const HomePage = () => {
                       ? "/inventory"
                       : "/"
                   }
-                  className={`w-full px-6 py-4 font-semibold rounded-2xl shadow-md text-center 
-        transition-all duration-300 relative
+                  className={`w-full px-6 py-4 font-semibold rounded-2xl shadow-md text-center transition-all duration-300 relative
         ${
           isDisabled
             ? "bg-gradient-to-r from-gray-300 to-gray-400 text-gray-500 cursor-not-allowed"
@@ -109,11 +108,6 @@ const HomePage = () => {
                   }}
                 >
                   {module.name}
-                  {isDisabled && (
-                    <span className="ml-2 text-xs bg-gray-500 text-white px-2 py-1 rounded-full">
-                      Тун удахгүй
-                    </span>
-                  )}
                 </Link>
               );
             })}
