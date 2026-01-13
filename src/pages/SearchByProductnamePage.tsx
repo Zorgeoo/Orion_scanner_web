@@ -4,7 +4,7 @@ import { UserContext } from "@/context/UserContext";
 import { BarcodeProductModel } from "@/types/BarcodeProductModel";
 import { FullProductModel } from "@/types/FullProductModel";
 import { ProductModel } from "@/types/ProductModel";
-import { useState, useMemo, useContext } from "react";
+import { useState, useMemo, useContext, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const SearchByProductnamePage = () => {
@@ -120,6 +120,11 @@ const SearchByProductnamePage = () => {
     }
     navigateNext();
   };
+  useEffect(() => {
+    return () => {
+      console.log("Cleanup: unmounted or before next effect");
+    };
+  }, []);
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto">
