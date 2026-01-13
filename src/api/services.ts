@@ -432,13 +432,13 @@ export const getInventoryList = async (
 export const getInventoryDetail = async (
   dbName: string,
   groupNum: string,
-  userId: number
+  userId: string
 ): Promise<{ product: ProductModel | null; success: boolean }> => {
   try {
     const input = new InputModel(dbName, "spLoad_CntApp_ProductInfoOne");
 
     input.addParam("@group_num", "nvarchar", 200, groupNum);
-    input.addParam("@user_id", "int", 0, userId);
+    input.addParam("@user_id", "int", 0, Number(userId));
 
     const res = await api.post<BaseResponse<ProductTuple>>(
       "action/exec_proc",
