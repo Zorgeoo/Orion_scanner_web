@@ -3,6 +3,7 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { UserContext } from "@/context/UserContext";
 import { ProductModel } from "@/types/ProductModel";
 import { useContext, useEffect, useMemo, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const InventoryPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
@@ -17,6 +18,7 @@ const InventoryPage = () => {
   if (!userContext) return null;
 
   const { userInfo } = userContext;
+  const navigate = useNavigate();
 
   const filteredProducts = useMemo(() => {
     if (!productList) return [];
@@ -47,7 +49,9 @@ const InventoryPage = () => {
     }
   };
 
-  const handleNextButton = async () => {};
+  const handleNextButton = async () => {
+    navigate(`/inventory/${selectedProduct?.groupNum}`);
+  };
   useEffect(() => {
     if (productList || !userInfo?.dbase?.dbName) return;
     const getProductList = async () => {

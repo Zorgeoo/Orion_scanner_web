@@ -2,8 +2,6 @@ import "./App.css";
 
 import { Route, Routes } from "react-router-dom";
 import HomePage from "./pages/HomePage";
-import FullscreenScanner from "./pages/Scanner";
-
 import { UserProvider } from "./context/UserContext";
 import CountingPage from "./pages/CountingPage";
 import CountingListPage from "./pages/CountinListPage";
@@ -13,6 +11,7 @@ import { ProductContextProvider } from "./context/ProductContext";
 import SearchByProductnamePage from "./pages/SearchByProductnamePage";
 import SerialListPage from "./pages/SerialListPage";
 import InventoryPage from "./pages/InventoryPage";
+import InventoryDetailPage from "./pages/InventoryDetailPage";
 function App() {
   return (
     <>
@@ -39,6 +38,10 @@ function App() {
             <Route path="/" element={<HomePage />} />
             <Route path="/toollogo" element={<CountingListPage />} />
             <Route path="/inventory" element={<InventoryPage />} />
+            <Route
+              path="/inventory/:groupNum"
+              element={<InventoryDetailPage />}
+            />
             <Route
               path="/toollogo/serialList/:groupNum"
               element={<SerialListPage />}
