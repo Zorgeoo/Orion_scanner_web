@@ -228,7 +228,10 @@ const CountingPage = () => {
         >
           Баркод уншуулж тоолох
         </button>
-        <Link to={`/toollogo/${countingId}/searchByProductName`}>
+        <Link
+          to={`/toollogo/${countingId}/searchByProductName`}
+          state={{ barcode: "", toSaveBarcode: false }}
+        >
           <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
             Барааны нэрээр хайж тоолох
           </button>
