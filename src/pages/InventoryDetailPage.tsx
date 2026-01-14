@@ -156,7 +156,11 @@ const InventoryDetailPage = () => {
 
               <span className="text-sm text-gray-600">Зарах үнэ</span>
               <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-                {product?.price.toLocaleString()}₮
+                {product?.price.toLocaleString(undefined, {
+                  minimumFractionDigits: 2,
+                  maximumFractionDigits: 2,
+                })}
+                ₮
               </span>
 
               <span className="text-sm text-gray-600">Мэдээлэл</span>
@@ -187,7 +191,7 @@ const InventoryDetailPage = () => {
 
               <span className="text-gray-600">Авсан үнэ</span>
               <span className="font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-                {product?.cost.toLocaleString() + "₮"}
+                {product?.cost && product?.cost.toLocaleString() + "₮"}
               </span>
             </div>
           </div>
