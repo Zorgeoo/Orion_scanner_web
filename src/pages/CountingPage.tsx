@@ -40,6 +40,7 @@ const CountingPage = () => {
     shouldStartScan,
     setShouldStartScan,
     startScanNow,
+    setStartScanNow,
   } = productContext;
 
   const { countingId } = useParams<{ countingId: string }>();
@@ -133,7 +134,7 @@ const CountingPage = () => {
     };
 
     return () => {
-      delete window.onBarcodeScanned;
+      setStartScanNow(false);
     };
   }, []);
 
@@ -186,6 +187,9 @@ const CountingPage = () => {
     };
 
     fetchProducts();
+    return () => {
+      s;
+    };
   }, []);
 
   const handleSaveBarcode = () => {
