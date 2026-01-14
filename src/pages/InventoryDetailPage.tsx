@@ -187,7 +187,7 @@ const InventoryDetailPage = () => {
 
               <span className="text-gray-600">Авсан үнэ</span>
               <span className="font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-                {product?.cost.toLocaleString()}₮
+                {product?.cost.toLocaleString() + "₮"}
               </span>
             </div>
           </div>
