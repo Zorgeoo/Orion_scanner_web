@@ -276,7 +276,7 @@ const SerialListPage = () => {
             })}
         </div>
       )}
-      <div className="fixed bottom-18 left-1/2 transform -translate-x-1/2">
+      <div className="fixed bottom-18 left-1/2 transform -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger className="px-8 py-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl">
             Шинэ сери нэмэх
