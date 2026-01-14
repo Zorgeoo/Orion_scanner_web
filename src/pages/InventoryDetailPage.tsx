@@ -131,8 +131,8 @@ const InventoryDetailPage = () => {
     <div className="p-6 max-w-xl mx-auto">
       {isLoading ? (
         <div className="space-y-6 flex flex-col items-center content-center">
-          <Skeleton className="h-56 w-full" />
-          <Skeleton className="h-28 w-full" />
+          <Skeleton className="h-56 w-full rounded-2xl" />
+          <Skeleton className="h-28 w-full rounded-2xl" />
         </div>
       ) : (
         <div className="flex flex-col gap-6">
