@@ -357,6 +357,7 @@ export const createNewSeries = async (
   try {
     const decimalCost = parseFloat(cost || "0");
     const input = new InputModel(dbName, "spPh_AddSeries");
+    console.log(formatDate(endDate));
 
     input.addParam("@group_num", "nvarchar", 200, groupNum);
     input.addParam("@series_number", "nvarchar", 50, seriesNumber);

@@ -38,7 +38,7 @@ const SerialListPage = () => {
   const [expiryDate, setExpiryDate] = useState<string>(
     new Date().toISOString().split("T")[0]
   );
-  const [serial, setSerial] = useState<string>("");
+  const [newSerial, setNewSerial] = useState<string>("");
   const [cost, setCost] = useState<string>("");
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -95,7 +95,7 @@ const SerialListPage = () => {
   const handleCreateSerial = async () => {
     if (!userInfo?.dbase?.dbName || !groupNum) return;
 
-    if (!serial) {
+    if (!newSerial) {
       showToast.error("Серийн дугаар оруулна уу");
     }
     if (!expiryDate) {
@@ -105,7 +105,7 @@ const SerialListPage = () => {
       const res = await createNewSeries(
         userInfo?.dbase?.dbName,
         groupNum,
-        serial,
+        newSerial,
         cost,
         expiryDate
       );
@@ -121,7 +121,7 @@ const SerialListPage = () => {
               name: selectedProduct?.name,
               barcode: barcode,
               quantity: 0,
-              serial: serial,
+              serial: newSerial,
               costPrice: parseFloat(cost),
               expiryISO: expiryDate,
               expiryDisplay: expiryDate,
@@ -249,8 +249,8 @@ const SerialListPage = () => {
                   </label>
                   <input
                     type="text"
-                    value={serial}
-                    onChange={(e) => setSerial(e.target.value)}
+                    value={newSerial}
+                    onChange={(e) => setNewSerial(e.target.value)}
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   />
                 </div>
