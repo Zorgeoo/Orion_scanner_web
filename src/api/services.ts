@@ -338,13 +338,22 @@ export const getBarcodeByGroupNum = async (
   }
 };
 
-export const formatDate = (dateString: string) => {
-  const date = new Date(dateString);
-  const year = date.getFullYear();
-  const month = String(date.getMonth() + 1).padStart(2, "0"); // months are 0-indexed
-  const day = String(date.getDate()).padStart(2, "0");
+export const formatDateForBackend = (dateString: string) => {
+  // Split input date "YYYY-MM-DD" or "YYYY/MM/DD"
+  const [yearStr, monthStr, dayStr] = dateString.split(/[-/]/);
 
-  return `${year}-${month}-${day}`;
+  const year = Number(yearStr);
+  const month = Number(monthStr);
+  const day = Number(dayStr);
+
+  // Build a Date object in local time
+  const date = new Date(year, month - 1, day);
+
+  const yyyy = date.getFullYear();
+  const MM = String(date.getMonth() + 1).padStart(2, "0");
+  const dd = String(date.getDate()).padStart(2, "0");
+
+  return `${yyyy}-${MM}-${dd}`;
 };
 
 export const createNewSeries = async (
@@ -363,7 +372,7 @@ export const createNewSeries = async (
     input.addParam("@group_num", "nvarchar", 200, groupNum);
     input.addParam("@series_number", "nvarchar", 50, seriesNumber);
     input.addParam("@price_avsan", "decimal", 0, decimalCost);
-    input.addParam("@date_end", "datetime", 0, new Date(`${endDate}T00:00:00`));
+    input.addParam("@date_end", "datetime", 0, formatDateForBackend(endDate));
 
     const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
 
