@@ -7,7 +7,7 @@ import { ProductModel } from "@/types/ProductModel";
 import { showToast } from "@/utils/toast";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useContext, useEffect, useState } from "react";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -42,14 +42,13 @@ const CountingPage = () => {
   const { countingId } = useParams<{ countingId: string }>();
 
   const [products, setProducts] = useState<FullProductModel[] | null>(null);
-  const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
-    null
-  );
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
-  console.log(products);
+  const location = useLocation();
+
+  const startScan = location.state.startScan as boolean | undefined;
 
   // Scan хийгдсэн код
   const [scannedCode, setScannedCode] = useState<string | null>(null);
@@ -67,6 +66,12 @@ const CountingPage = () => {
       alert("Barcode scanner not available.");
     }
   };
+
+  useEffect(() => {
+    if (startScan) {
+      startScanning();
+    }
+  }, [startScan]);
   useEffect(() => {
     if (!scannedCode) return;
 
@@ -83,14 +88,6 @@ const CountingPage = () => {
     if (!selectedTbarcode || !selectedTProduct) {
       setIsOpen(true);
     } else if (currentCounting?.IsBySeriesNumber) {
-      setSelectedProduct({
-        barcode: "",
-        groupNum: selectedTbarcode?.groupNum ?? "",
-        name: selectedTbarcode?.name ?? "Нэр олдсонгүй",
-        category: "",
-        price: selectedTbarcode?.price ?? 0,
-        quantity: 0,
-      });
       navigate(`/toollogo/serialList/${selectedTbarcode.groupNum}`, {
         state: {
           fromScanner: true,
