@@ -66,7 +66,11 @@ const CountingListPage: React.FC = () => {
     if (item.statusCode === "draft") {
       if (item.isEnabledPhoneApp) {
         setCurrentCounting(item);
-        navigate(`/toollogo/${item.id}`);
+        navigate(`/toollogo/${item.id}`, {
+          state: {
+            startScan: true,
+          },
+        });
       } else {
         showToast.error("Тооллогыг утсаар тоолох үйлдлийг Хаасан байна!", {
           position: "bottom-center",
