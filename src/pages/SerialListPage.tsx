@@ -132,6 +132,7 @@ const SerialListPage = () => {
             } as FullProductModel,
             countingId: currentCounting?.id,
           },
+          replace: true,
         });
       }
     } catch (error) {
