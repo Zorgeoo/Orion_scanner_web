@@ -45,11 +45,7 @@ const ProductPage = () => {
         );
 
         if (res) {
-          if (withSerial) {
-            navigate(-1);
-          } else {
-            navigate(-1);
-          }
+          navigate(-1);
         } else {
           showToast.error("Алдаа гарлаа. Амжилтгүй", {
             position: "bottom-center",

@@ -10,6 +10,8 @@ interface ProductContextValue {
   setBarcodeList: (barcodeList: BarcodeProductModel[] | null) => void;
   setProductList: (productList: ProductModel[] | null) => void;
   setCurrentCounting: (counting: CountingModel | null) => void;
+  shouldStartScan: boolean;
+  setShouldStartScan: (bool: boolean) => void;
 }
 
 export const ProductContext = createContext<ProductContextValue | undefined>(
@@ -29,6 +31,7 @@ export const ProductContextProvider = ({ children }: ProductProviderProps) => {
   const [currentCounting, setCurrentCounting] = useState<CountingModel | null>(
     null
   );
+  const [shouldStartScan, setShouldStartScan] = useState(false);
 
   return (
     <ProductContext.Provider
@@ -39,6 +42,8 @@ export const ProductContextProvider = ({ children }: ProductProviderProps) => {
         setProductList,
         currentCounting,
         setCurrentCounting,
+        shouldStartScan,
+        setShouldStartScan,
       }}
     >
       {children}

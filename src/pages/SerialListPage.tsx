@@ -31,11 +31,9 @@ const SerialListPage = () => {
 
   const location = useLocation();
 
-  const fromScanner = location.state.fromScanner as boolean | undefined;
   const selectedProduct = location.state.selectedProduct as
     | ProductModel
     | undefined;
-
   const { groupNum } = useParams<{ groupNum: string }>();
 
   const [serials, setSerials] = useState<SerialModel[] | null>(null);
@@ -133,7 +131,6 @@ const SerialListPage = () => {
               createdBy: "",
             } as FullProductModel,
             countingId: currentCounting?.id,
-            withSerial: fromScanner ? false : true,
           },
         });
       }
@@ -208,7 +205,6 @@ const SerialListPage = () => {
                   replace={true}
                   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
                   state={{
-                    withSerial: fromScanner ? false : true,
                     product: {
                       lineId: 0,
                       barcodeAndName: "",

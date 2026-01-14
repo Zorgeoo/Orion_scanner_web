@@ -68,7 +68,7 @@ const CountingListPage: React.FC = () => {
         setCurrentCounting(item);
         navigate(`/toollogo/${item.id}`, {
           state: {
-            startScan: true,
+            startScan: false,
           },
         });
       } else {

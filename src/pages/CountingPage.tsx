@@ -7,7 +7,7 @@ import { ProductModel } from "@/types/ProductModel";
 import { showToast } from "@/utils/toast";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 
 declare global {
   interface Window {
@@ -37,6 +37,8 @@ const CountingPage = () => {
     productList,
     barcodeList,
     currentCounting,
+    shouldStartScan,
+    setShouldStartScan,
   } = productContext;
 
   const { countingId } = useParams<{ countingId: string }>();
@@ -46,9 +48,6 @@ const CountingPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
-  const location = useLocation();
-
-  const startScan = location.state.startScan as boolean | undefined;
 
   // Scan хийгдсэн код
   const [scannedCode, setScannedCode] = useState<string | null>(null);
@@ -68,13 +67,14 @@ const CountingPage = () => {
   };
 
   useEffect(() => {
-    if (startScan) {
+    if (shouldStartScan) {
       startScanning();
     }
-  }, [startScan]);
+  }, [shouldStartScan]);
+
   useEffect(() => {
     if (!scannedCode) return;
-
+    setShouldStartScan(true);
     const selectedTbarcode = barcodeList?.find(
       (barcode) => barcode.barcode === scannedCode
     );
@@ -90,7 +90,6 @@ const CountingPage = () => {
     } else if (currentCounting?.IsBySeriesNumber) {
       navigate(`/toollogo/serialList/${selectedTbarcode.groupNum}`, {
         state: {
-          fromScanner: true,
           selectedProduct: {
             barcode: "",
             groupNum: selectedTbarcode?.groupNum ?? "",
@@ -161,7 +160,6 @@ const CountingPage = () => {
                   userInfo.dbase.dbName,
                   countingId
                 );
-                console.log(barcodes);
 
                 setBarcodeList(barcodes);
               } else {
@@ -241,6 +239,7 @@ const CountingPage = () => {
           Баркод уншуулж тоолох
         </button>
         <Link
+          onClick={() => setShouldStartScan(false)}
           to={`/toollogo/${countingId}/searchByProductName`}
           state={{ barcode: "", toSaveBarcode: false }}
         >
