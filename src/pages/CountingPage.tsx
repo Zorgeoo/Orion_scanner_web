@@ -188,7 +188,7 @@ const CountingPage = () => {
 
     fetchProducts();
     return () => {
-      s;
+      setStartScanNow(false);
     };
   }, []);
 
