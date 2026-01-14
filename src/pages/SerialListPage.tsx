@@ -276,67 +276,8 @@ const SerialListPage = () => {
             })}
         </div>
       )}
-      <div className="fixed bottom-0 pb-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col gap-3 w-[90%] max-w-md bg-white">
-        <Dialog open={open && !selectedSerial} onOpenChange={setOpen}>
-          <DialogTrigger className="px-8 py-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl">
-            Шинэ сери нэмэх
-          </DialogTrigger>
-          <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
-            <DialogTitle className="font-semibold text-gray-800 ">
-              Серийн дугаар шинээр үүсгэх :
-            </DialogTitle>
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col gap-4 items-start rounded-xl">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 pb-2">
-                    * Серийн дугаар :
-                  </label>
-                  <input
-                    type="text"
-                    value={newSerial}
-                    onChange={(e) => setNewSerial(e.target.value)}
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 pb-2">
-                    * Дуусах хугацаа :
-                  </label>
-                  <input
-                    type="date"
-                    value={expiryDate}
-                    onChange={(e) => setExpiryDate(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 pb-2">
-                    Авсан үнэ :
-                  </label>
-                  <input
-                    type="text"
-                    inputMode="decimal"
-                    pattern="[0-9,]*"
-                    value={cost ? cost : ""}
-                    onChange={(e) => setCost(e.target.value)}
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-              </div>
-              <div
-                onClick={handleCreateSerial}
-                className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
-             bg-gradient-to-r from-blue-500 to-purple-600 
-             hover:from-blue-600 hover:to-purple-700 
-             transition-all duration-300"
-              >
-                Хадгалах
-              </div>
-            </div>
-            <div className="[data-radix-dialog-close]:hidden" />
-          </DialogContent>
-        </Dialog>
-        {selectedSerial && (
+      <div className="fixed bottom-0 pb-6 left-1/2 transform -translate-x-1/2 z-20 flex flex-col gap-3 w-[90%] max-w-md bg-white">
+        {selectedSerial ? (
           <button
             onClick={handleNextButton}
             className="
@@ -362,98 +303,68 @@ const SerialListPage = () => {
             </svg>
             Үргэлжлүүлэх
           </button>
+        ) : (
+          <Dialog open={open} onOpenChange={setOpen}>
+            <DialogTrigger className="px-8 py-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl">
+              Шинэ сери нэмэх
+            </DialogTrigger>
+            <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
+              <DialogTitle className="font-semibold text-gray-800 ">
+                Серийн дугаар шинээр үүсгэх :
+              </DialogTitle>
+              <div className="flex flex-col gap-8">
+                <div className="flex flex-col gap-4 items-start rounded-xl">
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 pb-2">
+                      * Серийн дугаар :
+                    </label>
+                    <input
+                      type="text"
+                      value={newSerial}
+                      onChange={(e) => setNewSerial(e.target.value)}
+                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 pb-2">
+                      * Дуусах хугацаа :
+                    </label>
+                    <input
+                      type="date"
+                      value={expiryDate}
+                      onChange={(e) => setExpiryDate(e.target.value)}
+                      className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-medium text-gray-700 pb-2">
+                      Авсан үнэ :
+                    </label>
+                    <input
+                      type="text"
+                      inputMode="decimal"
+                      pattern="[0-9,]*"
+                      value={cost ? cost : ""}
+                      onChange={(e) => setCost(e.target.value)}
+                      className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                    />
+                  </div>
+                </div>
+                <div
+                  onClick={handleCreateSerial}
+                  className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
+             bg-gradient-to-r from-blue-500 to-purple-600 
+             hover:from-blue-600 hover:to-purple-700 
+             transition-all duration-300"
+                >
+                  Хадгалах
+                </div>
+              </div>
+              <div className="[data-radix-dialog-close]:hidden" />
+            </DialogContent>
+          </Dialog>
         )}
       </div>
-      {/* <div className="fixed bottom-18 left-1/2 transform -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md">
-        <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger className="px-8 py-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl">
-            Шинэ сери нэмэх
-          </DialogTrigger>
-          <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
-            <DialogTitle className="font-semibold text-gray-800 ">
-              Серийн дугаар шинээр үүсгэх :
-            </DialogTitle>
-            <div className="flex flex-col gap-8">
-              <div className="flex flex-col gap-4 items-start rounded-xl">
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 pb-2">
-                    * Серийн дугаар :
-                  </label>
-                  <input
-                    type="text"
-                    value={newSerial}
-                    onChange={(e) => setNewSerial(e.target.value)}
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 pb-2">
-                    * Дуусах хугацаа :
-                  </label>
-                  <input
-                    type="date"
-                    value={expiryDate}
-                    onChange={(e) => setExpiryDate(e.target.value)}
-                    className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 pb-2">
-                    Авсан үнэ :
-                  </label>
-                  <input
-                    type="text"
-                    inputMode="decimal"
-                    pattern="[0-9,]*"
-                    value={cost ? cost : ""}
-                    onChange={(e) => setCost(e.target.value)}
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-              </div>
-              <div
-                onClick={handleCreateSerial}
-                className="w-full px-4 py-2 font-semibold rounded-2xl shadow-md text-white text-center 
-             bg-gradient-to-r from-blue-500 to-purple-600 
-             hover:from-blue-600 hover:to-purple-700 
-             transition-all duration-300"
-              >
-                Хадгалах
-              </div>
-            </div>
-            <div className="[data-radix-dialog-close]:hidden" />
-          </DialogContent>
-        </Dialog>
-      </div>
-      {selectedSerial && (
-        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md">
-          <button
-            onClick={handleNextButton}
-            className="
-                w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white
-                px-8 py-4 rounded-2xl font-semibold shadow-2xl
-                hover:from-blue-600 hover:to-purple-700
-                active:scale-95 transition-all duration-200
-                flex items-center justify-center gap-2
-              "
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            Үргэлжлүүлэх
-          </button>
-        </div>
-      )} */}
     </div>
   );
 };
