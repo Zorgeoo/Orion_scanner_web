@@ -274,7 +274,11 @@ export const saveProductQuantity = async (
     input.addParam("@line_id", "int", 0, product.lineId);
 
     if (product.expiryDisplay) {
-      input.addParam("@date_end", "datetime", 0, product.expiryDisplay);
+      const normalizedDate =
+        typeof product.expiryDisplay === "string"
+          ? product.expiryDisplay.replace(/\//g, "-")
+          : product.expiryDisplay;
+      input.addParam("@date_end", "datetime", 0, normalizedDate);
     }
 
     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
