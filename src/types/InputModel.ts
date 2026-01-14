@@ -19,7 +19,12 @@ export class InputModel {
     this.query = query;
   }
 
-  addParam(name: string, type: string, length: number, value: string | number) {
+  addParam(
+    name: string,
+    type: string,
+    length: number,
+    value: string | number | Date
+  ) {
     this.sql_params.push({ name, type, length, value });
   }
 }
