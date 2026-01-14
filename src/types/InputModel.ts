@@ -11,6 +11,8 @@ import { ParamModel } from "./ParamModel";
 
 export class InputModel {
   db_name: string;
+  is_convert_result_base64str = false;
+  is_get_result_schema = true;
   query: string;
   sql_params: ParamModel[] = [];
 
