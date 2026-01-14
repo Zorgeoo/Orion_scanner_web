@@ -348,13 +348,19 @@ export const createNewSeries = async (
   try {
     const decimalCost = parseFloat(cost || "0");
     const input = new InputModel(dbName, "spPh_AddSeries");
-    // console.log(formatDate(endDate));
+    const dateParts = endDate.split("-"); // ["2026","06","12"]
+    const jsDate = new Date(
+      Number(dateParts[0]), // year
+      Number(dateParts[1]) - 1, // month (0-indexed)
+      Number(dateParts[2]) // day
+    );
+
     console.log(endDate);
 
     input.addParam("@group_num", "nvarchar", 200, groupNum);
     input.addParam("@series_number", "nvarchar", 50, seriesNumber);
     input.addParam("@price_avsan", "decimal", 0, decimalCost);
-    input.addParam("@date_end", "datetime", 0, endDate);
+    input.addParam("@date_end", "datetime", 0, jsDate);
 
     const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
 
