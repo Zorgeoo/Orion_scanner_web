@@ -10,13 +10,7 @@ import { FullProductModel } from "@/types/FullProductModel";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
-import {
-  Link,
-  replace,
-  useLocation,
-  useNavigate,
-  useParams,
-} from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -50,7 +44,9 @@ const SerialListPage = () => {
   const [cost, setCost] = useState<string>("");
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [barcode, setBarcode] = useState<string | null>(null);
+  const [barcodeByGroupnum, setBarcodeByGroupnum] = useState<string | null>(
+    null
+  );
   const [selectedSerial, setSelectedSerial] = useState<SerialModel | null>(
     null
   );
@@ -91,7 +87,7 @@ const SerialListPage = () => {
           groupNum
         );
         if (barcode) {
-          setBarcode(barcode);
+          setBarcodeByGroupnum(barcode);
         } else {
           showToast.error("Баркод авахад алдаа гарлаа", {
             position: "bottom-center",
@@ -124,14 +120,15 @@ const SerialListPage = () => {
         setOpen(false);
         navigate(`/toollogo/${currentCounting?.id}/${groupNum}`, {
           state: {
+            uldegdel: 0.0,
             product: {
               lineId: 0,
               barcodeAndName: "",
               qtyAndPrice: "",
               groupNum: groupNum,
               name: selectedProduct?.name,
-              barcode: barcode,
-              quantity: 0,
+              barcode: barcodeByGroupnum,
+              quantity: 0.0,
               serial: newSerial,
               costPrice: parseFloat(cost),
               expiryISO: new Date(expiryDate).toISOString(),
@@ -161,15 +158,16 @@ const SerialListPage = () => {
     navigate(`/toollogo/${currentCounting?.id}/${groupNum}`, {
       replace: true,
       state: {
+        uldegdel: selectedSerial?.qty,
         product: {
           lineId: 0,
           barcodeAndName: "",
           qtyAndPrice: "",
           groupNum: groupNum,
           name: selectedProduct?.name,
-          barcode: barcode,
+          barcode: barcodeByGroupnum,
           sellingPrice: selectedProduct?.price,
-          quantity: selectedSerial?.qty,
+          quantity: 0.0,
           serial: selectedSerial?.seriesNumber,
           costPrice: selectedSerial?.cost,
           expiryISO: selectedSerial?.endDate,

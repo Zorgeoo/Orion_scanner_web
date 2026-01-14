@@ -72,6 +72,7 @@ const SearchByProductnamePage = () => {
         `/toollogo/${currentCounting?.id}/${selectedProduct?.groupNum}`,
         {
           state: {
+            uldegdel: selectedProduct?.uldegdel ?? 0.0,
             product: {
               lineId: 0,
               barcodeAndName: "",
@@ -79,7 +80,7 @@ const SearchByProductnamePage = () => {
               groupNum: selectedProduct?.groupNum,
               name: selectedProduct?.name,
               barcode: toSaveBarcode ? barcode : selectedProduct?.barcode,
-              quantity: selectedProduct?.quantity,
+              quantity: 0.0,
               serial: "",
               costPrice: 0,
               expiryISO: "",

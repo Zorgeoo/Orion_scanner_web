@@ -98,13 +98,14 @@ const CountingPage = () => {
             name: selectedTbarcode?.name ?? "Нэр олдсонгүй",
             category: "",
             price: selectedTbarcode?.price ?? 0,
-            quantity: 0,
+            quantity: 0.0,
           },
         },
       });
     } else {
       navigate(`/toollogo/${countingId}/${selectedTbarcode.groupNum},`, {
         state: {
+          uldegdel: selectedTProduct.uldegdel,
           product: {
             lineId: 0,
             barcodeAndName: "",
@@ -112,7 +113,7 @@ const CountingPage = () => {
             groupNum: selectedTbarcode.groupNum,
             name: selectedTbarcode.name,
             barcode: scannedCode,
-            quantity: selectedTProduct?.uldegdel ?? 0,
+            quantity: 0.0,
             serial: "",
             costPrice: 0,
             expiryISO: "",
