@@ -354,7 +354,7 @@ export const createNewSeries = async (
     input.addParam("@group_num", "nvarchar", 200, groupNum);
     input.addParam("@series_number", "nvarchar", 50, seriesNumber);
     input.addParam("@price_avsan", "decimal", 0, decimalCost);
-    input.addParam("@date_end", "datetime", 0, endDate);
+    input.addParam("@date_end", "datetime", 0, `${endDate}T00:00:00`);
 
     const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
 
