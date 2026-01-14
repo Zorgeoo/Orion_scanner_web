@@ -41,7 +41,7 @@ const InventoryDetailPage = () => {
       {isLoading ? (
         <div>Loading</div>
       ) : (
-        <div>
+        <div className="flex flex-col gap-4">
           <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg space-y-4">
             <h2 className="text-lg font-bold text-gray-800 mb-4 flex items-center gap-2">
               <svg
@@ -96,7 +96,7 @@ const InventoryDetailPage = () => {
             </div>
           </div>
           <div className="bg-white/70 backdrop-blur-sm rounded-2xl p-6 shadow-lg space-y-4">
-            <div className="text-sm text-gray-700">
+            <div className="text-sm text-gray-700 font-semibold">
               Сүүлд орлогод авсан сери, дуусах хугацаа:
             </div>
             <div className="flex justify-between items-center py-3 border-b border-gray-200">
