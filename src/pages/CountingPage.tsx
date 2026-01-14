@@ -220,6 +220,7 @@ const CountingPage = () => {
             {products.map((product, index) => {
               return (
                 <Link
+                  onClick={() => setShouldStartScan(false)}
                   key={index}
                   to={`/toollogo/${countingId}/${product.lineId}`}
                   state={{ product }}

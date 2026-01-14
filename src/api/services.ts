@@ -274,6 +274,7 @@ export const saveProductQuantity = async (
     input.addParam("@line_id", "int", 0, product.lineId);
 
     if (product.expiryDisplay) {
+      //2025/01/01 to 2025-01-01 болгон хувиргаж байна
       const normalizedDate =
         typeof product.expiryDisplay === "string"
           ? product.expiryDisplay.replace(/\//g, "-")
