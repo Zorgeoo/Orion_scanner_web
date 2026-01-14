@@ -1,4 +1,5 @@
 import { getInventoryDetail } from "@/api/services";
+import { Skeleton } from "@/components/ui/skeleton";
 import { UserContext } from "@/context/UserContext";
 import { InventoryDetailModel } from "@/types/InventoryDetailModel";
 import { useContext, useEffect, useState } from "react";
@@ -129,28 +130,14 @@ const InventoryDetailPage = () => {
     // </div>
     <div className="p-6 max-w-xl mx-auto">
       {isLoading ? (
-        <div className="text-center text-gray-500 font-medium">Loading...</div>
+        <div className="space-y-6 flex flex-col items-center content-center">
+          <Skeleton className="h-56 w-full" />
+          <Skeleton className="h-28 w-full" />
+        </div>
       ) : (
         <div className="flex flex-col gap-6">
           {/* Product Details */}
           <div className="bg-white rounded-2xl shadow-md p-6 space-y-4">
-            <h2 className="text-lg font-bold text-gray-800 flex items-center gap-2">
-              <svg
-                className="w-5 h-5 text-blue-500"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth={2}
-                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
-                />
-              </svg>
-              Дэлгэрэнгүй мэдээлэл
-            </h2>
-
             <div className="grid grid-cols-2 gap-4">
               <span className="text-sm text-gray-600">Дотоод код</span>
               <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
