@@ -47,7 +47,7 @@ const CountingPage = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const navigate = useNavigate();
-  console.log(`products: ${products}`);
+  console.log(products);
 
   // Scan хийгдсэн код
   const [scannedCode, setScannedCode] = useState<string | null>(null);
