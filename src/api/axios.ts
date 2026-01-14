@@ -3,6 +3,9 @@ import axios from "axios";
 const api = axios.create({
   baseURL: `https://embainuu.mn/TestApi/`,
   timeout: 40000,
+  headers: {
+    "Content-Type": "application/json",
+  },
 });
 
 api.interceptors.request.use((config) => {

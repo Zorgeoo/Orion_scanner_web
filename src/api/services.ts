@@ -348,12 +348,6 @@ export const createNewSeries = async (
   try {
     const decimalCost = parseFloat(cost || "0");
     const input = new InputModel(dbName, "spPh_AddSeries");
-    // const dateParts = endDate.split("-"); // ["2026","06","12"]
-    // const jsDate = new Date(
-    //   Number(dateParts[0]), // year
-    //   Number(dateParts[1]) - 1, // month (0-indexed)
-    //   Number(dateParts[2]) // day
-    // );
 
     console.log(endDate);
 
