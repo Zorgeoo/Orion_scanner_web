@@ -112,7 +112,7 @@ const CountingPage = () => {
             groupNum: selectedTbarcode.groupNum,
             name: selectedTbarcode.name,
             barcode: scannedCode,
-            quantity: selectedTProduct?.quantity ?? 0,
+            quantity: selectedTProduct?.uldegdel ?? 0,
             serial: "",
             costPrice: 0,
             expiryISO: "",
@@ -223,7 +223,7 @@ const CountingPage = () => {
                   onClick={() => setShouldStartScan(false)}
                   key={index}
                   to={`/toollogo/${countingId}/${product.lineId}`}
-                  state={{ product }}
+                  state={{ product, uldegdel: 0.0 }}
                 >
                   <div className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm">
                     <p className="">{product.barcodeAndName}</p>

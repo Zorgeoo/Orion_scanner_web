@@ -4,5 +4,5 @@ export type ProductModel = {
   name: string;
   category: string;
   price: number;
-  quantity: number;
+  uldegdel: number;
 };

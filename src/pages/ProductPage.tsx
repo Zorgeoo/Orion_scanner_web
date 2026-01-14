@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { FullProductModel } from "@/types/FullProductModel";
 import CustomButton from "@/components/common/CustomButton";
 import { saveProductQuantity } from "@/api/services";
@@ -26,7 +26,7 @@ const ProductPage = () => {
 
   const product = location.state?.product as FullProductModel | undefined;
   if (!product) return <p className="p-4">No product data available</p>;
-
+  const uldegdel = (location.state?.uldegdel as number) ?? 0.0;
   const [quantity, setQuantity] = useState<number | null>(
     product?.quantity ?? null
   );
@@ -58,6 +58,11 @@ const ProductPage = () => {
       console.log(error);
     }
   };
+
+  useEffect(() => {
+    if (currentCounting?.isShowUldApp) {
+    }
+  }, []);
 
   return (
     <div className="min-h-screen p-4">
@@ -138,7 +143,7 @@ const ProductPage = () => {
           <div className="flex justify-between items-center py-3 border-b border-gray-200">
             <span className="text-sm font-medium text-gray-600">Үлдэгдэл</span>
             <span className="text-sm font-mono font-semibold text-gray-800 bg-gray-100 px-3 py-1 rounded-lg">
-              {product.quantity}
+              {uldegdel}
             </span>
           </div>
           <div className="flex justify-between items-center py-3 border-b border-gray-200">

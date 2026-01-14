@@ -231,13 +231,13 @@ export const getProductList = async (
 
     if (res.data.is_succeeded && res.data.result) {
       const products: ProductModel[] = res.data.result.map(
-        ([barcode, groupNum, name, category, price, quantity]) => ({
+        ([barcode, groupNum, name, category, price, uldegdel]) => ({
           barcode,
           groupNum,
           name,
           category,
           price,
-          quantity,
+          uldegdel,
         })
       );
       return { products: products, success: true };
@@ -420,13 +420,13 @@ export const getInventoryList = async (
 
     if (res.data.is_succeeded && res.data.result) {
       const products: ProductModel[] = res.data.result.map(
-        ([barcode, groupNum, name, category, price, quantity]) => ({
+        ([barcode, groupNum, name, category, price, uldegdel]) => ({
           barcode,
           groupNum,
           name,
           category,
           price,
-          quantity,
+          uldegdel,
         })
       );
       return { products: products, success: true };
