@@ -351,12 +351,45 @@ export const createNewSeries = async (
 
     console.log(endDate);
 
-    input.addParam("@group_num", "nvarchar", 200, groupNum);
-    input.addParam("@series_number", "nvarchar", 50, seriesNumber);
-    input.addParam("@price_avsan", "decimal", 0, decimalCost);
-    input.addParam("@date_end", "datetime", 0, endDate);
+    // input.addParam("@group_num", "nvarchar", 200, groupNum);
+    // input.addParam("@series_number", "nvarchar", 50, seriesNumber);
+    // input.addParam("@price_avsan", "decimal", 0, decimalCost);
+    // input.addParam("@date_end", "datetime", 0, endDate);
+    const payload = {
+      db_name: dbName,
+      query: "spPh_AddSeries",
+      sql_params: [
+        {
+          name: "@group_num",
+          type: "nvarchar",
+          length: 200,
+          value: groupNum,
+        },
+        {
+          name: "@series_number",
+          type: "nvarchar",
+          length: 50,
+          value: seriesNumber,
+        },
+        {
+          name: "@price_avsan",
+          type: "decimal",
+          length: 0,
+          value: decimalCost,
+        },
+        {
+          name: "@date_end",
+          type: "datetime",
+          length: 0,
+          value: endDate, // Just the string "2026-11-20"
+        },
+      ],
+    };
 
-    const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
+    const res = await api.post<BaseResponse<any[]>>(
+      "action/exec_proc",
+      payload
+    );
 
     if (res.data.is_succeeded && res.data.result) {
       return true;
