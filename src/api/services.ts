@@ -258,15 +258,24 @@ export const saveProductQuantity = async (
 ): Promise<boolean> => {
   try {
     const input = new InputModel(dbName, "spPh_SaveCountingLine");
+    const cost = product.costPrice ?? 0;
+    const decimalCost = Number(cost.toFixed(2));
+
+    const qty = product.quantity ?? 0;
+    const decimalQty = Number(qty.toFixed(2));
 
     input.addParam("@full_id", "nvarchar", 50, countingId);
     input.addParam("@group_num", "nvarchar", 200, product.groupNum);
     input.addParam("@bar_code", "nvarchar", 200, product.barcode);
-    input.addParam("@qty", "decimal", 0, newQty);
+    input.addParam("@qty", "decimal", 0, decimalQty);
     input.addParam("@user_id", "int", 0, Number(userId));
     input.addParam("@series_number", "nvarchar", 50, product.serial);
-    input.addParam("@cost", "decimal", 0, product.costPrice);
+    input.addParam("@cost", "decimal", 0, decimalCost);
     input.addParam("@line_id", "int", 0, product.lineId);
+
+    if (product.expiryDisplay) {
+      input.addParam("@date_end", "datetime", 0, product.expiryDisplay);
+    }
 
     const res = await api.post<BaseResponse<any>>("action/exec_proc", input);
 
@@ -351,45 +360,12 @@ export const createNewSeries = async (
 
     console.log(endDate);
 
-    // input.addParam("@group_num", "nvarchar", 200, groupNum);
-    // input.addParam("@series_number", "nvarchar", 50, seriesNumber);
-    // input.addParam("@price_avsan", "decimal", 0, decimalCost);
-    // input.addParam("@date_end", "datetime", 0, endDate);
-    const payload = {
-      db_name: dbName,
-      query: "spPh_AddSeries",
-      sql_params: [
-        {
-          name: "@group_num",
-          type: "nvarchar",
-          length: 200,
-          value: groupNum,
-        },
-        {
-          name: "@series_number",
-          type: "nvarchar",
-          length: 50,
-          value: seriesNumber,
-        },
-        {
-          name: "@price_avsan",
-          type: "decimal",
-          length: 0,
-          value: decimalCost,
-        },
-        {
-          name: "@date_end",
-          type: "datetime",
-          length: 0,
-          value: endDate, // Just the string "2026-11-20"
-        },
-      ],
-    };
+    input.addParam("@group_num", "nvarchar", 200, groupNum);
+    input.addParam("@series_number", "nvarchar", 50, seriesNumber);
+    input.addParam("@price_avsan", "decimal", 0, decimalCost);
+    input.addParam("@date_end", "datetime", 0, endDate);
 
-    const res = await api.post<BaseResponse<any[]>>(
-      "action/exec_proc",
-      payload
-    );
+    const res = await api.post<BaseResponse<any[]>>("action/exec_proc", input);
 
     if (res.data.is_succeeded && res.data.result) {
       return true;

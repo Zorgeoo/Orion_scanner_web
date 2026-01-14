@@ -134,7 +134,7 @@ const SerialListPage = () => {
               quantity: 0,
               serial: newSerial,
               costPrice: parseFloat(cost),
-              expiryISO: expiryDate,
+              expiryISO: new Date(expiryDate).toISOString(),
               expiryDisplay: expiryDate,
               sellingPrice: selectedProduct?.price,
               createdBy: "",
