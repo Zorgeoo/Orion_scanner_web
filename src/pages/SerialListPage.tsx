@@ -195,7 +195,14 @@ const SerialListPage = () => {
             serials.map((serial, index) => {
               return (
                 <div
-                  className="flex items-center gap-4"
+                  className={`
+                 px-4 py-2 rounded-2xl
+                  ${
+                    selectedSerial === serial
+                      ? "ring-2 ring-blue-500 bg-blue-50/70 text-sm"
+                      : ""
+                  }
+                `}
                   onClick={() => handleSelectSerial(serial)}
                   key={index}
                 >
