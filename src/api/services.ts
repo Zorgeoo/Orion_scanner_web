@@ -48,6 +48,15 @@ type CountingTuple = [
   boolean // 7 - canView
 ];
 
+function isEmptyObject(obj: any): boolean {
+  return (
+    obj &&
+    typeof obj === "object" &&
+    !Array.isArray(obj) &&
+    Object.keys(obj).length === 0
+  );
+}
+
 const orionDbName = "orion";
 
 export const getModules = async (
@@ -273,7 +282,7 @@ export const saveProductQuantity = async (
     input.addParam("@cost", "decimal", 0, decimalCost);
     input.addParam("@line_id", "int", 0, product.lineId);
 
-    if (product.expiryDisplay) {
+    if (product.expiryDisplay && isEmptyObject(product.expiryDisplay)) {
       //2025/01/01 to 2025-01-01 болгон хувиргаж байна
       const normalizedDate =
         typeof product.expiryDisplay === "string"
