@@ -196,10 +196,10 @@ const SerialListPage = () => {
               return (
                 <div
                   className={`
-                 px-4 py-2 rounded-2xl
+                 px-4 py-2 rounded-2xl text-sm
                   ${
                     selectedSerial === serial
-                      ? "ring-2 ring-blue-500 bg-blue-50/70 text-sm"
+                      ? "ring-2 ring-blue-500 bg-blue-50/70 "
                       : ""
                   }
                 `}
@@ -236,7 +236,7 @@ const SerialListPage = () => {
             })}
         </div>
       )}
-      <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2">
+      <div className="fixed bottom-12 left-1/2 transform -translate-x-1/2">
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger className="px-4 py-2 bg-orange-400 text-white rounded-xl">
             Шинэ сери нэмэх
