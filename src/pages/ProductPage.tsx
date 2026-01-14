@@ -41,7 +41,6 @@ const ProductPage = () => {
           userInfo.userId,
           currentCounting?.id
         );
-
         if (res) {
           if (shouldStartScan) {
             setStartScanNow(true);

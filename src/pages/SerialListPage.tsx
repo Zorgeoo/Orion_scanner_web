@@ -10,7 +10,13 @@ import { FullProductModel } from "@/types/FullProductModel";
 import { SerialModel } from "@/types/SerialModel";
 import { showToast } from "@/utils/toast";
 import { useContext, useEffect, useState } from "react";
-import { Link, useLocation, useNavigate, useParams } from "react-router-dom";
+import {
+  Link,
+  replace,
+  useLocation,
+  useNavigate,
+  useParams,
+} from "react-router-dom";
 import {
   Dialog,
   DialogContent,
@@ -45,6 +51,9 @@ const SerialListPage = () => {
   const [open, setOpen] = useState(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [barcode, setBarcode] = useState<string | null>(null);
+  const [selectedSerial, setSelectedSerial] = useState<SerialModel | null>(
+    null
+  );
 
   useEffect(() => {
     const getSeries = async () => {
@@ -139,15 +148,38 @@ const SerialListPage = () => {
       console.log(error);
     }
   };
-  console.log(selectedProduct);
 
-  // const handleSelectSerial = (serial: SerialModel) => {
-  //   if (serial.groupNum === selectedserial?.groupNum) {
-  //     setSerial(null);
-  //   } else {
-  //     setSerial(serial);
-  //   }
-  // };
+  const handleSelectSerial = (serial: SerialModel) => {
+    if (serial.seriesNumber === selectedSerial?.seriesNumber) {
+      setSelectedSerial(null);
+    } else {
+      setSelectedSerial(serial);
+    }
+  };
+
+  const handleNextButton = () => {
+    navigate(`/toollogo/${currentCounting?.id}/${groupNum}`, {
+      replace: true,
+      state: {
+        product: {
+          lineId: 0,
+          barcodeAndName: "",
+          qtyAndPrice: "",
+          groupNum: groupNum,
+          name: selectedProduct?.name,
+          barcode: barcode,
+          sellingPrice: selectedProduct?.price,
+          quantity: selectedSerial?.qty,
+          serial: selectedSerial?.seriesNumber,
+          costPrice: selectedSerial?.cost,
+          expiryISO: selectedSerial?.endDate,
+          expiryDisplay: selectedSerial?.endDate,
+          createdBy: "",
+        } as FullProductModel,
+      },
+    });
+  };
+
   return (
     <div className="p-4 mx-auto">
       <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
@@ -164,72 +196,37 @@ const SerialListPage = () => {
           {serials &&
             serials.map((serial, index) => {
               return (
-                // <Link
-                //   replace={true}
-                //   to={`/toollogo/${currentCounting?.id}/${groupNum}`}
-                //   state={{
-                //     withSerial: fromScanner ? false : true,
-                //     product: {
-                //       lineId: 0,
-                //       barcodeAndName: "",
-                //       qtyAndPrice: "",
-                //       groupNum: groupNum,
-                //       name: selectedProduct?.name,
-                //       barcode: barcode,
-                //       sellingPrice: selectedProduct?.price,
-                //       quantity: serial.qty,
-                //       serial: serial.seriesNumber,
-                //       costPrice: serial.cost,
-                //       expiryISO: serial.endDate,
-                //       expiryDisplay: serial.endDate,
-                //       createdBy: "",
-                //     } as FullProductModel,
-                //   }}
-                //   className="flex items-center gap-4"
-                // >
-                //   <div className="flex-shrink-0">
-                //     <div
-                //       className={`
-                //         w-5 h-5 rounded-full border-2 flex items-center justify-center
-                //         transition-all duration-200
-                //       `}
-                //     ></div>
-                //   </div>
-
-                //   <div className="flex-1 min-w-0">
-                //     <h3 className="text-gray-500 truncate text-sm">
-                //       {serial.fullSeriesNumber}
-                //     </h3>
-                //   </div>
-                // </Link>
-                <Link
-                  replace={true}
-                  to={`/toollogo/${currentCounting?.id}/${groupNum}`}
-                  state={{
-                    product: {
-                      lineId: 0,
-                      barcodeAndName: "",
-                      qtyAndPrice: "",
-                      groupNum: groupNum,
-                      name: selectedProduct?.name,
-                      barcode: barcode,
-                      sellingPrice: selectedProduct?.price,
-                      quantity: serial.qty,
-                      serial: serial.seriesNumber,
-                      costPrice: serial.cost,
-                      expiryISO: serial.endDate,
-                      expiryDisplay: serial.endDate,
-                      createdBy: "",
-                    } as FullProductModel,
-                  }}
+                <div
+                  className="flex items-center gap-4"
+                  onClick={() => handleSelectSerial(serial)}
+                  key={index}
                 >
-                  <div
-                    key={index}
-                    className="flex flex-col pt-2 border-b-2 border-green-600 text-gray-500 text-sm"
-                  >
-                    <p className="">{serial.fullSeriesNumber}</p>
+                  {/* Radio Button */}
+                  <div className="flex-shrink-0">
+                    <div
+                      className={`
+                        w-5 h-5 rounded-full border-2 flex items-center justify-center
+                        transition-all duration-200
+                        ${
+                          selectedSerial === serial
+                            ? "border-blue-500 bg-blue-500"
+                            : "border-gray-300 bg-white"
+                        }
+                      `}
+                    >
+                      {selectedSerial === serial && (
+                        <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                      )}
+                    </div>
                   </div>
-                </Link>
+
+                  {/* Serial Name */}
+                  <div className="flex-1 min-w-0">
+                    <h3 className="text-gray-500 truncate">
+                      {serial.fullSeriesNumber}
+                    </h3>
+                  </div>
+                </div>
               );
             })}
         </div>
@@ -295,6 +292,35 @@ const SerialListPage = () => {
           </DialogContent>
         </Dialog>
       </div>
+      {selectedSerial && (
+        <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md">
+          <button
+            onClick={handleNextButton}
+            className="
+                w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white
+                px-8 py-4 rounded-2xl font-semibold shadow-2xl
+                hover:from-blue-600 hover:to-purple-700
+                active:scale-95 transition-all duration-200
+                flex items-center justify-center gap-2
+              "
+          >
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
+            </svg>
+            Үргэлжлүүлэх
+          </button>
+        </div>
+      )}
     </div>
   );
 };
