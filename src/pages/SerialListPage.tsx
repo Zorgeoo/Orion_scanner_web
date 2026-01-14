@@ -17,6 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
+import { ProductModel } from "@/types/ProductModel";
 const SerialListPage = () => {
   const navigate = useNavigate();
   const userContext = useContext(UserContext);
@@ -25,12 +26,15 @@ const SerialListPage = () => {
   if (!productContext) return;
   if (!userContext) return;
 
-  const { currentCounting, selectedProduct } = productContext;
+  const { currentCounting } = productContext;
   const { userInfo } = userContext;
 
   const location = useLocation();
 
   const fromScanner = location.state.fromScanner as boolean | undefined;
+  const selectedProduct = location.state.selectedProduct as
+    | ProductModel
+    | undefined;
 
   const { groupNum } = useParams<{ groupNum: string }>();
 

@@ -34,7 +34,6 @@ const CountingPage = () => {
   const {
     setProductList,
     setBarcodeList,
-    setSelectedProduct,
     productList,
     barcodeList,
     currentCounting,
@@ -43,6 +42,9 @@ const CountingPage = () => {
   const { countingId } = useParams<{ countingId: string }>();
 
   const [products, setProducts] = useState<FullProductModel[] | null>(null);
+  const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
+    null
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
@@ -92,6 +94,7 @@ const CountingPage = () => {
       navigate(`/toollogo/serialList/${selectedTbarcode.groupNum}`, {
         state: {
           fromScanner: true,
+          selectedProduct: selectedProduct,
         },
       });
     } else {

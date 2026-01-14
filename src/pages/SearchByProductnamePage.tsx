@@ -4,7 +4,7 @@ import { UserContext } from "@/context/UserContext";
 import { BarcodeProductModel } from "@/types/BarcodeProductModel";
 import { FullProductModel } from "@/types/FullProductModel";
 import { ProductModel } from "@/types/ProductModel";
-import { useState, useMemo, useContext, useEffect } from "react";
+import { useState, useMemo, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 
 const SearchByProductnamePage = () => {
@@ -12,14 +12,8 @@ const SearchByProductnamePage = () => {
 
   if (!productContext) return null;
 
-  const {
-    productList,
-    currentCounting,
-    selectedProduct,
-    barcodeList,
-    setBarcodeList,
-    setSelectedProduct,
-  } = productContext;
+  const { productList, currentCounting, barcodeList, setBarcodeList } =
+    productContext;
 
   const userContext = useContext(UserContext);
   if (!userContext) return null;
@@ -33,6 +27,9 @@ const SearchByProductnamePage = () => {
   const barcode = location.state.barcode as string | undefined;
 
   const [searchQuery, setSearchQuery] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
+    null
+  );
 
   const filteredProducts = useMemo(() => {
     if (!productList) return [];
@@ -67,6 +64,7 @@ const SearchByProductnamePage = () => {
       navigate(`/toollogo/serialList/${selectedProduct?.groupNum}`, {
         state: {
           fromScanner: false,
+          selectedProduct: selectedProduct,
         },
       });
     } else {
@@ -121,12 +119,6 @@ const SearchByProductnamePage = () => {
     navigateNext();
   };
 
-  //БОДОХ
-  // useEffect(() => {
-  //   return () => {
-  //     setSelectedProduct(null);
-  //   };
-  // }, []);
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-2xl mx-auto">
