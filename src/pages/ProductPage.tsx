@@ -18,7 +18,7 @@ const ProductPage = () => {
 
   if (!productContext) return null;
 
-  const { currentCounting } = productContext;
+  const { currentCounting, shouldStartScan, setStartScanNow } = productContext;
 
   const navigate = useNavigate();
 
@@ -26,8 +26,6 @@ const ProductPage = () => {
 
   const product = location.state?.product as FullProductModel | undefined;
   if (!product) return <p className="p-4">No product data available</p>;
-
-  const withSerial = location.state.withSerial as boolean | undefined;
 
   const [quantity, setQuantity] = useState<number | null>(
     product?.quantity ?? null
@@ -45,6 +43,11 @@ const ProductPage = () => {
         );
 
         if (res) {
+          if (shouldStartScan) {
+            setStartScanNow(true);
+          } else {
+            setStartScanNow(false);
+          }
           navigate(-1);
         } else {
           showToast.error("Алдаа гарлаа. Амжилтгүй", {

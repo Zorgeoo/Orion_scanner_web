@@ -39,6 +39,7 @@ const CountingPage = () => {
     currentCounting,
     shouldStartScan,
     setShouldStartScan,
+    startScanNow,
   } = productContext;
 
   const { countingId } = useParams<{ countingId: string }>();
@@ -67,10 +68,10 @@ const CountingPage = () => {
   };
 
   useEffect(() => {
-    if (shouldStartScan) {
+    if (shouldStartScan && startScanNow) {
       startScanning();
     }
-  }, [shouldStartScan]);
+  }, [shouldStartScan, startScanNow]);
 
   useEffect(() => {
     if (!scannedCode) return;
