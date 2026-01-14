@@ -46,7 +46,7 @@ const ProductPage = () => {
 
         if (res) {
           if (withSerial) {
-            navigate(-2);
+            navigate(-1);
           } else {
             navigate(-1);
           }
