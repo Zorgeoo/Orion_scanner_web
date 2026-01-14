@@ -195,29 +195,30 @@ const SerialListPage = () => {
             serials.map((serial, index) => {
               return (
                 <div
-                  className={`
-                 px-4 py-2 rounded-2xl text-sm
-                  ${
-                    selectedSerial === serial
-                      ? "ring-2 ring-blue-500 bg-blue-50/70 "
-                      : ""
-                  }
-                `}
-                  onClick={() => handleSelectSerial(serial)}
                   key={index}
+                  onClick={() => handleSelectSerial(serial)}
+                  className={`
+    flex items-center gap-3 px-4 py-2 rounded-2xl text-sm cursor-pointer
+    transition-all duration-200
+    ${
+      selectedSerial === serial
+        ? "ring-2 ring-blue-500 bg-blue-50/70"
+        : "hover:bg-gray-100"
+    }
+  `}
                 >
                   {/* Radio Button */}
                   <div className="flex-shrink-0">
                     <div
                       className={`
-                        w-5 h-5 rounded-full border-2 flex items-center justify-center
-                        transition-all duration-200
-                        ${
-                          selectedSerial === serial
-                            ? "border-blue-500 bg-blue-500"
-                            : "border-gray-300 bg-white"
-                        }
-                      `}
+        w-5 h-5 rounded-full border-2 flex items-center justify-center
+        transition-all duration-200
+        ${
+          selectedSerial === serial
+            ? "border-blue-500 bg-blue-500"
+            : "border-gray-300 bg-white"
+        }
+      `}
                     >
                       {selectedSerial === serial && (
                         <div className="w-2.5 h-2.5 rounded-full bg-white" />
@@ -227,11 +228,50 @@ const SerialListPage = () => {
 
                   {/* Serial Name */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-gray-500 truncate">
+                    <h3 className="text-gray-700 truncate">
                       {serial.fullSeriesNumber}
                     </h3>
                   </div>
                 </div>
+
+                // <div
+                //   className={`
+                //  px-4 py-2 rounded-2xl text-sm
+                //   ${
+                //     selectedSerial === serial
+                //       ? "ring-2 ring-blue-500 bg-blue-50/70 "
+                //       : ""
+                //   }
+                // `}
+                //   onClick={() => handleSelectSerial(serial)}
+                //   key={index}
+                // >
+                //   {/* Radio Button */}
+                //   <div className="flex-shrink-0">
+                //     <div
+                //       className={`
+                //         w-5 h-5 rounded-full border-2 flex items-center justify-center
+                //         transition-all duration-200
+                //         ${
+                //           selectedSerial === serial
+                //             ? "border-blue-500 bg-blue-500"
+                //             : "border-gray-300 bg-white"
+                //         }
+                //       `}
+                //     >
+                //       {selectedSerial === serial && (
+                //         <div className="w-2.5 h-2.5 rounded-full bg-white" />
+                //       )}
+                //     </div>
+                //   </div>
+
+                //   {/* Serial Name */}
+                //   <div className="flex-1 min-w-0">
+                //     <h3 className="text-gray-500 truncate">
+                //       {serial.fullSeriesNumber}
+                //     </h3>
+                //   </div>
+                // </div>
               );
             })}
         </div>
