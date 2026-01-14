@@ -2,7 +2,7 @@ import axios from "axios";
 // const apiUrl = import.meta.env.VITE_API_URL;
 const api = axios.create({
   baseURL: `https://embainuu.mn/TestApi/`,
-  timeout: 20000,
+  timeout: 40000,
 });
 
 api.interceptors.request.use((config) => {
