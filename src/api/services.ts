@@ -261,7 +261,7 @@ export const saveProductQuantity = async (
     const cost = product.costPrice ?? 0;
     const decimalCost = Number(cost.toFixed(2));
 
-    const qty = product.quantity ?? 0;
+    const qty = newQty ?? 0;
     const decimalQty = Number(qty.toFixed(2));
 
     input.addParam("@full_id", "nvarchar", 50, countingId);
