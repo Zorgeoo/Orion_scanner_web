@@ -306,6 +306,19 @@ const SerialListPage = () => {
         ) : (
           <Dialog open={open} onOpenChange={setOpen}>
             <DialogTrigger className="px-8 py-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                strokeWidth={2}
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  d="M12 4v16M4 12h16"
+                />
+              </svg>
               Шинэ сери нэмэх
             </DialogTrigger>
             <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
