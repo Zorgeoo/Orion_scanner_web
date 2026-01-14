@@ -141,6 +141,7 @@ const SerialListPage = () => {
       console.log(error);
     }
   };
+  console.log(selectedProduct);
 
   // const handleSelectSerial = (serial: SerialModel) => {
   //   if (serial.groupNum === selectedserial?.groupNum) {

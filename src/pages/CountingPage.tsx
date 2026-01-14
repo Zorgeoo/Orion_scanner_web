@@ -94,7 +94,14 @@ const CountingPage = () => {
       navigate(`/toollogo/serialList/${selectedTbarcode.groupNum}`, {
         state: {
           fromScanner: true,
-          selectedProduct: selectedProduct,
+          selectedProduct: {
+            barcode: "",
+            groupNum: selectedTbarcode?.groupNum ?? "",
+            name: selectedTbarcode?.name ?? "Нэр олдсонгүй",
+            category: "",
+            price: selectedTbarcode?.price ?? 0,
+            quantity: 0,
+          },
         },
       });
     } else {
