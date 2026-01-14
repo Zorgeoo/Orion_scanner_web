@@ -305,7 +305,7 @@ const SerialListPage = () => {
           </button>
         ) : (
           <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className="px-8 py-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl">
+            <DialogTrigger className="flex items-center justify-center gap-2 px-8 py-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl hover:bg-orange-500 transition-all">
               <svg
                 className="w-5 h-5"
                 fill="none"
@@ -321,6 +321,7 @@ const SerialListPage = () => {
               </svg>
               Шинэ сери нэмэх
             </DialogTrigger>
+
             <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
               <DialogTitle className="font-semibold text-gray-800 ">
                 Серийн дугаар шинээр үүсгэх :
