@@ -64,7 +64,7 @@ const RootPage = () => {
       axios.interceptors.response.eject(interceptor);
       delete window.setUserInfo;
     };
-  }, [setUserInfo, userInfo]);
+  }, []);
 
   return (
     <Routes>
