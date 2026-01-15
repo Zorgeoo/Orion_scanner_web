@@ -21,6 +21,7 @@ api.interceptors.request.use((config) => {
 api.interceptors.response.use(
   (res) => {
     console.log("got response");
+    window.webkit?.messageHandlers.barcodeScanner.postMessage("success");
     return res;
   },
   (error) => {
