@@ -19,10 +19,7 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
-    console.log("here");
-
     if (!userInfo) return;
-    console.log("userinfo baina");
 
     const fetchModules = async () => {
       setIsLoading(true);
