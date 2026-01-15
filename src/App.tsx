@@ -1,19 +1,11 @@
 import "./App.css";
 
-import { Route, Routes } from "react-router-dom";
-import HomePage from "./pages/HomePage";
 import { UserContext, UserInfo, UserProvider } from "./context/UserContext";
-import CountingPage from "./pages/CountingPage";
-import CountingListPage from "./pages/CountinListPage";
-import ProductPage from "./pages/ProductPage";
 import { Bounce, ToastContainer } from "react-toastify";
 import { ProductContextProvider } from "./context/ProductContext";
-import SearchByProductnamePage from "./pages/SearchByProductnamePage";
-import SerialListPage from "./pages/SerialListPage";
-import InventoryPage from "./pages/InventoryPage";
-import InventoryDetailPage from "./pages/InventoryDetailPage";
 import { useContext, useEffect } from "react";
 import axios from "axios";
+import RootPage from "./Root";
 
 declare global {
   interface Window {
@@ -106,28 +98,7 @@ function App() {
               padding: "12px",
             }}
           />
-          <Routes>
-            <Route path="/" element={<HomePage />} />
-            <Route path="/toollogo" element={<CountingListPage />} />
-            <Route path="/inventory" element={<InventoryPage />} />
-            <Route
-              path="/inventory/:groupNum"
-              element={<InventoryDetailPage />}
-            />
-            <Route
-              path="/toollogo/serialList/:groupNum"
-              element={<SerialListPage />}
-            />
-            <Route path="/toollogo/:countingId" element={<CountingPage />} />
-            <Route
-              path="/toollogo/:countingId/searchByProductName"
-              element={<SearchByProductnamePage />}
-            />
-            <Route
-              path="/toollogo/:countingId/:productId"
-              element={<ProductPage />}
-            />
-          </Routes>
+          <RootPage />
         </ProductContextProvider>
       </UserProvider>
     </>
