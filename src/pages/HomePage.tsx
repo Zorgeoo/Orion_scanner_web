@@ -3,7 +3,7 @@ import { Link, useLocation } from "react-router-dom";
 import HomeSkeleton from "@/components/common/HomeSkeleton";
 import { getModules } from "@/api/services";
 import { useContext, useEffect, useState } from "react";
-import { UserContext, UserInfo } from "@/context/UserContext";
+import { UserContext } from "@/context/UserContext";
 import { ModuleModel } from "@/types/ModuleModel";
 
 const HomePage = () => {
@@ -11,32 +11,12 @@ const HomePage = () => {
 
   if (!context) return null; // fallback if context not provided
 
-  const { userInfo, setUserInfo } = context;
+  const { userInfo } = context;
 
   const location = useLocation();
 
   const [modules, setModules] = useState<ModuleModel[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-
-  useEffect(() => {
-    // 📥 Setup receiver for user info from native app
-
-    window.setUserInfo = (info: UserInfo) => {
-      setUserInfo(info);
-      if (info.token) {
-        localStorage.setItem("authToken", info.token);
-      }
-    };
-
-    if (window.webkit?.messageHandlers?.barcodeScanner) {
-      window.webkit.messageHandlers.barcodeScanner.postMessage("reactReady");
-    }
-
-    // Cleanup
-    return () => {
-      delete window.setUserInfo;
-    };
-  }, []);
 
   useEffect(() => {
     if (!userInfo) return;
@@ -53,7 +33,6 @@ const HomePage = () => {
 
     fetchModules();
   }, [userInfo, location.pathname]);
-  console.log(modules);
 
   return (
     <div>

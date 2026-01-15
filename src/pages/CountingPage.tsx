@@ -20,6 +20,7 @@ declare global {
     };
     onBarcodeScanned?: (result: string) => void;
     setUserInfo?: (userInfo: UserInfo) => void;
+    tokenRenewResolve?: (value?: unknown) => void;
   }
 }
 
