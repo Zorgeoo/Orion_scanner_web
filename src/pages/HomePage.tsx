@@ -9,7 +9,7 @@ import { ModuleModel } from "@/types/ModuleModel";
 const HomePage = () => {
   const context = useContext(UserContext);
 
-  if (!context) return null; // fallback if context not provided
+  if (!context) return null;
 
   const { userInfo } = context;
 
@@ -19,7 +19,10 @@ const HomePage = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
   useEffect(() => {
+    console.log("here");
+
     if (!userInfo) return;
+    console.log("userinfo baina");
 
     const fetchModules = async () => {
       setIsLoading(true);
