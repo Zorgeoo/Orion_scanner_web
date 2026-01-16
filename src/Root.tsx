@@ -52,6 +52,8 @@ const RootPage = () => {
           error.response &&
           [401, 403, 404].includes(error.response.status)
         ) {
+          console.log(error.response);
+
           originalRequest._retry = true;
 
           await new Promise<void>((resolve) => {
@@ -63,7 +65,7 @@ const RootPage = () => {
 
           const token = userInfo?.token || localStorage.getItem("authToken");
           if (token) {
-            originalRequest.headers["Authorization"] = `Bearer ${token}1`;
+            originalRequest.headers["Authorization"] = `Bearer ${token}`;
             return axios(originalRequest);
           }
         }
