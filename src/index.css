@@ -36,6 +36,14 @@ body {
   flex-direction: column;
 }
 
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button:active {
+  opacity: 1;
+}
+
 /* .app-content {
   flex: 1;
   overflow-y: auto;
