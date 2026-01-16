@@ -68,7 +68,12 @@ const ProductPage = () => {
   };
 
   useEffect(() => {
-    qtyInputRef.current?.focus();
+    setTimeout(() => {
+      if (qtyInputRef.current) {
+        qtyInputRef.current.click(); // ← Important for iOS
+        qtyInputRef.current.focus();
+      }
+    }, 100);
   }, []);
 
   return (
@@ -83,7 +88,7 @@ const ProductPage = () => {
             <div className="flex justify-start gap-8 items-center">
               <div className="relative w-3/4">
                 <input
-                  autoFocus
+                  autoComplete="off"
                   ref={qtyInputRef}
                   type="text"
                   inputMode="decimal"
