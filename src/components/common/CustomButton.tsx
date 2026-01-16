@@ -20,7 +20,7 @@ const CustomButton = ({
       disabled={isLoading}
       onClick={onClick}
     >
-      {isLoading ? <Spinner /> : title}
+      {isLoading ? <Spinner className="w-full" /> : title}
     </Button>
   );
 };
