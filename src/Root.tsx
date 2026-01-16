@@ -47,11 +47,7 @@ const RootPage = () => {
       async (error) => {
         const originalRequest = error.config;
 
-        if (
-          !originalRequest?._retry &&
-          error.response &&
-          [401, 403, 404].includes(error.response.status)
-        ) {
+        if (error.response && [401, 403, 404].includes(error.response.status)) {
           console.log(error.response);
           console.log("token expired");
 
