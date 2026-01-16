@@ -39,11 +39,11 @@ const ProductPage = () => {
   const saveQuantity = async () => {
     setIsLoading(true);
     try {
-      if (userInfo?.dbase?.dbName && quantity != null && currentCounting) {
+      if (userInfo?.dbase?.dbName && currentCounting) {
         const res = await saveProductQuantity(
           userInfo?.dbase?.dbName,
           product,
-          quantity,
+          quantity ?? 0,
           userInfo.userId,
           currentCounting?.id
         );
