@@ -20,7 +20,14 @@ const CustomButton = ({
       disabled={isLoading}
       onClick={onClick}
     >
-      {isLoading ? <Spinner className="w-full" /> : title}
+      <span className={isLoading ? "invisible" : "visible"}>{title}</span>
+
+      {/* Spinner (overlayed) */}
+      {isLoading && (
+        <span className="absolute inset-0 flex items-center justify-center">
+          <Spinner />
+        </span>
+      )}
     </Button>
   );
 };
