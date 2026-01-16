@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { FullProductModel } from "@/types/FullProductModel";
 import CustomButton from "@/components/common/CustomButton";
 import { saveProductQuantity } from "@/api/services";
@@ -23,6 +23,8 @@ const ProductPage = () => {
   const navigate = useNavigate();
 
   const location = useLocation();
+
+  const qtyInputRef = useRef<HTMLInputElement>(null);
 
   const product = location.state?.product as FullProductModel | undefined;
   if (!product) return <p className="p-4">Бараа олдсонгүй</p>;
@@ -65,6 +67,10 @@ const ProductPage = () => {
     }
   };
 
+  useEffect(() => {
+    qtyInputRef.current?.focus();
+  }, []);
+
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-3xl mx-auto space-y-6">
@@ -77,6 +83,7 @@ const ProductPage = () => {
             <div className="flex justify-start gap-8 items-center">
               <div className="relative w-3/4">
                 <input
+                  ref={qtyInputRef}
                   type="text"
                   inputMode="decimal"
                   pattern="[0-9,]*"
