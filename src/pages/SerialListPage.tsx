@@ -276,129 +276,12 @@ const SerialListPage = () => {
             })}
         </div>
       )}
-      <div className="fixed bottom-0 pb-4 left-1/2 transform -translate-x-1/2 z-20 w-[90%] max-w-2xl">
-        <div className="flex gap-3 bg-white rounded-2xl p-3 shadow-2xl">
-          {/* Continue Button */}
-          <button
-            onClick={handleNextButton}
-            disabled={!selectedSerial}
-            className={`
-        flex-1 px-6 py-3 rounded-xl font-semibold
-        flex items-center justify-center gap-2
-        transition-all duration-200
-        ${
-          !selectedSerial
-            ? "bg-gray-200 text-gray-400 cursor-not-allowed"
-            : "bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 active:scale-95 shadow-lg"
-        }
-      `}
-          >
-            <svg
-              className="w-5 h-5"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-            Үргэлжлүүлэх
-          </button>
-
-          {/* Add New Serial Button */}
-          <Dialog open={open} onOpenChange={setOpen}>
-            <DialogTrigger className="flex-1 flex items-center justify-center gap-2 px-6 py-3 font-semibold rounded-xl text-white bg-orange-400 hover:bg-orange-500 active:scale-95 transition-all duration-200 shadow-lg">
-              <svg
-                className="w-5 h-5"
-                fill="none"
-                stroke="currentColor"
-                viewBox="0 0 24 24"
-                strokeWidth={2}
-              >
-                <path
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  d="M12 4v16M4 12h16"
-                />
-              </svg>
-              Шинэ сери нэмэх
-            </DialogTrigger>
-
-            <DialogContent className="max-w-xs bg-white rounded-2xl p-6 shadow-2xl border-0">
-              <DialogTitle className="font-semibold text-lg text-gray-900">
-                Серийн дугаар шинээр үүсгэх
-              </DialogTitle>
-
-              <div className="space-y-5 mt-6">
-                {/* Serial Number Input */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <span className="text-red-500">*</span> Серийн дугаар
-                  </label>
-                  <input
-                    type="text"
-                    value={newSerial}
-                    onChange={(e) => setNewSerial(e.target.value)}
-                    placeholder="Серийн дугаар оруулна уу"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-
-                {/* Expiry Date Input */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    <span className="text-red-500">*</span> Дуусах хугацаа
-                  </label>
-                  <input
-                    type="date"
-                    value={expiryDate}
-                    onChange={(e) => setExpiryDate(e.target.value)}
-                    className="w-full px-4 py-2.5 text-sm border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-
-                {/* Cost Input */}
-                <div>
-                  <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Авсан үнэ
-                  </label>
-                  <input
-                    type="text"
-                    inputMode="decimal"
-                    pattern="[0-9,]*"
-                    value={cost || ""}
-                    onChange={(e) => setCost(e.target.value)}
-                    placeholder="0"
-                    className="w-full border border-gray-300 rounded-lg px-4 py-2.5 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                  />
-                </div>
-
-                {/* Save Button */}
-                <button
-                  onClick={handleCreateSerial}
-                  className="w-full px-4 py-2.5 font-semibold rounded-lg text-white text-sm
-              bg-gradient-to-r from-blue-500 to-purple-600 
-              hover:from-blue-600 hover:to-purple-700 
-              active:scale-95
-              transition-all duration-200 shadow-lg"
-                >
-                  Хадгалах
-                </button>
-              </div>
-            </DialogContent>
-          </Dialog>
-        </div>
-      </div>
-      {/* <div className="fixed bottom-0 pb-6 left-1/2 transform -translate-x-1/2 z-20 flex gap-4 w-[90%] max-w-md bg-white">
+      <div className="fixed bottom-0 pb-6 left-1/2 transform -translate-x-1/2 z-20 flex gap-4 w-[90%] max-w-md bg-white">
         <button
           onClick={handleNextButton}
           disabled={!selectedSerial}
           className={`
-    w-full px-8 py-4 rounded-2xl font-semibold shadow-2xl
+    w-full px-2 py-4 rounded-2xl shadow-2xl
     flex items-center justify-center gap-2
     transition-all duration-200
     ${
@@ -496,7 +379,7 @@ const SerialListPage = () => {
             <div className="[data-radix-dialog-close]:hidden" />
           </DialogContent>
         </Dialog>
-      </div> */}
+      </div>
     </div>
   );
 };
