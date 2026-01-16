@@ -280,13 +280,16 @@ const SerialListPage = () => {
         <button
           onClick={handleNextButton}
           disabled={!selectedSerial}
-          className="
-                w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white
-                px-8 py-4 rounded-2xl font-semibold shadow-2xl
-                hover:from-blue-600 hover:to-purple-700
-                active:scale-95 transition-all duration-200
-                flex items-center justify-center gap-2
-              "
+          className={`
+    w-full px-8 py-4 rounded-2xl font-semibold shadow-2xl
+    flex items-center justify-center gap-2
+    transition-all duration-200
+    ${
+      !selectedSerial
+        ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
+        : "bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 active:scale-95"
+    }
+  `}
         >
           <svg
             className="w-5 h-5"
