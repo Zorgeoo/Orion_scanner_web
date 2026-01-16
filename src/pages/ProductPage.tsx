@@ -177,7 +177,8 @@ const ProductPage = () => {
                       month: "2-digit",
                       day: "2-digit",
                     })
-                    .replace("-", "/")
+                    .split("-")
+                    .join("/")
                 : ""}
             </span>
           </div>
