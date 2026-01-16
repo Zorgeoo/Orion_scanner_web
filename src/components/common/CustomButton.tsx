@@ -16,15 +16,9 @@ const CustomButton = ({
 }: CustomButtonProps) => {
   return (
     <Button
-      className={`${color ? color : "bg-orange-400"}`}
+      className={`${color ? `w-full ${color}` : "bg-orange-400"}`}
       disabled={isLoading}
       onClick={onClick}
-      // onTouchEnd={(e) => {
-      //   e.currentTarget.blur(); // Remove focus after touch
-      // }}
-      // style={{
-      //   touchAction: "manipulation",
-      // }}
     >
       {isLoading ? <Spinner /> : title}
     </Button>
