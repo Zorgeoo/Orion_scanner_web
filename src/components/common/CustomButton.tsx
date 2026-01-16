@@ -16,7 +16,7 @@ const CustomButton = ({
 }: CustomButtonProps) => {
   return (
     <Button
-      className={`${color ? `w-full ${color}` : "bg-orange-400"}`}
+      className={`relative w-full ${color ?? "bg-orange-400"}`}
       disabled={isLoading}
       onClick={onClick}
     >
