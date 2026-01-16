@@ -1,5 +1,6 @@
 import { getInventoryList } from "@/api/services";
 import { Skeleton } from "@/components/ui/skeleton";
+import { ProductContext } from "@/context/ProductContext";
 import { UserContext } from "@/context/UserContext";
 import { ProductModel } from "@/types/ProductModel";
 import { useContext, useEffect, useMemo, useState } from "react";
@@ -8,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const InventoryPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [productList, setProductList] = useState<ProductModel[] | null>(null);
   const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
     null
   );
@@ -18,28 +18,35 @@ const InventoryPage = () => {
   if (!userContext) return null;
 
   const { userInfo } = userContext;
+
+  const productContext = useContext(ProductContext);
+
+  if (!productContext) return null;
+
+  const { setInventoryList, inventoryList } = productContext;
+
   const navigate = useNavigate();
 
   const filteredProducts = useMemo(() => {
-    if (!productList) return [];
+    if (!inventoryList) return [];
 
-    const filtered = productList.filter((product: ProductModel) =>
+    const filtered = inventoryList.filter((product: ProductModel) =>
       product.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
     return filtered.slice(0, 30);
-  }, [productList, searchQuery]);
+  }, [inventoryList, searchQuery]);
 
   // Эхний 30 барааг харуулах
   const displayProducts = useMemo(() => {
-    if (!productList) return [];
+    if (!inventoryList) return [];
 
     if (searchQuery === "") {
-      return productList.slice(0, 30);
+      return inventoryList.slice(0, 30);
     }
 
     return filteredProducts;
-  }, [productList, searchQuery, filteredProducts]);
+  }, [inventoryList, searchQuery, filteredProducts]);
 
   const handleSelectProduct = (product: ProductModel) => {
     if (product.groupNum === selectedProduct?.groupNum) {
@@ -53,14 +60,14 @@ const InventoryPage = () => {
     navigate(`/inventory/${selectedProduct?.groupNum}`);
   };
   useEffect(() => {
-    if (productList || !userInfo?.dbase?.dbName) return;
+    if (inventoryList || !userInfo?.dbase?.dbName) return;
     const getProductList = async () => {
       setIsLoading(true);
       try {
         const dbName = userInfo?.dbase?.dbName;
         const res = await getInventoryList(dbName!);
         if (res.success) {
-          setProductList(res.products);
+          setInventoryList(res.products);
         }
       } catch (error) {
         console.log(error);

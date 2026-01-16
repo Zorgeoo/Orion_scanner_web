@@ -14,6 +14,8 @@ interface ProductContextValue {
   setShouldStartScan: (bool: boolean) => void;
   startScanNow: boolean;
   setStartScanNow: (bool: boolean) => void;
+  inventoryList: ProductModel[] | null;
+  setInventoryList: (inventoryList: ProductModel[] | null) => void;
 }
 
 export const ProductContext = createContext<ProductContextValue | undefined>(
@@ -29,6 +31,10 @@ export const ProductContextProvider = ({ children }: ProductProviderProps) => {
     null
   );
   const [productList, setProductList] = useState<ProductModel[] | null>(null);
+
+  const [inventoryList, setInventoryList] = useState<ProductModel[] | null>(
+    null
+  );
 
   const [currentCounting, setCurrentCounting] = useState<CountingModel | null>(
     null
@@ -50,6 +56,8 @@ export const ProductContextProvider = ({ children }: ProductProviderProps) => {
         setShouldStartScan,
         startScanNow,
         setStartScanNow,
+        inventoryList,
+        setInventoryList,
       }}
     >
       {children}

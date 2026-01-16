@@ -1,24 +1,10 @@
 import "./App.css";
 
-import { UserInfo, UserProvider } from "./context/UserContext";
+import { UserProvider } from "./context/UserContext";
 import { Bounce, ToastContainer } from "react-toastify";
 import { ProductContextProvider } from "./context/ProductContext";
 import RootPage from "./Root";
 
-declare global {
-  interface Window {
-    webkit?: {
-      messageHandlers: {
-        barcodeScanner: {
-          postMessage: (message: string) => void;
-        };
-      };
-    };
-    onBarcodeScanned?: (result: string) => void;
-    setUserInfo?: (userInfo: UserInfo) => void;
-    tokenRenewResolve?: (value?: void | PromiseLike<void>) => void;
-  }
-}
 function App() {
   return (
     <>
