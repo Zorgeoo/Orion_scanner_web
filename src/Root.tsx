@@ -63,7 +63,7 @@ const RootPage = () => {
 
           const token = userInfo?.token || localStorage.getItem("authToken");
           if (token) {
-            originalRequest.headers["Authorization"] = `Bearer ${token}`;
+            originalRequest.headers["Authorization"] = `Bearer ${token}1`;
             return axios(originalRequest);
           }
         }
