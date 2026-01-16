@@ -1,28 +1,13 @@
 import { getBarcodeList, getProductList, getProducts } from "@/api/services";
 import ListSkeleton from "@/components/common/ListSkeleton";
 import { ProductContext } from "@/context/ProductContext";
-import { UserContext, UserInfo } from "@/context/UserContext";
+import { UserContext } from "@/context/UserContext";
 import { FullProductModel } from "@/types/FullProductModel";
 import { ProductModel } from "@/types/ProductModel";
 import { showToast } from "@/utils/toast";
 import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { useContext, useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-
-declare global {
-  interface Window {
-    webkit?: {
-      messageHandlers: {
-        barcodeScanner: {
-          postMessage: (message: string) => void;
-        };
-      };
-    };
-    onBarcodeScanned?: (result: string) => void;
-    setUserInfo?: (userInfo: UserInfo) => void;
-    tokenRenewResolve?: (value?: unknown) => void;
-  }
-}
 
 const CountingPage = () => {
   const context = useContext(UserContext);

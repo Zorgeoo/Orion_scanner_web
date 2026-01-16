@@ -10,7 +10,20 @@ import SerialListPage from "./pages/SerialListPage";
 import CountingPage from "./pages/CountingPage";
 import SearchByProductnamePage from "./pages/SearchByProductnamePage";
 import ProductPage from "./pages/ProductPage";
-
+declare global {
+  interface Window {
+    webkit?: {
+      messageHandlers: {
+        barcodeScanner: {
+          postMessage: (message: string) => void;
+        };
+      };
+    };
+    onBarcodeScanned?: (result: string) => void;
+    setUserInfo?: (userInfo: UserInfo) => void;
+    tokenRenewResolve?: (value?: void | PromiseLike<void>) => void;
+  }
+}
 const RootPage = () => {
   const context = useContext(UserContext);
   if (context == null) return;

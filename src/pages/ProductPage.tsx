@@ -16,7 +16,7 @@ const ProductPage = () => {
 
   const productContext = useContext(ProductContext);
 
-  if (!productContext) return null;
+  if (!productContext) return <div>Тооллогын мэдээлэл олдсонгүй</div>;
 
   const { currentCounting, shouldStartScan, setStartScanNow } = productContext;
 
@@ -25,14 +25,17 @@ const ProductPage = () => {
   const location = useLocation();
 
   const product = location.state?.product as FullProductModel | undefined;
-  if (!product) return <p className="p-4">No product data available</p>;
+  if (!product) return <p className="p-4">Бараа олдсонгүй</p>;
   const uldegdel = (location.state?.uldegdel as number) ?? 0.0;
 
   const [quantity, setQuantity] = useState<number | null>(
     product?.quantity ?? null
   );
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const saveQuantity = async () => {
+    setIsLoading(true);
     try {
       if (userInfo?.dbase?.dbName && quantity != null && currentCounting) {
         const res = await saveProductQuantity(
@@ -57,6 +60,8 @@ const ProductPage = () => {
       }
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -86,7 +91,11 @@ const ProductPage = () => {
                   ширхэг
                 </div>
               </div>
-              <CustomButton title="Хадгалах" onClick={saveQuantity} />
+              <CustomButton
+                isLoading={isLoading}
+                title="Хадгалах"
+                onClick={saveQuantity}
+              />
             </div>
           </div>
         </div>
