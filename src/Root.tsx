@@ -135,8 +135,8 @@ declare global {
   }
 }
 
-// Store interceptor ID globally so it's only set once
 let responseInterceptorId: number | null = null;
+let setupDone = false;
 
 const RootPage = () => {
   const context = useContext(UserContext);
@@ -149,6 +149,10 @@ const RootPage = () => {
   useEffect(() => {
     // 1️⃣ Setup receiver for native
     window.setUserInfo = (info: UserInfo) => {
+      console.log(
+        "✅ setUserInfo called with token:",
+        info.token?.substring(0, 10) + "..."
+      );
       setUserInfo(info);
       if (info.token) {
         localStorage.setItem("authToken", info.token);
@@ -156,10 +160,15 @@ const RootPage = () => {
 
         // ✅ Resolve any pending token refresh
         if (window.tokenRenewResolve) {
+          console.log("✅ Resolving token refresh");
           window.tokenRenewResolve();
         }
 
         // ✅ Process queued requests
+        console.log(
+          "✅ Processing queued requests:",
+          failedQueueRef.current.length
+        );
         failedQueueRef.current.forEach((callback) => {
           callback(info.token);
         });
@@ -168,25 +177,35 @@ const RootPage = () => {
     };
 
     // 2️⃣ Only set up interceptor once
-    if (responseInterceptorId === null) {
+    if (!setupDone) {
+      setupDone = true;
+      console.log("🔧 Setting up axios interceptor");
+
       responseInterceptorId = axios.interceptors.response.use(
         (res) => res,
         async (error) => {
           const originalRequest = error.config as any;
+
+          console.log(
+            "❌ Intercepted error:",
+            error.response?.status,
+            error.response?.statusText
+          );
 
           if (
             !originalRequest?._retry &&
             error.response &&
             [401, 403, 404].includes(error.response.status)
           ) {
+            console.log("🔄 Starting token refresh process");
             originalRequest._retry = true;
-
-            console.log(error.response);
 
             // ✅ If already refreshing, queue the request
             if (isRefreshingRef.current) {
+              console.log("⏳ Already refreshing, queueing request");
               return new Promise<void>((resolve) => {
                 failedQueueRef.current.push((token: string) => {
+                  console.log("🔁 Retrying queued request with new token");
                   originalRequest.headers["Authorization"] = `Bearer ${token}`;
                   resolve();
                 });
@@ -196,21 +215,38 @@ const RootPage = () => {
             // ✅ Start refresh
             isRefreshingRef.current = true;
 
-            return new Promise<void>((resolve) => {
+            return new Promise<void>((resolve, reject) => {
               window.tokenRenewResolve = resolve;
-              window.webkit?.messageHandlers.barcodeScanner.postMessage(
-                "tokenExpired"
-              );
+
+              // Check if webkit is available
+              if (!window.webkit?.messageHandlers?.barcodeScanner) {
+                console.error("❌ webkit not available!");
+                reject(new Error("Native bridge not available"));
+                return;
+              }
+
+              console.log("📤 Sending tokenExpired message to native");
+              try {
+                window.webkit.messageHandlers.barcodeScanner.postMessage(
+                  "tokenExpired"
+                );
+              } catch (err) {
+                console.error("❌ Failed to send message:", err);
+                reject(err);
+              }
             })
               .then(() => {
+                console.log("✅ Token refresh completed");
                 const token = localStorage.getItem("authToken");
                 if (token) {
                   originalRequest.headers["Authorization"] = `Bearer ${token}`;
+                  console.log("🔁 Retrying original request");
                   return axios(originalRequest);
                 }
                 return Promise.reject(error);
               })
               .catch((err) => {
+                console.error("❌ Token refresh failed:", err);
                 return Promise.reject(err);
               })
               .finally(() => {
@@ -224,7 +260,12 @@ const RootPage = () => {
     }
 
     // 3️⃣ Notify native React is ready
-    window.webkit?.messageHandlers?.barcodeScanner.postMessage("reactReady");
+    if (window.webkit?.messageHandlers?.barcodeScanner) {
+      console.log("📤 Notifying native: reactReady");
+      window.webkit.messageHandlers.barcodeScanner.postMessage("reactReady");
+    } else {
+      console.warn("⚠️ webkit not available at startup");
+    }
 
     return () => {
       delete window.setUserInfo;
