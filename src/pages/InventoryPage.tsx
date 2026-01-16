@@ -9,9 +9,8 @@ import { useNavigate } from "react-router-dom";
 const InventoryPage = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [isLoading, setIsLoading] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<ProductModel | null>(
-    null
-  );
+  const [selectedInventory, setSelectedInventory] =
+    useState<ProductModel | null>(null);
 
   const userContext = useContext(UserContext);
 
@@ -49,15 +48,15 @@ const InventoryPage = () => {
   }, [inventoryList, searchQuery, filteredProducts]);
 
   const handleSelectProduct = (product: ProductModel) => {
-    if (product.groupNum === selectedProduct?.groupNum) {
-      setSelectedProduct(null);
+    if (product.groupNum === selectedInventory?.groupNum) {
+      setSelectedInventory(null);
     } else {
-      setSelectedProduct(product);
+      setSelectedInventory(product);
     }
   };
 
   const handleNextButton = async () => {
-    navigate(`/inventory/${selectedProduct?.groupNum}`);
+    navigate(`/inventory/${selectedInventory?.groupNum}`);
   };
   useEffect(() => {
     if (inventoryList || !userInfo?.dbase?.dbName) return;
@@ -152,7 +151,7 @@ const InventoryPage = () => {
                   className={`
                    px-4 py-2 rounded-2xl
                     ${
-                      selectedProduct === product
+                      selectedInventory === product
                         ? "ring-2 ring-blue-500 bg-blue-50/70"
                         : ""
                     }
@@ -166,13 +165,13 @@ const InventoryPage = () => {
                           w-5 h-5 rounded-full border-2 flex items-center justify-center
                           transition-all duration-200
                           ${
-                            selectedProduct === product
+                            selectedInventory === product
                               ? "border-blue-500 bg-blue-500"
                               : "border-gray-300 bg-white"
                           }
                         `}
                       >
-                        {selectedProduct === product && (
+                        {selectedInventory === product && (
                           <div className="w-2.5 h-2.5 rounded-full bg-white" />
                         )}
                       </div>
@@ -190,7 +189,7 @@ const InventoryPage = () => {
         )}
 
         {/* Selected Product Action */}
-        {selectedProduct && (
+        {selectedInventory && (
           <div className="fixed bottom-6 left-1/2 transform -translate-x-1/2 z-50 w-[calc(100%-2rem)] max-w-md">
             <button
               onClick={handleNextButton}
