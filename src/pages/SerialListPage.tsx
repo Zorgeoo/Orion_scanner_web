@@ -233,45 +233,6 @@ const SerialListPage = () => {
                     </h3>
                   </div>
                 </div>
-
-                // <div
-                //   className={`
-                //  px-4 py-2 rounded-2xl text-sm
-                //   ${
-                //     selectedSerial === serial
-                //       ? "ring-2 ring-blue-500 bg-blue-50/70 "
-                //       : ""
-                //   }
-                // `}
-                //   onClick={() => handleSelectSerial(serial)}
-                //   key={index}
-                // >
-                //   {/* Radio Button */}
-                //   <div className="flex-shrink-0">
-                //     <div
-                //       className={`
-                //         w-5 h-5 rounded-full border-2 flex items-center justify-center
-                //         transition-all duration-200
-                //         ${
-                //           selectedSerial === serial
-                //             ? "border-blue-500 bg-blue-500"
-                //             : "border-gray-300 bg-white"
-                //         }
-                //       `}
-                //     >
-                //       {selectedSerial === serial && (
-                //         <div className="w-2.5 h-2.5 rounded-full bg-white" />
-                //       )}
-                //     </div>
-                //   </div>
-
-                //   {/* Serial Name */}
-                //   <div className="flex-1 min-w-0">
-                //     <h3 className="text-gray-500 truncate">
-                //       {serial.fullSeriesNumber}
-                //     </h3>
-                //   </div>
-                // </div>
               );
             })}
         </div>
@@ -281,7 +242,7 @@ const SerialListPage = () => {
           onClick={handleNextButton}
           disabled={!selectedSerial}
           className={`
-    w-full px-2 py-4 rounded-2xl shadow-2xl
+    w-full px-2 py-4 rounded-2xl shadow-2xl flex-1 font-semibold
     flex items-center justify-center gap-2
     transition-all duration-200
     ${
@@ -307,7 +268,7 @@ const SerialListPage = () => {
           Үргэлжлүүлэх
         </button>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger className="flex items-center justify-center gap-2 px-8 py-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl hover:bg-orange-500 transition-all">
+          <DialogTrigger className="flex flex-1 items-center justify-center gap-2 p-2 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl hover:bg-orange-500 transition-all">
             <svg
               className="w-5 h-5"
               fill="none"
