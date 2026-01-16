@@ -24,8 +24,6 @@ const ProductPage = () => {
 
   const location = useLocation();
 
-  const qtyInputRef = useRef<HTMLInputElement>(null);
-
   const product = location.state?.product as FullProductModel | undefined;
   if (!product) return <p className="p-4">Бараа олдсонгүй</p>;
   const uldegdel = (location.state?.uldegdel as number) ?? 0.0;
@@ -67,15 +65,6 @@ const ProductPage = () => {
     }
   };
 
-  useEffect(() => {
-    setTimeout(() => {
-      if (qtyInputRef.current) {
-        qtyInputRef.current.click(); // ← Important for iOS
-        qtyInputRef.current.focus();
-      }
-    }, 100);
-  }, []);
-
   return (
     <div className="min-h-screen p-4">
       <div className="max-w-3xl mx-auto space-y-6">
@@ -88,8 +77,6 @@ const ProductPage = () => {
             <div className="flex justify-start gap-8 items-center">
               <div className="relative w-3/4">
                 <input
-                  autoComplete="off"
-                  ref={qtyInputRef}
                   type="text"
                   inputMode="decimal"
                   pattern="[0-9,]*"
