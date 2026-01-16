@@ -10,6 +10,7 @@ import SerialListPage from "./pages/SerialListPage";
 import CountingPage from "./pages/CountingPage";
 import SearchByProductnamePage from "./pages/SearchByProductnamePage";
 import ProductPage from "./pages/ProductPage";
+import api from "./api/axios";
 
 declare global {
   interface Window {
@@ -42,7 +43,7 @@ const RootPage = () => {
     };
 
     // 2️⃣ Setup Axios interceptor
-    const interceptor = axios.interceptors.response.use(
+    const interceptor = api.interceptors.response.use(
       (res) => res,
       async (error) => {
         const originalRequest = error.config;
@@ -63,7 +64,7 @@ const RootPage = () => {
           const token = userInfo?.token || localStorage.getItem("authToken");
           if (token) {
             originalRequest.headers["Authorization"] = `Bearer ${token}`;
-            return axios(originalRequest);
+            return api(originalRequest);
           }
         }
 
@@ -75,7 +76,7 @@ const RootPage = () => {
     window.webkit?.messageHandlers?.barcodeScanner.postMessage("reactReady");
 
     return () => {
-      axios.interceptors.response.eject(interceptor);
+      api.interceptors.response.eject(interceptor);
       delete window.setUserInfo;
     };
   }, []);
