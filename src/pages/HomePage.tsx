@@ -47,6 +47,9 @@ const HomePage = () => {
               if (!isDisabled) {
                 return (
                   <Link
+                    onClick={() => {
+                      localStorage.removeItem("authToken");
+                    }}
                     key={index}
                     to={
                       module.code === "toollogo"
