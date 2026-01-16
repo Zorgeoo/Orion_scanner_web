@@ -238,35 +238,6 @@ const SerialListPage = () => {
         </div>
       )}
       <div className="fixed bottom-0 pb-6 left-1/2 transform -translate-x-1/2 z-20 flex gap-4 w-[90%] max-w-md bg-white">
-        <button
-          onClick={handleNextButton}
-          disabled={!selectedSerial}
-          className={`
-    w-full p-4 rounded-2xl shadow-2xl flex-1 font-semibold
-    flex items-center justify-center gap-2
-    transition-all duration-200
-    ${
-      !selectedSerial
-        ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
-        : "bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 active:scale-95"
-    }
-  `}
-        >
-          <svg
-            className="w-5 h-5"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M5 13l4 4L19 7"
-            />
-          </svg>
-          Үргэлжлүүлэх
-        </button>
         <Dialog open={open} onOpenChange={setOpen}>
           <DialogTrigger className="flex flex-1 items-center justify-center gap-2 p-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl hover:bg-orange-500 transition-all">
             Шинэ сери нэмэх
@@ -327,6 +298,35 @@ const SerialListPage = () => {
             <div className="[data-radix-dialog-close]:hidden" />
           </DialogContent>
         </Dialog>
+        <button
+          onClick={handleNextButton}
+          disabled={!selectedSerial}
+          className={`
+    w-full p-4 rounded-2xl shadow-2xl flex-1 font-semibold
+    flex items-center justify-center gap-2
+    transition-all duration-200
+    ${
+      !selectedSerial
+        ? "bg-gray-300 text-gray-500 cursor-not-allowed shadow-none"
+        : "bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 active:scale-95"
+    }
+  `}
+        >
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 13l4 4L19 7"
+            />
+          </svg>
+          Үргэлжлүүлэх
+        </button>
       </div>
     </div>
   );
