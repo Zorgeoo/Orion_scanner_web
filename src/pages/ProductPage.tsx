@@ -83,6 +83,7 @@ const ProductPage = () => {
             <div className="flex justify-start gap-8 items-center">
               <div className="relative w-3/4">
                 <input
+                  autoFocus
                   ref={qtyInputRef}
                   type="text"
                   inputMode="decimal"
