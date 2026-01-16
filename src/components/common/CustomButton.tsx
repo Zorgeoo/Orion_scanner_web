@@ -25,7 +25,7 @@ const CustomButton = ({
       {/* Spinner (overlayed) */}
       {isLoading && (
         <span className="absolute inset-0 flex items-center justify-center">
-          <Spinner />
+          <Spinner className="text-white" />
         </span>
       )}
     </Button>
