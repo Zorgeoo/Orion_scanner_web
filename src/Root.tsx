@@ -10,6 +10,7 @@ import SerialListPage from "./pages/SerialListPage";
 import CountingPage from "./pages/CountingPage";
 import SearchByProductnamePage from "./pages/SearchByProductnamePage";
 import ProductPage from "./pages/ProductPage";
+
 declare global {
   interface Window {
     webkit?: {
@@ -24,6 +25,7 @@ declare global {
     tokenRenewResolve?: (value?: void | PromiseLike<void>) => void;
   }
 }
+
 const RootPage = () => {
   const context = useContext(UserContext);
   if (context == null) return;
