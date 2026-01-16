@@ -242,7 +242,7 @@ const SerialListPage = () => {
           onClick={handleNextButton}
           disabled={!selectedSerial}
           className={`
-    w-full px-4 py-2 rounded-2xl shadow-2xl flex-1 font-semibold
+    w-full px-6 py-4 rounded-2xl shadow-2xl flex-1 font-semibold
     flex items-center justify-center gap-2
     transition-all duration-200
     ${
@@ -268,7 +268,7 @@ const SerialListPage = () => {
           Үргэлжлүүлэх
         </button>
         <Dialog open={open} onOpenChange={setOpen}>
-          <DialogTrigger className="flex flex-1 items-center justify-center gap-2 py-2 px-4 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl hover:bg-orange-500 transition-all">
+          <DialogTrigger className="flex flex-1 items-center justify-center gap-2 py-4 py-6 font-semibold shadow-2xl w-full bg-orange-400 text-white rounded-xl hover:bg-orange-500 transition-all">
             Шинэ сери нэмэх
           </DialogTrigger>
 
