@@ -1,5 +1,5 @@
 import { useLocation, useNavigate } from "react-router-dom";
-import { useContext, useEffect, useRef, useState } from "react";
+import { useContext, useState } from "react";
 import { FullProductModel } from "@/types/FullProductModel";
 import CustomButton from "@/components/common/CustomButton";
 import { saveProductQuantity } from "@/api/services";
