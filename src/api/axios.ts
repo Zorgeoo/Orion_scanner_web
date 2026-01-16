@@ -17,5 +17,11 @@ api.interceptors.request.use((config) => {
 
   return config;
 });
-
+api.interceptors.response.use(
+  (res) => res,
+  async (error) => {
+    console.log("Interceptor triggered", error.response?.status);
+    return Promise.reject(error);
+  }
+);
 export default api;
