@@ -96,13 +96,13 @@ const CountingListPage: React.FC = () => {
         {/* Filters */}
         <div className="p-4">
           <div className="flex flex-col gap-4">
-            <div className="flex gap-4 justify-between pr-4">
+            <div className="flex gap-4 justify-between px-2">
               <div className="w-fit">
                 <input
                   type="date"
                   value={startDate}
                   onChange={(e) => setStartDate(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full p-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
               <div className="w-fit">
@@ -110,7 +110,7 @@ const CountingListPage: React.FC = () => {
                   type="date"
                   value={endDate}
                   onChange={(e) => setEndDate(e.target.value)}
-                  className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  className="w-full p-2 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
               </div>
             </div>
