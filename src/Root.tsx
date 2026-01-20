@@ -72,8 +72,15 @@ const RootPage = () => {
       }
     );
 
-    // 3️⃣ Notify native React is ready
-    window.webkit?.messageHandlers?.barcodeScanner.postMessage("reactReady");
+    if (window.webkit?.messageHandlers?.barcodeScanner) {
+      // iOS
+      window.webkit.messageHandlers.barcodeScanner.postMessage("reactReady");
+    } else if ((window as any).barcodeScanner) {
+      // Android
+      (window as any).barcodeScanner.postMessage("reactReady");
+    } else {
+      alert("it is not mobile device");
+    }
 
     return () => {
       api.interceptors.response.eject(interceptor);
