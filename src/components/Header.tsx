@@ -1,6 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
-import homeIcon from "../assets/HomeIcon.png";
+import homeIcon from "../assets/OrionIcon.jpg";
 
 const Header = () => {
   // Navigate хийх
