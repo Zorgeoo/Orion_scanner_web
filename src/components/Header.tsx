@@ -1,5 +1,6 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { ArrowLeft } from "lucide-react";
+import homeIcon from "../assets/HomeIcon.png";
 
 const Header = () => {
   // Navigate хийх
@@ -45,9 +46,11 @@ const Header = () => {
 
         {/* Logo/Title */}
         <div className="absolute left-1/2 transform -translate-x-1/2 flex items-center gap-2">
-          <h1 className="text-xl font-bold bg-gradient-to-r from-orange-500 to-orange-600 bg-clip-text text-transparent">
-            Orion
-          </h1>
+          <img
+            src={homeIcon}
+            alt="Home Icon"
+            className="h-8 sm:h-12 md:h-14 w-auto object-contain"
+          />
         </div>
         <button
           onClick={logOut}
