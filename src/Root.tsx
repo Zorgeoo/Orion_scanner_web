@@ -56,9 +56,18 @@ const RootPage = () => {
 
           await new Promise<void>((resolve) => {
             window.tokenRenewResolve = resolve;
-            window.webkit?.messageHandlers.barcodeScanner.postMessage(
-              "tokenExpired"
-            );
+            // window.webkit?.messageHandlers.barcodeScanner.postMessage(
+            //   "tokenExpired"
+            // );
+            if (window.webkit?.messageHandlers?.barcodeScanner) {
+              // iOS
+              window.webkit.messageHandlers.barcodeScanner.postMessage(
+                "tokenExpired"
+              );
+            } else if ((window as any).barcodeScanner) {
+              // Android
+              (window as any).barcodeScanner.postMessage("tokenExpired");
+            }
           });
 
           const token = userInfo?.token || localStorage.getItem("authToken");
