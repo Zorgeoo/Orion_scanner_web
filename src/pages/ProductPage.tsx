@@ -76,7 +76,7 @@ const ProductPage = () => {
             </div>
             <div className="flex justify-start gap-8 items-center">
               <div className="relative w-3/4">
-                <input
+                {/* <input
                   type="text"
                   inputMode="decimal"
                   pattern="[0-9.]*"
@@ -84,6 +84,28 @@ const ProductPage = () => {
                   onChange={(e) => {
                     const value = e.target.value;
                     setQuantity(value === "" ? null : Number(value));
+                  }}
+                  className="w-full text-lg font-bold text-gray-800 border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                /> */}
+                <input
+                  type="text"
+                  inputMode="decimal"
+                  value={quantity ?? ""}
+                  onChange={(e) => {
+                    const value = e.target.value;
+
+                    // allow empty
+                    if (value === "") {
+                      setQuantity(null);
+                      return;
+                    }
+
+                    // allow numbers with up to 4 decimals
+                    const regex = /^\d+(\.\d{0,4})?$/;
+
+                    if (regex.test(value)) {
+                      setQuantity(Number(value));
+                    }
                   }}
                   className="w-full text-lg font-bold text-gray-800 border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 />
