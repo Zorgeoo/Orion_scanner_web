@@ -88,26 +88,37 @@ const ProductPage = () => {
                   className="w-full text-lg font-bold text-gray-800 border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                 /> */}
                 <input
-                  type="text"
-                  inputMode="numeric"
+                  type="number"
+                  inputMode="decimal"
+                  pattern="[0-9]*\.?[0-9]{0,4}"
+                  step="0.0001"
                   value={quantity ?? ""}
                   onChange={(e) => {
                     const value = e.target.value;
 
-                    // allow empty
+                    // Allow empty
                     if (value === "") {
                       setQuantity(null);
                       return;
                     }
 
-                    // allow numbers with up to 4 decimals
+                    // Allow numbers with up to 4 decimals
                     const regex = /^\d+(\.\d{0,4})?$/;
-
                     if (regex.test(value)) {
                       setQuantity(Number(value));
                     }
                   }}
-                  className="w-full text-lg font-bold text-gray-800 border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  onBlur={(e) => {
+                    // Ensure max 4 decimals on blur
+                    if (e.target.value) {
+                      const num = parseFloat(e.target.value);
+                      if (!isNaN(num)) {
+                        setQuantity(Math.round(num * 10000) / 10000);
+                      }
+                    }
+                  }}
+                  placeholder="0.0000"
+                  className="w-full text-lg font-bold text-gray-800 border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all [&::-webkit-outer-spin-button]:[-webkit-appearance:none] [&::-webkit-inner-spin-button]:[-webkit-appearance:none]"
                 />
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm font-medium">
                   ширхэг
