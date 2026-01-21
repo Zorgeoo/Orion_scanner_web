@@ -89,7 +89,7 @@ const ProductPage = () => {
                 /> */}
                 <input
                   type="text"
-                  inputMode="decimal"
+                  inputMode="numeric"
                   value={quantity ?? ""}
                   onChange={(e) => {
                     const value = e.target.value;
