@@ -223,7 +223,7 @@ const CountingPage = () => {
         )}
       </div>
       {/* Fixed bottom buttons */}
-      <div className="fixed bottom-0 pb-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col gap-3 w-[90%] max-w-md bg-white">
+      {/* <div className="fixed bottom-0 pb-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col gap-3 w-[90%] max-w-md bg-white">
         <button
           disabled={isLoading}
           onClick={startScanning}
@@ -238,6 +238,37 @@ const CountingPage = () => {
         >
           <button className="w-full py-4 bg-yellow-500 text-white font-semibold rounded-2xl shadow-lg hover:bg-yellow-600 transition-all">
             Барааны нэрээр хайж тоолох
+          </button>
+        </Link>
+      </div> */}
+      {/* Fixed bottom buttons */}
+      <div className="fixed bottom-0 pb-8 left-1/2 transform -translate-x-1/2 z-20 flex flex-col gap-3 w-[90%] max-w-md bg-white">
+        <button
+          disabled={isLoading}
+          onClick={startScanning}
+          className={`w-full py-4 font-semibold rounded-2xl shadow-lg transition-all ${
+            isLoading
+              ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+              : "bg-yellow-500 text-white hover:bg-yellow-600"
+          }`}
+        >
+          {isLoading ? "ачаалж байна..." : "Баркод уншуулж тоолох"}
+        </button>
+        <Link
+          onClick={() => setShouldStartScan(false)}
+          to={`/toollogo/${countingId}/searchByProductName`}
+          state={{ barcode: "", toSaveBarcode: false }}
+          className={isLoading ? "pointer-events-none" : ""}
+        >
+          <button
+            disabled={isLoading}
+            className={`w-full py-4 font-semibold rounded-2xl shadow-lg transition-all ${
+              isLoading
+                ? "bg-gray-300 text-gray-500 cursor-not-allowed"
+                : "bg-yellow-500 text-white hover:bg-yellow-600"
+            }`}
+          >
+            {isLoading ? "ачаалж байна..." : "Барааны нэрээр хайж тоолох"}
           </button>
         </Link>
       </div>
