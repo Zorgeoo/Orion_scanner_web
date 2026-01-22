@@ -252,7 +252,7 @@ const CountingPage = () => {
               : "bg-yellow-500 text-white hover:bg-yellow-600"
           }`}
         >
-          {isLoading ? "ачаалж байна..." : "Баркод уншуулж тоолох"}
+          Баркод уншуулж тоолох
         </button>
         <Link
           onClick={() => setShouldStartScan(false)}
@@ -268,7 +268,7 @@ const CountingPage = () => {
                 : "bg-yellow-500 text-white hover:bg-yellow-600"
             }`}
           >
-            {isLoading ? "ачаалж байна..." : "Барааны нэрээр хайж тоолох"}
+            Барааны нэрээр хайж тоолох
           </button>
         </Link>
       </div>
