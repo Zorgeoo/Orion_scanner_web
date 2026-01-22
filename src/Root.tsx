@@ -34,6 +34,27 @@ const RootPage = () => {
   const { userInfo, setUserInfo } = context;
 
   useEffect(() => {
+    // ---- ONLINE / OFFLINE HANDLERS ----
+    const handleOnline = () => {
+      showToast.success("Интернэт холболт сэргээгдлээ");
+      // optionally refetch data here
+    };
+
+    const handleOffline = () => {
+      showToast.error("Интернэт холболт тасарлаа");
+    };
+
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
+
+    // ---- CLEANUP ----
+    return () => {
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
+    };
+  }, []);
+
+  useEffect(() => {
     // 1️⃣ Setup receiver for native
     window.setUserInfo = (info: UserInfo) => {
       setUserInfo(info);
