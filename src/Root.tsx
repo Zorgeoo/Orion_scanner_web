@@ -34,20 +34,19 @@ const RootPage = () => {
   const { userInfo, setUserInfo } = context;
 
   useEffect(() => {
-    // ---- ONLINE / OFFLINE HANDLERS ----
     const handleOnline = () => {
       showToast.success("Интернэт холболт сэргээгдлээ");
-      // optionally refetch data here
+      window.dispatchEvent(new CustomEvent("app:online"));
     };
 
     const handleOffline = () => {
       showToast.error("Интернэт холболт тасарлаа");
+      window.dispatchEvent(new CustomEvent("app:offline"));
     };
 
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
 
-    // ---- CLEANUP function ----
     return () => {
       window.removeEventListener("online", handleOnline);
       window.removeEventListener("offline", handleOffline);
@@ -69,14 +68,6 @@ const RootPage = () => {
       (res) => res,
       async (error) => {
         const originalRequest = error.config;
-        if (
-          error.code === "ERR_NETWORK" ||
-          !error.response ||
-          error.message === "Network Error"
-        ) {
-          showToast.error("Интернэт холболтоо шалгана уу");
-          return Promise.reject(error);
-        }
         if (error.response && [401, 403, 404].includes(error.response.status)) {
           console.log(error.response);
 

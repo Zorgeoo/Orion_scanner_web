@@ -5,6 +5,7 @@ import { getModules } from "@/api/services";
 import { useContext, useEffect, useState } from "react";
 import { UserContext } from "@/context/UserContext";
 import { ModuleModel } from "@/types/ModuleModel";
+import { showToast } from "@/utils/toast";
 
 const HomePage = () => {
   const context = useContext(UserContext);
@@ -18,21 +19,44 @@ const HomePage = () => {
   const [modules, setModules] = useState<ModuleModel[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  useEffect(() => {
+  const fetchModules = async () => {
     if (!userInfo) return;
 
-    const fetchModules = async () => {
+    try {
       setIsLoading(true);
+
       const result = await getModules(
         userInfo.phoneNo,
         userInfo.dbase?.dbName || ""
       );
+
       setModules(result);
+    } catch (e) {
+      showToast.error("Модулууд авахад алдаа гарлаа");
+      setModules(null);
+    } finally {
       setIsLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (navigator.onLine && userInfo) {
+      fetchModules();
+    }
+  }, [userInfo, location.pathname]);
+
+  useEffect(() => {
+    const onAppOnline = () => {
+      if (!userInfo) return;
+      fetchModules();
     };
 
-    fetchModules();
-  }, [userInfo, location.pathname]);
+    window.addEventListener("app:online", onAppOnline);
+
+    return () => {
+      window.removeEventListener("app:online", onAppOnline);
+    };
+  }, [userInfo]);
 
   return (
     <div>
