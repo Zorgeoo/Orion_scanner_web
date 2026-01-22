@@ -11,6 +11,7 @@ import CountingPage from "./pages/CountingPage";
 import SearchByProductnamePage from "./pages/SearchByProductnamePage";
 import ProductPage from "./pages/ProductPage";
 import api from "./api/axios";
+import { showToast } from "./utils/toast";
 
 declare global {
   interface Window {
@@ -47,10 +48,16 @@ const RootPage = () => {
       (res) => res,
       async (error) => {
         const originalRequest = error.config;
-
+        if (
+          error.code === "ERR_NETWORK" ||
+          !error.response ||
+          error.message === "Network Error"
+        ) {
+          showToast.error("Интернэт холболтоо шалгана уу");
+          return Promise.reject(error);
+        }
         if (error.response && [401, 403, 404].includes(error.response.status)) {
           console.log(error.response);
-          console.log("token expired");
 
           originalRequest._retry = true;
 
