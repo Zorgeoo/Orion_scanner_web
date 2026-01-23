@@ -130,8 +130,6 @@ const CountingPage = () => {
       if (!userInfo?.dbase?.dbName || !countingId) return;
 
       setIsLoading(true);
-      console.log(countingId);
-
       try {
         const productResponse = await getProducts(
           userInfo.dbase.dbName,
@@ -139,21 +137,29 @@ const CountingPage = () => {
         );
         if (productResponse.isSuccess) {
           setProducts(productResponse.products);
-          const productListResponse = await getProductList(
-            userInfo.dbase.dbName,
-            countingId
-          );
-          if (productListResponse.success) {
-            setProductList(productListResponse.products);
-            const barcodes = await getBarcodeList(
+          if (!productList) {
+            const productListResponse = await getProductList(
               userInfo.dbase.dbName,
               countingId
             );
-            setBarcodeList(barcodes);
-          } else {
-            showToast.error("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.", {
-              position: "bottom-center",
-            });
+            if (productListResponse.success) {
+              setProductList(productListResponse.products);
+              if (!barcodeList) {
+                const barcodes = await getBarcodeList(
+                  userInfo.dbase.dbName,
+                  countingId
+                );
+
+                setBarcodeList(barcodes);
+              } else {
+                showToast.error(
+                  "Бараа бүтээгдэхүүний баркод жагсаалт авахад алдаа гарлаа.",
+                  {
+                    position: "bottom-center",
+                  }
+                );
+              }
+            }
           }
         } else {
           showToast.error("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.", {
@@ -161,9 +167,7 @@ const CountingPage = () => {
           });
         }
       } catch (error) {
-        showToast.error("Тооллого хийгдсэн бараануудыг авахад алдаа гарлаа.", {
-          position: "bottom-center",
-        });
+        console.error("Error fetching products:", error);
       } finally {
         setIsLoading(false);
       }

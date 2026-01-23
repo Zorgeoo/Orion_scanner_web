@@ -23,7 +23,7 @@ const CountingListPage: React.FC = () => {
 
   if (!productContext) return null;
 
-  const { setCurrentCounting } = productContext;
+  const { setCurrentCounting, setBarcodeList, setProductList } = productContext;
 
   const [startDate, setStartDate] = useState<string>(
     threeMonthsAgo.toISOString().split("T")[0]
@@ -36,6 +36,10 @@ const CountingListPage: React.FC = () => {
 
   const [countingList, setCountingList] = useState<CountingModel[]>([]);
 
+  useEffect(() => {
+    setBarcodeList(null);
+    setProductList(null);
+  }, []);
   useEffect(() => {
     const fetchCountingLists = async () => {
       setIsLoading(true);
