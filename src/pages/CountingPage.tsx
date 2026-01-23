@@ -150,6 +150,10 @@ const CountingPage = () => {
               countingId
             );
             setBarcodeList(barcodes);
+          } else {
+            showToast.error("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.", {
+              position: "bottom-center",
+            });
           }
         } else {
           showToast.error("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.", {
@@ -157,7 +161,9 @@ const CountingPage = () => {
           });
         }
       } catch (error) {
-        console.error("Error fetching products:", error);
+        showToast.error("Тооллого хийгдсэн бараануудыг авахад алдаа гарлаа.", {
+          position: "bottom-center",
+        });
       } finally {
         setIsLoading(false);
       }

@@ -23,13 +23,7 @@ const CountingListPage: React.FC = () => {
 
   if (!productContext) return null;
 
-  const {
-    setCurrentCounting,
-    barcodeList,
-    productList,
-    setBarcodeList,
-    setProductList,
-  } = productContext;
+  const { setCurrentCounting } = productContext;
 
   const [startDate, setStartDate] = useState<string>(
     threeMonthsAgo.toISOString().split("T")[0]
@@ -43,14 +37,6 @@ const CountingListPage: React.FC = () => {
   const [countingList, setCountingList] = useState<CountingModel[]>([]);
 
   useEffect(() => {
-    if (barcodeList) {
-      setBarcodeList(null);
-    }
-    if (productList) {
-      setProductList(null);
-    }
-  }, []);
-  useEffect(() => {
     const fetchCountingLists = async () => {
       setIsLoading(true);
 
@@ -63,7 +49,6 @@ const CountingListPage: React.FC = () => {
           );
           if (list) {
             setCountingList(list);
-            console.log("Counting list:", list);
           }
         } catch (error) {
           console.error("Error fetching counting list:", error);
