@@ -29,7 +29,7 @@ const ProductPage = () => {
   const uldegdel = (location.state?.uldegdel as number) ?? 0.0;
 
   const [quantity, setQuantity] = useState<number | null>(
-    product?.quantity ?? null
+    product?.quantity || null
   );
 
   const [isLoading, setIsLoading] = useState(false);
