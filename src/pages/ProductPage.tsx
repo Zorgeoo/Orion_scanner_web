@@ -76,22 +76,12 @@ const ProductPage = () => {
             </div>
             <div className="flex justify-start gap-8 items-center">
               <div className="relative w-3/4">
-                {/* <input
-                  type="text"
-                  inputMode="decimal"
-                  pattern="[0-9.]*"
-                  value={quantity !== null ? quantity : ""}
-                  onChange={(e) => {
-                    const value = e.target.value;
-                    setQuantity(value === "" ? null : Number(value));
-                  }}
-                  className="w-full text-lg font-bold text-gray-800 border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
-                /> */}
                 <input
                   type="number"
                   inputMode="decimal"
                   pattern="[0-9]*\.?[0-9]{0,4}"
                   step="0.0001"
+                  placeholder="0"
                   value={quantity ?? ""}
                   onChange={(e) => {
                     const value = e.target.value;
@@ -117,7 +107,6 @@ const ProductPage = () => {
                       }
                     }
                   }}
-                  placeholder="0.0000"
                   className="w-full text-lg font-bold text-gray-800 border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all [&::-webkit-outer-spin-button]:[-webkit-appearance:none] [&::-webkit-inner-spin-button]:[-webkit-appearance:none]"
                 />
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm font-medium">
