@@ -217,8 +217,8 @@ const SearchByProductnamePage = () => {
                   </div>
 
                   {/* Product Name */}
-                  <div className="flex-1 min-w-0">
-                    <h3 className="text-gray-800 font-semibold text-base break-words">
+                  <div className="flex-1 min-w-0 flex gap-2">
+                    <h3 className="text-gray-700 font-semibold text-base break-words">
                       {product.name}
                     </h3>
                     <p className="text-blue-600 font-bold text-sm mt-1 break-words">
