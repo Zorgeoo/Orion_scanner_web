@@ -180,14 +180,14 @@ const SerialListPage = () => {
 
   return (
     <div className="p-4 mx-auto">
-      <div className="bg-gradient-to-r text-start from-blue-500 to-purple-600 text-white p-4 rounded-lg shadow-lg mb-2">
+      <div className="text-center p-4">
         <h1 className="text-lg font-semibold text-white">
           {selectedProduct?.name}
         </h1>
+        <p className="text-center font-medium mb-2">
+          Тоолж буй серийн дугаараа сонгоно уу!
+        </p>
       </div>
-      <p className="text-center font-medium mb-2">
-        Тоолж буй серийн дугаараа сонгоно уу!
-      </p>
       {isLoading ? (
         <div className="space-y-4 flex flex-col items-center content-center">
           <Skeleton className="h-4 w-full" />
