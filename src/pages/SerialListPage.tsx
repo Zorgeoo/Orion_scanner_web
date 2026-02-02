@@ -182,9 +182,7 @@ const SerialListPage = () => {
     <div className="p-4 mx-auto">
       <div className="text-center mb-4">
         <h1 className="text-lg font-semibold">{selectedProduct?.name}</h1>
-        <p className="text-center font-medium">
-          Тоолж буй серийн дугаараа сонгоно уу!
-        </p>
+        <p className="text-center">Тоолж буй серийн дугаараа сонгоно уу!</p>
       </div>
       {isLoading ? (
         <div className="space-y-4 flex flex-col items-center content-center">
