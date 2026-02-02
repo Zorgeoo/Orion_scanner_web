@@ -222,7 +222,7 @@ const SearchByProductnamePage = () => {
                       {product.name}
                     </h3>
                     <p className="text-blue-600 text-sm mt-1 break-words">
-                      Үнэ: {product.price}
+                      Үнэ: {product.price.toLocaleString()}₮
                     </p>
                   </div>
                 </div>
