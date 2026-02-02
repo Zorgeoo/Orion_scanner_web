@@ -233,7 +233,7 @@ const SerialListPage = () => {
 
                   {/* Serial Name */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-gray-700 truncate">
+                    <h3 className="text-gray-700 break-words">
                       {serial.fullSeriesNumber}
                     </h3>
                   </div>
