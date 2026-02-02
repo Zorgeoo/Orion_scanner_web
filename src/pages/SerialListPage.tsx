@@ -180,11 +180,9 @@ const SerialListPage = () => {
 
   return (
     <div className="p-4 mx-auto">
-      <div className="space-y-3 bg-gradient-to-r from-blue-50 to-indigo-50 py-4 px-4 rounded-lg">
-        <h1 className="text-start font-bold text-2xl text-gray-900">
-          {selectedProduct?.name}
-        </h1>
-        <p className="text-center text-gray-600 font-medium">
+      <div className="bg-blue-600 text-white py-6 px-4 rounded-b-xl shadow-md space-y-2">
+        <h1 className="text-2xl font-bold">{selectedProduct?.name}</h1>
+        <p className="text-blue-100 text-center font-medium">
           Тоолж буй серийн дугаараа сонгоно уу!
         </p>
       </div>
