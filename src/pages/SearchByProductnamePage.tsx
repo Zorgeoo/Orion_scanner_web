@@ -218,10 +218,10 @@ const SearchByProductnamePage = () => {
 
                   {/* Product Name */}
                   <div className="flex-1 min-w-0 flex gap-2">
-                    <h3 className="text-gray-700 font-semibold text-base break-words">
+                    <h3 className="text-gray-700 text-base break-words">
                       {product.name}
                     </h3>
-                    <p className="text-blue-600 font-bold text-sm mt-1 break-words">
+                    <p className="text-blue-600 text-sm mt-1 break-words">
                       Үнэ: {product.price}
                     </p>
                   </div>
