@@ -180,7 +180,7 @@ const SerialListPage = () => {
 
   return (
     <div className="p-4 mx-auto">
-      <div className="bg-gradient-to-r text-start from-blue-500 to-purple-600 text-white py-4 px-2 rounded-lg shadow-lg">
+      <div className="bg-gradient-to-r text-start from-blue-500 to-purple-600 text-white p-4 rounded-lg shadow-lg">
         <h1 className="text-xl font-semibold text-white">
           {selectedProduct?.name}
         </h1>
