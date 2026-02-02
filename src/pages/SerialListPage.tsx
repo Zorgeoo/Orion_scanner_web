@@ -295,7 +295,7 @@ const SerialListPage = () => {
                     pattern="[0-9,]*"
                     value={selectedProduct?.price}
                     readOnly
-                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 text-gray-500"
                   />
                 </div>
               </div>
