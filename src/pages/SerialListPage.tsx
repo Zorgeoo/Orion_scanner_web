@@ -291,7 +291,7 @@ const SerialListPage = () => {
                   </label>
                   <input
                     type="text"
-                    value={`${selectedProduct}₮`}
+                    value={`${selectedProduct?.price.toLocaleString() || ""}₮`}
                     readOnly
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 text-gray-500"
                   />
