@@ -285,6 +285,19 @@ const SerialListPage = () => {
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   />
                 </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 pb-2">
+                    Зардаг үнэ :
+                  </label>
+                  <input
+                    type="text"
+                    inputMode="decimal"
+                    pattern="[0-9,]*"
+                    value={selectedProduct?.price}
+                    readOnly
+                    className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
+                  />
+                </div>
               </div>
               <div
                 onClick={handleCreateSerial}
