@@ -180,7 +180,8 @@ const SerialListPage = () => {
 
   return (
     <div className="p-4 mx-auto">
-      <h1 className="px-4 mx-auto text-base font-semibold pb-2 text-center">
+      <h1 className="text-center font-semibold">{selectedProduct?.name}</h1>
+      <h1 className="px-4 mx-auto text-base pb-2">
         Тоолж буй серийн дугаараа сонгоно уу!
       </h1>
       {isLoading ? (
