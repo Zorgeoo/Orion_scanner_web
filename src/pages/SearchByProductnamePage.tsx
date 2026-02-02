@@ -52,6 +52,8 @@ const SearchByProductnamePage = () => {
     return filteredProducts;
   }, [productList, searchQuery, filteredProducts]);
 
+  console.log(productList);
+
   const handleSelectProduct = (product: ProductModel) => {
     if (product.groupNum === selectedProduct?.groupNum) {
       setSelectedProduct(null);
@@ -216,7 +218,9 @@ const SearchByProductnamePage = () => {
 
                   {/* Product Name */}
                   <div className="flex-1 min-w-0">
-                    <h3 className="text-gray-500 truncate">{product.name}</h3>
+                    <h3 className="text-gray-500 break words">
+                      {product.name} {product.price}
+                    </h3>
                   </div>
                 </div>
               </div>
