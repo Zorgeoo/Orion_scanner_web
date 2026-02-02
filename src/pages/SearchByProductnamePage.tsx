@@ -217,13 +217,10 @@ const SearchByProductnamePage = () => {
                   </div>
 
                   {/* Product Name */}
-                  <div className="flex-1 min-w-0 flex gap-2">
+                  <div className="flex-1 min-w-0">
                     <h3 className="text-gray-700 text-base break-words">
-                      {product.name}
+                      {product.name}; {product.price.toLocaleString()}₮
                     </h3>
-                    <p className="text-blue-600 text-sm mt-1 break-words">
-                      Үнэ: {product.price.toLocaleString()}₮
-                    </p>
                   </div>
                 </div>
               </div>
