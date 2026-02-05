@@ -46,7 +46,7 @@ const SearchByProductnamePage = () => {
     if (!productList) return [];
 
     if (searchQuery === "") {
-      return productList.slice(0, 30);
+      return productList.slice(0, 50);
     }
 
     return filteredProducts;

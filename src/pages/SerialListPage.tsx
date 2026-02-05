@@ -193,7 +193,7 @@ const SerialListPage = () => {
           <Skeleton className="h-4 w-full" />
         </div>
       ) : (
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-2 pb-16">
           {serials &&
             serials.map((serial, index) => {
               return (

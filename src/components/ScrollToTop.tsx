@@ -5,7 +5,6 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // For iOS WebView, scroll the main content container
     const mainContent = document.querySelector(".app-content");
     if (mainContent) {
       mainContent.scrollTop = 0;
