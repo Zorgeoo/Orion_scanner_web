@@ -51,6 +51,11 @@ const SerialListPage = () => {
     null
   );
 
+  const [errors, setErrors] = useState<{
+    newSerial?: string;
+    expiryDate?: string;
+  }>({});
+
   useEffect(() => {
     const getSeries = async () => {
       setIsLoading(true);
@@ -101,15 +106,30 @@ const SerialListPage = () => {
 
   const handleCreateSerial = async () => {
     if (!userInfo?.dbase?.dbName || !groupNum) return;
+    const newErrors: typeof errors = {};
 
     if (!newSerial) {
-      showToast.error("Серийн дугаар оруулна уу");
-      return;
+      newErrors.newSerial = "Серийн дугаар оруулна уу";
     }
     if (!expiryDate) {
-      showToast.error("Дуусах хугацааг оруулна уу");
+      newErrors.expiryDate = "Дуусах хугацааг оруулна уу";
+    }
+
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
       return;
     }
+
+    // Clear errors if validation passes
+    setErrors({});
+    // if (!newSerial) {
+    //   showToast.error("Серийн дугаар оруулна уу");
+    //   return;
+    // }
+    // if (!expiryDate) {
+    //   showToast.error("Дуусах хугацааг оруулна уу");
+    //   return;
+    // }
     try {
       const res = await createNewSeries(
         userInfo?.dbase?.dbName,
@@ -259,9 +279,17 @@ const SerialListPage = () => {
                   <input
                     type="text"
                     value={newSerial}
-                    onChange={(e) => setNewSerial(e.target.value)}
+                    onChange={(e) => {
+                      setNewSerial(e.target.value);
+                      setErrors({ ...errors, newSerial: "" });
+                    }}
                     className="w-full border-2 border-gray-200 rounded-xl px-4 py-1 focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   />
+                  {errors.newSerial && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.newSerial}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 pb-2">
@@ -270,9 +298,17 @@ const SerialListPage = () => {
                   <input
                     type="date"
                     value={expiryDate}
-                    onChange={(e) => setExpiryDate(e.target.value)}
+                    onChange={(e) => {
+                      setExpiryDate(e.target.value);
+                      setErrors({ ...errors, expiryDate: "" });
+                    }}
                     className="w-full px-4 py-3 border border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all"
                   />
+                  {errors.expiryDate && (
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.expiryDate}
+                    </p>
+                  )}
                 </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 pb-2">
