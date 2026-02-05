@@ -174,9 +174,25 @@ const CountingPage = () => {
     };
 
     fetchProducts();
+
+    // Listen for app coming back from background
+    const handleVisibilityChange = () => {
+      if (document.visibilityState === "visible") {
+        // App came back to foreground
+        fetchProducts();
+      }
+    };
+
+    document.addEventListener("visibilitychange", handleVisibilityChange);
+
     return () => {
+      document.removeEventListener("visibilitychange", handleVisibilityChange);
       setStartScanNow(false);
     };
+    // fetchProducts();
+    // return () => {
+    //   setStartScanNow(false);
+    // };
   }, []);
 
   const handleSaveBarcode = () => {
