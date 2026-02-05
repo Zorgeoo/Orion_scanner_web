@@ -5,12 +5,11 @@ export default function ScrollToTop() {
   const { pathname } = useLocation();
 
   useEffect(() => {
-    // Delay the scroll to allow page to render first
-    const timer = setTimeout(() => {
+    requestAnimationFrame(() => {
       window.scrollTo(0, 0);
-    }, 0);
-
-    return () => clearTimeout(timer);
+      document.documentElement.scrollTop = 0;
+      document.body.scrollTop = 0;
+    });
   }, [pathname]);
 
   return null;
