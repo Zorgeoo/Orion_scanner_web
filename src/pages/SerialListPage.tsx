@@ -104,9 +104,11 @@ const SerialListPage = () => {
 
     if (!newSerial) {
       showToast.error("Серийн дугаар оруулна уу");
+      return;
     }
     if (!expiryDate) {
       showToast.error("Дуусах хугацааг оруулна уу");
+      return;
     }
     try {
       const res = await createNewSeries(
