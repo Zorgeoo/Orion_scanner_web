@@ -6,6 +6,10 @@ import { ProductContextProvider } from "./context/ProductContext";
 import RootPage from "./Root";
 
 function App() {
+  if ("scrollRestoration" in window.history) {
+    window.history.scrollRestoration = "manual";
+  }
+
   return (
     <>
       <UserProvider>
