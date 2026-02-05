@@ -58,6 +58,8 @@ button:active {
      will now correctly push the entire webview content down below the notch. */
   padding-top: var(--header-height);
   padding-bottom: 0;
+  height: 100vh;
+  -webkit-overflow-scrolling: touch; /* Important for iOS */
 }
 
 /* ===== Theme ===== */
