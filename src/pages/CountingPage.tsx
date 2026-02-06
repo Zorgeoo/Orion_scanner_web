@@ -34,6 +34,7 @@ const CountingPage = () => {
   const [products, setProducts] = useState<FullProductModel[] | null>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [error, setError] = useState("default value");
 
   const navigate = useNavigate();
 
@@ -129,6 +130,9 @@ const CountingPage = () => {
     const fetchProducts = async () => {
       if (!userInfo?.dbase?.dbName || !countingId) {
         console.log(userInfo?.dbase?.dbName, countingId);
+        setError(
+          `DBNAME esvel userInfo alga, dbname:${userInfo?.dbase?.dbName} countingId: ${countingId}`
+        );
         return;
       }
       console.log("fetching");
@@ -156,6 +160,9 @@ const CountingPage = () => {
 
                 setBarcodeList(barcodes);
               } else {
+                setError(
+                  "Бараа бүтээгдэхүүний баркод жагсаалт авахад алдаа гарлаа."
+                );
                 showToast.error(
                   "Бараа бүтээгдэхүүний баркод жагсаалт авахад алдаа гарлаа.",
                   {
@@ -166,11 +173,17 @@ const CountingPage = () => {
             }
           }
         } else {
+          setError("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.");
           showToast.error("Бараа бүтээгдэхүүнийг авахад алдаа гарлаа.", {
             position: "bottom-center",
           });
         }
       } catch (error) {
+        if (error instanceof Error) {
+          setError(error.message);
+        } else {
+          setError(String(error));
+        }
         console.error("Error fetching products:", error);
       } finally {
         setIsLoading(false);
@@ -220,7 +233,7 @@ const CountingPage = () => {
 
         {!isLoading && (!products || products.length === 0) && (
           <div className="text-center py-10 text-gray-500 text-lg">
-            Бараа олдсонгүй
+            Бараа олдсонгүй : {error}
           </div>
         )}
 

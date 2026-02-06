@@ -277,7 +277,7 @@ const SerialListPage = () => {
 
           <DialogContent className="max-w-xs bg-white rounded-xl p-6 shadow-lg">
             <DialogTitle className="font-semibold text-gray-800 ">
-              Серийн дугаар шинээр үүсгэх :
+              Серийн дугаар шинээр үүсгэх:
             </DialogTitle>
             <div className="flex flex-col gap-8">
               <div className="flex flex-col gap-4 items-start rounded-xl">
