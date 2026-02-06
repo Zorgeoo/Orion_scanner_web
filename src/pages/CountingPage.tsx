@@ -178,6 +178,8 @@ const CountingPage = () => {
     // Listen for app coming back from background
     const handleVisibilityChange = () => {
       if (document.visibilityState === "visible") {
+        console.log("refetching");
+
         // App came back to foreground
         fetchProducts();
       }
