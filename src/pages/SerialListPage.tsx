@@ -200,6 +200,15 @@ const SerialListPage = () => {
     });
   };
 
+  useEffect(() => {
+    if (!open) {
+      setErrors({});
+      setNewSerial("");
+      setExpiryDate(new Date().toISOString().split("T")[0]);
+      setCost("");
+    }
+  }, [open]);
+
   return (
     <div className="p-4 mx-auto">
       <div className="text-center mb-4">
