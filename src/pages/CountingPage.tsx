@@ -128,6 +128,7 @@ const CountingPage = () => {
   useEffect(() => {
     const fetchProducts = async () => {
       if (!userInfo?.dbase?.dbName || !countingId) return;
+      console.log("fetching");
 
       setIsLoading(true);
       try {
