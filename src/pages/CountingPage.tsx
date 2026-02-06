@@ -157,6 +157,7 @@ const CountingPage = () => {
                   userInfo.dbase.dbName,
                   countingId
                 );
+                console.log(barcodeList);
 
                 setBarcodeList(barcodes);
               } else {
